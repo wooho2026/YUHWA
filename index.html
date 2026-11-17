@@ -4,13 +4,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>留華 | 850년의 기록</title>
 
-<!-- 마루부리 무료 웹폰트 -->
-<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<!-- 마루부리 웹폰트 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri.css">
 
 <style>
+
+/* ==================================
+   기본 설정
+================================== */
+
 :root{
   --bg:#0d0c10;
   --gold:#b99a75;
@@ -45,13 +50,16 @@ button{
 .screen{
   min-height:100vh;
   min-height:100svh;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   text-align:center;
   position:relative;
   overflow:hidden;
   padding:30px;
+
   background:radial-gradient(
     ellipse at 50% 40%,
     #292329,
@@ -73,15 +81,9 @@ button{
   width:100%;
 }
 
-.eyebrow{
-  font-family:Arial,sans-serif;
-  font-size:10px;
-  letter-spacing:5px;
-  color:#ad9c89;
-  margin-bottom:28px;
-}
-
-/* 유화 붓글씨 */
+/* ==================================
+   유화 붓글씨
+================================== */
 
 .title-image{
   display:block;
@@ -89,11 +91,13 @@ button{
   height:clamp(230px,43vh,390px);
   object-fit:contain;
   margin:0 auto;
-  filter:drop-shadow(0 0 22px #d8bda426);
+
+  filter:drop-shadow(
+    0 0 22px #d8bda426
+  );
 }
 
 .subtitle{
-  font-family:"Maru Buri",serif;
   font-size:15px;
   font-weight:400;
   letter-spacing:2px;
@@ -101,392 +105,254 @@ button{
   margin-top:20px;
 }
 
-.line{
-  width:46px;
-  height:1px;
-  background:#a58b71;
-  margin:30px auto;
-}
+/* ==================================
+   본문 문구
+================================== */
 
 .quote{
-  font-family:"Maru Buri",serif;
+  margin-top:28px;
+
   font-size:14px;
   font-weight:400;
-  line-height:2.4;
+  line-height:1.7;
+
   color:var(--muted);
   word-break:keep-all;
 }
 
 /* ==================================
-   꽃 + 문을 열다 버튼
+   V6 꽃 버튼
 ================================== */
 
 .flower-enter{
   position:relative;
+
   display:inline-flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
-  margin-top:29px;
-  padding:8px 26px 16px;
+
+  margin-top:22px;
+  padding:20px;
+
   border:0;
   background:transparent;
-  color:#eee1cf;
-  font-family:"Maru Buri",serif;
+
   cursor:pointer;
+
   -webkit-tap-highlight-color:transparent;
 }
 
 .flower-stage{
+  position:relative;
+
   width:158px;
   height:158px;
+
   display:grid;
   place-items:center;
-  position:relative;
+
   isolation:isolate;
 }
 
-/* 꽃 후광 */
+/* 꽃의 은은한 후광 */
 
 .flower-stage::before{
   content:"";
   position:absolute;
-  inset:-17px;
+  inset:-18px;
+
   border-radius:50%;
+
   background:radial-gradient(
     circle,
-    rgba(240,220,181,.15) 0%,
-    rgba(226,196,152,.07) 37%,
+    rgba(240,220,181,.12) 0%,
+    rgba(226,196,152,.05) 38%,
     transparent 72%
   );
-  animation:glowBreath 6s ease-in-out infinite;
+
   pointer-events:none;
+
+  transition:opacity .7s;
 }
 
-/* 회전하는 꽃의 흐릿한 잔광 */
+/* 꽃 이미지들을 동일한 위치에 배치 */
 
-.flower-aura{
-  position:absolute;
+.flower-main,
+.flower-ghost-one,
+.flower-ghost-two{
+  grid-area:1/1;
+
+  display:block;
   width:142px;
   height:142px;
+
   object-fit:contain;
-  opacity:.14;
-  filter:blur(11px);
-  animation:flowerSpin 20s linear infinite;
+
   pointer-events:none;
 }
 
 /* 실제 꽃 */
 
-.flower-image{
+.flower-main{
   position:relative;
-  width:142px;
-  height:142px;
-  object-fit:contain;
-  animation:flowerSpin 20s linear infinite;
-  filter:drop-shadow(
-    0 0 8px rgba(245,228,195,.14)
-  );
-  transition:filter .7s ease;
-  pointer-events:none;
+  z-index:3;
+
+  opacity:1;
+  filter:blur(0);
+
+  transform:translate(0,0);
+
+  will-change:filter,opacity,transform;
 }
 
-@keyframes flowerSpin{
-  from{transform:rotate(0deg)}
-  to{transform:rotate(360deg)}
+/* 첫 번째 꽃 잔상 */
+
+.flower-ghost-one{
+  position:relative;
+  z-index:2;
+
+  opacity:0;
+  filter:blur(0);
+
+  will-change:filter,opacity,transform;
 }
 
-@keyframes glowBreath{
-  0%,100%{
-    opacity:.55;
-    transform:scale(.95);
-  }
-  50%{
-    opacity:1;
-    transform:scale(1.1);
-  }
-}
+/* 두 번째 꽃 잔상 */
 
-.flower-enter:hover .flower-image{
-  filter:drop-shadow(
-    0 0 17px rgba(255,229,187,.52)
-  );
-}
+.flower-ghost-two{
+  position:relative;
+  z-index:1;
 
-.flower-enter:hover .flower-aura{
-  opacity:.28;
+  opacity:0;
+  filter:blur(0);
+
+  will-change:filter,opacity,transform;
 }
 
 /* ==================================
-   V5 핵심 : 글자 잔상 효과
+   꽃 잔상 애니메이션
 ================================== */
 
-/* 본문과 잔상을 겹쳐 놓는 컨테이너 */
+/* 호버하면 실제 꽃이 흐려졌다가 선명해짐 */
 
-.flower-label{
-  position:relative;
-  display:grid;
-  place-items:center;
-  margin-top:16px;
-  white-space:nowrap;
-  font-family:"Maru Buri",serif;
-  font-size:20px;
-  font-weight:400;
-  letter-spacing:4px;
-  line-height:1.7;
-  color:#eee1cf;
-  isolation:isolate;
-}
-
-/* 모든 글자를 동일 위치에 배치 */
-
-.label-main,
-.label-ghost-one,
-.label-ghost-two{
-  grid-area:1/1;
-  display:block;
-}
-
-/* 기본 글자 */
-
-.label-main{
-  position:relative;
-  z-index:3;
-  opacity:1;
-  filter:blur(0);
-  transform:translate(0,0);
-  will-change:filter,opacity,transform;
+.flower-enter:hover .flower-main,
+.flower-enter:focus-visible .flower-main{
+  animation:flowerReveal 1.8s ease-out both;
 }
 
 /* 첫 번째 잔상 */
 
-.label-ghost-one{
-  position:relative;
-  z-index:2;
-  color:#e9caa1;
-  opacity:0;
-  filter:blur(0);
-  pointer-events:none;
-  will-change:filter,opacity,transform;
+.flower-enter:hover .flower-ghost-one,
+.flower-enter:focus-visible .flower-ghost-one{
+  animation:flowerGhostOne 1.8s ease-out both;
 }
 
 /* 두 번째 잔상 */
 
-.label-ghost-two{
-  position:relative;
-  z-index:1;
-  color:#fff0d3;
-  opacity:0;
-  filter:blur(0);
-  pointer-events:none;
-  will-change:filter,opacity,transform;
+.flower-enter:hover .flower-ghost-two,
+.flower-enter:focus-visible .flower-ghost-two{
+  animation:flowerGhostTwo 1.8s ease-out both;
 }
 
-/* 실제 호버할 때만 애니메이션 실행 */
+/* 본체 : 희미해졌다 다시 선명해짐 */
 
-.flower-enter:hover .label-main,
-.flower-enter:focus-visible .label-main{
-  animation:textReveal 1.4s ease-out both;
-}
+@keyframes flowerReveal{
 
-.flower-enter:hover .label-ghost-one,
-.flower-enter:focus-visible .label-ghost-one{
-  animation:ghostTrailOne 1.4s ease-out both;
-}
-
-.flower-enter:hover .label-ghost-two,
-.flower-enter:focus-visible .label-ghost-two{
-  animation:ghostTrailTwo 1.4s ease-out both;
-}
-
-/* 본문 :
-   흐릿해졌다가 서서히 선명해짐 */
-
-@keyframes textReveal{
   0%{
     opacity:1;
     filter:blur(0);
-    transform:translate(0,0);
-  }
-
-  12%{
-    opacity:.35;
-    filter:blur(5px);
-    transform:translate(-3px,1px);
-  }
-
-  36%{
-    opacity:.55;
-    filter:blur(3px);
-    transform:translate(1px,0);
-  }
-
-  70%{
-    opacity:.88;
-    filter:blur(1px);
-    transform:translate(0,0);
-  }
-
-  100%{
-    opacity:1;
-    filter:blur(0);
-    transform:translate(0,0);
-    text-shadow:
-      0 0 11px rgba(245,215,172,.25);
-  }
-}
-
-/* 첫 번째 잔상 :
-   오른쪽으로 밀려나며 사라짐 */
-
-@keyframes ghostTrailOne{
-  0%{
-    opacity:0;
-    filter:blur(0);
-    transform:translate(0,0);
-  }
-
-  14%{
-    opacity:.7;
-    filter:blur(2px);
-    transform:translate(4px,-1px);
-  }
-
-  38%{
-    opacity:.48;
-    filter:blur(5px);
-    transform:translate(10px,-2px);
-  }
-
-  70%{
-    opacity:.18;
-    filter:blur(8px);
-    transform:translate(15px,-3px);
-  }
-
-  100%{
-    opacity:0;
-    filter:blur(12px);
-    transform:translate(20px,-4px);
-  }
-}
-
-/* 두 번째 잔상 :
-   왼쪽으로 밀려나며 사라짐 */
-
-@keyframes ghostTrailTwo{
-  0%{
-    opacity:0;
-    filter:blur(0);
-    transform:translate(0,0);
+    transform:scale(1);
   }
 
   18%{
-    opacity:.45;
-    filter:blur(3px);
-    transform:translate(-5px,2px);
+    opacity:.28;
+    filter:blur(7px);
+    transform:scale(.98);
   }
 
   45%{
-    opacity:.3;
-    filter:blur(6px);
-    transform:translate(-10px,3px);
+    opacity:.48;
+    filter:blur(4px);
+    transform:scale(1);
   }
 
   75%{
-    opacity:.1;
+    opacity:.85;
+    filter:blur(1.5px);
+    transform:scale(1);
+  }
+
+  100%{
+    opacity:1;
+    filter:blur(0);
+    transform:scale(1);
+  }
+
+}
+
+/* 잔상 1 : 오른쪽 위로 확산 */
+
+@keyframes flowerGhostOne{
+
+  0%{
+    opacity:0;
+    filter:blur(0);
+    transform:translate(0,0) scale(1);
+  }
+
+  20%{
+    opacity:.48;
+    filter:blur(4px);
+    transform:translate(4px,-3px) scale(1.04);
+  }
+
+  48%{
+    opacity:.3;
     filter:blur(9px);
-    transform:translate(-15px,4px);
+    transform:translate(10px,-8px) scale(1.09);
   }
 
   100%{
     opacity:0;
-    filter:blur(12px);
-    transform:translate(-19px,5px);
+    filter:blur(17px);
+    transform:translate(18px,-14px) scale(1.15);
   }
+
 }
 
-/* 클릭했을 때 꽃과 글자 빛 */
+/* 잔상 2 : 왼쪽 아래로 확산 */
 
-.flower-enter:active .flower-image{
-  filter:drop-shadow(
-    0 0 25px rgba(255,236,202,.8)
-  );
+@keyframes flowerGhostTwo{
+
+  0%{
+    opacity:0;
+    filter:blur(0);
+    transform:translate(0,0) scale(1);
+  }
+
+  22%{
+    opacity:.36;
+    filter:blur(5px);
+    transform:translate(-5px,4px) scale(1.03);
+  }
+
+  52%{
+    opacity:.22;
+    filter:blur(10px);
+    transform:translate(-11px,9px) scale(1.08);
+  }
+
+  100%{
+    opacity:0;
+    filter:blur(18px);
+    transform:translate(-18px,15px) scale(1.14);
+  }
+
 }
 
-.flower-enter:active .label-main{
-  text-shadow:0 0 18px rgba(255,230,190,.8);
-}
+/* 키보드 접근성 */
 
 .flower-enter:focus-visible{
-  outline:1px solid #d9b78f;
-  outline-offset:7px;
-}
-
-/* ==================================
-   돌아가기 버튼
-================================== */
-
-.enter{
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:22px;
-  margin-top:43px;
-  padding:19px 32px;
-  border:0;
-  background:transparent;
-  color:#e9d8c2;
-  font-family:"Maru Buri",serif;
-  font-size:15px;
-  letter-spacing:4px;
-  overflow:hidden;
-  transition:color .5s,letter-spacing .5s;
-}
-
-.enter::before,
-.enter::after{
-  content:"";
-  position:absolute;
-  left:12%;
-  right:12%;
-  height:1px;
-  background:linear-gradient(
-    90deg,transparent,#b99a75,transparent
-  );
-  transition:left .6s,right .6s,box-shadow .6s;
-}
-
-.enter::before{top:0}
-.enter::after{bottom:0}
-
-.enter:hover{
-  color:#fff6e7;
-  letter-spacing:6px;
-  text-shadow:0 0 16px #e6c69c80;
-}
-
-.enter:hover::before,
-.enter:hover::after{
-  left:0;
-  right:0;
-  box-shadow:0 0 12px #d6ad8066;
-}
-
-.enter .arrow{
-  font-family:Arial,sans-serif;
-  font-size:18px;
-  font-weight:300;
-  color:#bda181;
-  transition:transform .5s;
-}
-
-.enter:hover .arrow{
-  transform:translate(4px,-4px);
-}
-
-.enter:focus-visible{
   outline:1px solid #d9b78f;
   outline-offset:6px;
 }
@@ -499,6 +365,14 @@ button{
   display:none!important;
 }
 
+.eyebrow{
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  letter-spacing:5px;
+  color:#ad9c89;
+  margin-bottom:28px;
+}
+
 .archive-title{
   font-size:65px;
   font-weight:400;
@@ -509,6 +383,7 @@ button{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:12px;
+
   max-width:760px;
   margin:40px auto 0;
 }
@@ -518,7 +393,10 @@ button{
   padding:35px 12px;
   background:#ffffff05;
   min-height:160px;
-  transition:background .3s,border-color .3s;
+
+  transition:
+    background .3s,
+    border-color .3s;
 }
 
 .card:hover{
@@ -550,6 +428,95 @@ button{
 }
 
 /* ==================================
+   돌아가기 버튼
+================================== */
+
+.enter{
+  position:relative;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+
+  margin-top:43px;
+  padding:19px 32px;
+
+  border:0;
+  background:transparent;
+
+  color:#e9d8c2;
+  font-size:15px;
+  letter-spacing:4px;
+
+  overflow:hidden;
+
+  transition:
+    color .5s,
+    letter-spacing .5s;
+}
+
+.enter::before,
+.enter::after{
+  content:"";
+  position:absolute;
+
+  left:12%;
+  right:12%;
+  height:1px;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    #b99a75,
+    transparent
+  );
+
+  transition:
+    left .6s,
+    right .6s,
+    box-shadow .6s;
+}
+
+.enter::before{
+  top:0;
+}
+
+.enter::after{
+  bottom:0;
+}
+
+.enter:hover{
+  color:#fff6e7;
+  letter-spacing:6px;
+  text-shadow:0 0 16px #e6c69c80;
+}
+
+.enter:hover::before,
+.enter:hover::after{
+  left:0;
+  right:0;
+  box-shadow:0 0 12px #d6ad8066;
+}
+
+.enter .arrow{
+  font-family:Arial,sans-serif;
+  font-size:18px;
+  color:#bda181;
+
+  transition:transform .5s;
+}
+
+.enter:hover .arrow{
+  transform:translate(4px,-4px);
+}
+
+.enter:focus-visible{
+  outline:1px solid #d9b78f;
+  outline-offset:6px;
+}
+
+/* ==================================
    페이드 화면 전환
 ================================== */
 
@@ -558,9 +525,17 @@ button{
   transition:opacity 1.1s ease;
 }
 
-#archive{opacity:0}
-#archive.visible{opacity:1}
-#entrance.fading{opacity:0}
+#archive{
+  opacity:0;
+}
+
+#archive.visible{
+  opacity:1;
+}
+
+#entrance.fading{
+  opacity:0;
+}
 
 /* ==================================
    모바일
@@ -576,13 +551,13 @@ button{
     height:clamp(210px,38vh,330px);
   }
 
-  .quote{
-    font-size:13px;
-    line-height:2.3;
-  }
-
   .subtitle{
     font-size:14px;
+  }
+
+  .quote{
+    font-size:13px;
+    line-height:1.6;
   }
 
   .flower-stage{
@@ -590,14 +565,11 @@ button{
     height:132px;
   }
 
-  .flower-image,
-  .flower-aura{
+  .flower-main,
+  .flower-ghost-one,
+  .flower-ghost-two{
     width:122px;
     height:122px;
-  }
-
-  .flower-label{
-    font-size:18px;
   }
 
   .cards{
@@ -607,7 +579,9 @@ button{
 
 }
 
-/* 동작 최소화 사용자 설정 */
+/* ==================================
+   움직임 최소화 설정
+================================== */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -616,33 +590,23 @@ button{
     transition-duration:.01s;
   }
 
-  .flower-image,
-  .flower-aura,
-  .flower-stage::before,
-  .label-main,
-  .label-ghost-one,
-  .label-ghost-two{
+  .flower-main,
+  .flower-ghost-one,
+  .flower-ghost-two{
     animation:none!important;
   }
 
-  .flower-image,
-  .enter,
-  .enter::before,
-  .enter::after,
-  .enter .arrow{
-    transition-duration:.01s;
-  }
-
-  .label-ghost-one,
-  .label-ghost-two{
+  .flower-ghost-one,
+  .flower-ghost-two{
     opacity:0!important;
   }
 
-  .label-main{
+  .flower-main{
     opacity:1!important;
     filter:none!important;
     transform:none!important;
   }
+
 }
 
 </style>
@@ -658,10 +622,7 @@ button{
 
   <div class="content">
 
-    <div class="eyebrow">
-      THE UNSEEN YEARS
-    </div>
-
+    <!-- 기존 유화 붓글씨 -->
     <img
       class="title-image"
       src="yuhwa-title.png"
@@ -672,52 +633,45 @@ button{
       850년의 기록
     </div>
 
-    <div class="line"></div>
-
+    <!-- 본문 문구 -->
     <div class="quote">
       빛 한 줄기 들지 않는 시간을 홀로 견뎌냈다.<br>
       끝 모를 고독의 끝자락에서, 마침내 너를 만났다.
     </div>
 
-    <!-- V5 회전 꽃 + 글자 잔상 -->
-
+    <!-- 꽃 자체가 입장 버튼 -->
     <button
       class="flower-enter"
       type="button"
       onclick="openDoor()"
-      aria-label="문을 열다"
+      aria-label="꽃을 눌러 기록 보관소 열기"
+      title="기록 보관소 열기"
     >
 
       <span class="flower-stage">
 
+        <!-- 첫 번째 꽃 잔상 -->
         <img
-          class="flower-aura"
+          class="flower-ghost-one"
           src="flower.png"
           alt=""
           aria-hidden="true"
         >
 
+        <!-- 두 번째 꽃 잔상 -->
         <img
-          class="flower-image"
+          class="flower-ghost-two"
+          src="flower.png"
+          alt=""
+          aria-hidden="true"
+        >
+
+        <!-- 실제 꽃 -->
+        <img
+          class="flower-main"
           src="flower.png"
           alt=""
         >
-
-      </span>
-
-      <span class="flower-label" aria-hidden="true">
-
-        <span class="label-main">
-          문을 열다
-        </span>
-
-        <span class="label-ghost-one">
-          문을 열다
-        </span>
-
-        <span class="label-ghost-two">
-          문을 열다
-        </span>
 
       </span>
 
@@ -726,6 +680,7 @@ button{
   </div>
 
 </section>
+
 
 <!-- ==================================
      기록 보관소
@@ -746,8 +701,6 @@ button{
     <div class="subtitle">
       이제야 보여줄 수 있는 것들
     </div>
-
-    <div class="line"></div>
 
     <div class="cards">
 
@@ -787,6 +740,7 @@ button{
   </div>
 
 </section>
+
 
 <!-- ==================================
      JavaScript 화면 전환
