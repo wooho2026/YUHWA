@@ -4,18 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>留華 | 850년의 기록</title>
 
-<!-- 마루부리 웹폰트 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri.css">
+<!-- 무료 웹폰트 : 고운바탕 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-
-/* ==================================
-   기본 설정
-================================== */
-
 :root{
   --bg:#0d0c10;
   --gold:#b99a75;
@@ -35,7 +31,7 @@ html,body{
 
 body{
   color:var(--ivory);
-  font-family:"Maru Buri","Malgun Gothic",serif;
+  font-family:"Gowun Batang","Malgun Gothic",serif;
 }
 
 button{
@@ -43,23 +39,17 @@ button{
   cursor:pointer;
 }
 
-/* ==================================
-   공통 화면
-================================== */
-
+/* 공통 화면 */
 .screen{
   min-height:100vh;
   min-height:100svh;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   text-align:center;
   position:relative;
   overflow:hidden;
   padding:30px;
-
   background:radial-gradient(
     ellipse at 50% 40%,
     #292329,
@@ -81,23 +71,26 @@ button{
   width:100%;
 }
 
-/* ==================================
-   유화 붓글씨
-================================== */
+.eyebrow{
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  letter-spacing:5px;
+  color:#ad9c89;
+  margin-bottom:28px;
+}
 
+/* 기존 유화 붓글씨 */
 .title-image{
   display:block;
   width:min(250px,62vw);
   height:clamp(230px,43vh,390px);
   object-fit:contain;
   margin:0 auto;
-
-  filter:drop-shadow(
-    0 0 22px #d8bda426
-  );
+  filter:drop-shadow(0 0 22px #d8bda426);
 }
 
 .subtitle{
+  font-family:"Gowun Batang",serif;
   font-size:15px;
   font-weight:400;
   letter-spacing:2px;
@@ -105,254 +98,284 @@ button{
   margin-top:20px;
 }
 
-/* ==================================
-   본문 문구
-================================== */
+.line{
+  width:46px;
+  height:1px;
+  background:#a58b71;
+  margin:30px auto;
+}
 
+/* 새 인트로 문구 */
 .quote{
-  margin-top:28px;
-
   font-size:14px;
-  font-weight:400;
-  line-height:1.7;
-
+  line-height:2.4;
   color:var(--muted);
   word-break:keep-all;
 }
 
 /* ==================================
-   V6 꽃 버튼
+   V4 꽃 회전 버튼
 ================================== */
 
 .flower-enter{
   position:relative;
-
   display:inline-flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
 
-  margin-top:22px;
-  padding:20px;
+  margin-top:29px;
+  padding:8px 26px 16px;
 
   border:0;
   background:transparent;
+  color:#eee1cf;
 
+  font-family:"Gowun Batang",serif;
   cursor:pointer;
-
   -webkit-tap-highlight-color:transparent;
 }
 
+/* 꽃 영역 */
 .flower-stage{
-  position:relative;
-
   width:158px;
   height:158px;
-
   display:grid;
   place-items:center;
-
+  position:relative;
   isolation:isolate;
 }
 
-/* 꽃의 은은한 후광 */
-
+/* 은은한 후광 */
 .flower-stage::before{
   content:"";
   position:absolute;
-  inset:-18px;
-
+  inset:-17px;
   border-radius:50%;
-
   background:radial-gradient(
     circle,
-    rgba(240,220,181,.12) 0%,
-    rgba(226,196,152,.05) 38%,
+    rgba(240,220,181,.15) 0%,
+    rgba(226,196,152,.07) 37%,
     transparent 72%
   );
-
+  animation:glowBreath 6s ease-in-out infinite;
   pointer-events:none;
-
-  transition:opacity .7s;
 }
 
-/* 꽃 이미지들을 동일한 위치에 배치 */
-
-.flower-main,
-.flower-ghost-one,
-.flower-ghost-two{
-  grid-area:1/1;
-
-  display:block;
+/* 흐릿한 꽃 잔광 */
+.flower-aura{
+  position:absolute;
   width:142px;
   height:142px;
-
   object-fit:contain;
-
+  opacity:.14;
+  filter:blur(11px);
+  animation:flowerSpin 20s linear infinite;
   pointer-events:none;
 }
 
-/* 실제 꽃 */
-
-.flower-main{
+/* 실제 흰 꽃 */
+.flower-image{
   position:relative;
-  z-index:3;
+  width:142px;
+  height:142px;
+  object-fit:contain;
+  animation:flowerSpin 20s linear infinite;
 
-  opacity:1;
-  filter:blur(0);
+  filter:
+    drop-shadow(0 0 8px rgba(245,228,195,.14));
 
+  transition:filter .7s ease;
+  pointer-events:none;
+}
+
+/* 꽃 회전 */
+@keyframes flowerSpin{
+  from{
+    transform:rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+/* 후광 호흡 */
+@keyframes glowBreath{
+  0%,100%{
+    opacity:.55;
+    transform:scale(.95);
+  }
+  50%{
+    opacity:1;
+    transform:scale(1.1);
+  }
+}
+
+/* 문을 열다 글자 */
+.flower-label{
+  position:relative;
+  display:block;
+
+  margin-top:16px;
+
+  font-family:"Gowun Batang",serif;
+  font-size:20px;
+  font-weight:400;
+  letter-spacing:4px;
+  line-height:1.7;
+
+  color:#eee1cf;
+  white-space:nowrap;
+
+  transition:
+    color .6s ease,
+    text-shadow .6s ease;
+}
+
+/* 글자의 희미한 잔상 */
+.flower-label::after{
+  content:attr(data-text);
+
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+
+  color:#e9caa1;
+  opacity:0;
+  filter:blur(5px);
   transform:translate(0,0);
 
-  will-change:filter,opacity,transform;
+  pointer-events:none;
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
 }
 
-/* 첫 번째 꽃 잔상 */
-
-.flower-ghost-one{
-  position:relative;
-  z-index:2;
-
-  opacity:0;
-  filter:blur(0);
-
-  will-change:filter,opacity,transform;
+/* 마우스를 올렸을 때 */
+.flower-enter:hover .flower-image{
+  filter:
+    drop-shadow(0 0 17px rgba(255,229,187,.52));
 }
 
-/* 두 번째 꽃 잔상 */
-
-.flower-ghost-two{
-  position:relative;
-  z-index:1;
-
-  opacity:0;
-  filter:blur(0);
-
-  will-change:filter,opacity,transform;
+.flower-enter:hover .flower-aura{
+  opacity:.28;
 }
 
-/* ==================================
-   꽃 잔상 애니메이션
-================================== */
-
-/* 호버하면 실제 꽃이 흐려졌다가 선명해짐 */
-
-.flower-enter:hover .flower-main,
-.flower-enter:focus-visible .flower-main{
-  animation:flowerReveal 1.8s ease-out both;
+.flower-enter:hover .flower-label{
+  color:#fff4e5;
+  text-shadow:
+    0 0 12px rgba(249,221,180,.4),
+    0 0 25px rgba(233,190,137,.2);
 }
 
-/* 첫 번째 잔상 */
-
-.flower-enter:hover .flower-ghost-one,
-.flower-enter:focus-visible .flower-ghost-one{
-  animation:flowerGhostOne 1.8s ease-out both;
-}
-
-/* 두 번째 잔상 */
-
-.flower-enter:hover .flower-ghost-two,
-.flower-enter:focus-visible .flower-ghost-two{
-  animation:flowerGhostTwo 1.8s ease-out both;
-}
-
-/* 본체 : 희미해졌다 다시 선명해짐 */
-
-@keyframes flowerReveal{
-
-  0%{
-    opacity:1;
-    filter:blur(0);
-    transform:scale(1);
-  }
-
-  18%{
-    opacity:.28;
-    filter:blur(7px);
-    transform:scale(.98);
-  }
-
-  45%{
-    opacity:.48;
-    filter:blur(4px);
-    transform:scale(1);
-  }
-
-  75%{
-    opacity:.85;
-    filter:blur(1.5px);
-    transform:scale(1);
-  }
-
-  100%{
-    opacity:1;
-    filter:blur(0);
-    transform:scale(1);
-  }
-
-}
-
-/* 잔상 1 : 오른쪽 위로 확산 */
-
-@keyframes flowerGhostOne{
-
-  0%{
-    opacity:0;
-    filter:blur(0);
-    transform:translate(0,0) scale(1);
-  }
-
-  20%{
-    opacity:.48;
-    filter:blur(4px);
-    transform:translate(4px,-3px) scale(1.04);
-  }
-
-  48%{
-    opacity:.3;
-    filter:blur(9px);
-    transform:translate(10px,-8px) scale(1.09);
-  }
-
-  100%{
-    opacity:0;
-    filter:blur(17px);
-    transform:translate(18px,-14px) scale(1.15);
-  }
-
-}
-
-/* 잔상 2 : 왼쪽 아래로 확산 */
-
-@keyframes flowerGhostTwo{
-
-  0%{
-    opacity:0;
-    filter:blur(0);
-    transform:translate(0,0) scale(1);
-  }
-
-  22%{
-    opacity:.36;
-    filter:blur(5px);
-    transform:translate(-5px,4px) scale(1.03);
-  }
-
-  52%{
-    opacity:.22;
-    filter:blur(10px);
-    transform:translate(-11px,9px) scale(1.08);
-  }
-
-  100%{
-    opacity:0;
-    filter:blur(18px);
-    transform:translate(-18px,15px) scale(1.14);
-  }
-
+.flower-enter:hover .flower-label::after{
+  opacity:.5;
+  transform:translate(5px,-2px);
 }
 
 /* 키보드 접근성 */
-
 .flower-enter:focus-visible{
+  outline:1px solid #d9b78f;
+  outline-offset:7px;
+}
+
+/* 클릭 시 잔광 */
+.flower-enter:active .flower-image{
+  filter:
+    drop-shadow(0 0 25px rgba(255,236,202,.8));
+}
+
+.flower-enter:active .flower-label{
+  text-shadow:
+    0 0 18px rgba(255,230,190,.8);
+}
+
+/* ==================================
+   기존 돌아가기 버튼
+================================== */
+
+.enter{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+
+  margin-top:43px;
+  padding:19px 32px;
+
+  border:0;
+  background:transparent;
+  color:#e9d8c2;
+
+  font-family:"Gowun Batang",serif;
+  font-size:15px;
+  letter-spacing:4px;
+
+  overflow:hidden;
+
+  transition:
+    color .5s,
+    letter-spacing .5s;
+}
+
+.enter::before,
+.enter::after{
+  content:"";
+  position:absolute;
+  left:12%;
+  right:12%;
+  height:1px;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    #b99a75,
+    transparent
+  );
+
+  transition:
+    left .6s,
+    right .6s,
+    box-shadow .6s;
+}
+
+.enter::before{
+  top:0;
+}
+
+.enter::after{
+  bottom:0;
+}
+
+.enter:hover{
+  color:#fff6e7;
+  letter-spacing:6px;
+  text-shadow:0 0 16px #e6c69c80;
+}
+
+.enter:hover::before,
+.enter:hover::after{
+  left:0;
+  right:0;
+  box-shadow:0 0 12px #d6ad8066;
+}
+
+.enter .arrow{
+  font-family:Arial,sans-serif;
+  font-size:18px;
+  font-weight:300;
+  color:#bda181;
+
+  transition:transform .5s;
+}
+
+.enter:hover .arrow{
+  transform:translate(4px,-4px);
+}
+
+.enter:focus-visible{
   outline:1px solid #d9b78f;
   outline-offset:6px;
 }
@@ -363,14 +386,6 @@ button{
 
 .hidden{
   display:none!important;
-}
-
-.eyebrow{
-  font-family:Arial,sans-serif;
-  font-size:10px;
-  letter-spacing:5px;
-  color:#ad9c89;
-  margin-bottom:28px;
 }
 
 .archive-title{
@@ -428,96 +443,7 @@ button{
 }
 
 /* ==================================
-   돌아가기 버튼
-================================== */
-
-.enter{
-  position:relative;
-
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:22px;
-
-  margin-top:43px;
-  padding:19px 32px;
-
-  border:0;
-  background:transparent;
-
-  color:#e9d8c2;
-  font-size:15px;
-  letter-spacing:4px;
-
-  overflow:hidden;
-
-  transition:
-    color .5s,
-    letter-spacing .5s;
-}
-
-.enter::before,
-.enter::after{
-  content:"";
-  position:absolute;
-
-  left:12%;
-  right:12%;
-  height:1px;
-
-  background:linear-gradient(
-    90deg,
-    transparent,
-    #b99a75,
-    transparent
-  );
-
-  transition:
-    left .6s,
-    right .6s,
-    box-shadow .6s;
-}
-
-.enter::before{
-  top:0;
-}
-
-.enter::after{
-  bottom:0;
-}
-
-.enter:hover{
-  color:#fff6e7;
-  letter-spacing:6px;
-  text-shadow:0 0 16px #e6c69c80;
-}
-
-.enter:hover::before,
-.enter:hover::after{
-  left:0;
-  right:0;
-  box-shadow:0 0 12px #d6ad8066;
-}
-
-.enter .arrow{
-  font-family:Arial,sans-serif;
-  font-size:18px;
-  color:#bda181;
-
-  transition:transform .5s;
-}
-
-.enter:hover .arrow{
-  transform:translate(4px,-4px);
-}
-
-.enter:focus-visible{
-  outline:1px solid #d9b78f;
-  outline-offset:6px;
-}
-
-/* ==================================
-   페이드 화면 전환
+   기존 페이드 화면 전환
 ================================== */
 
 #entrance,
@@ -551,13 +477,13 @@ button{
     height:clamp(210px,38vh,330px);
   }
 
-  .subtitle{
-    font-size:14px;
-  }
-
   .quote{
     font-size:13px;
-    line-height:1.6;
+    line-height:2.3;
+  }
+
+  .subtitle{
+    font-size:14px;
   }
 
   .flower-stage{
@@ -565,11 +491,14 @@ button{
     height:132px;
   }
 
-  .flower-main,
-  .flower-ghost-one,
-  .flower-ghost-two{
+  .flower-image,
+  .flower-aura{
     width:122px;
     height:122px;
+  }
+
+  .flower-label{
+    font-size:18px;
   }
 
   .cards{
@@ -579,10 +508,7 @@ button{
 
 }
 
-/* ==================================
-   움직임 최소화 설정
-================================== */
-
+/* 동작 최소화 설정 */
 @media(prefers-reduced-motion:reduce){
 
   #entrance,
@@ -590,23 +516,21 @@ button{
     transition-duration:.01s;
   }
 
-  .flower-main,
-  .flower-ghost-one,
-  .flower-ghost-two{
-    animation:none!important;
+  .flower-image,
+  .flower-aura,
+  .flower-stage::before{
+    animation:none;
   }
 
-  .flower-ghost-one,
-  .flower-ghost-two{
-    opacity:0!important;
+  .flower-image,
+  .flower-label,
+  .flower-label::after,
+  .enter,
+  .enter::before,
+  .enter::after,
+  .enter .arrow{
+    transition-duration:.01s;
   }
-
-  .flower-main{
-    opacity:1!important;
-    filter:none!important;
-    transform:none!important;
-  }
-
 }
 
 </style>
@@ -622,6 +546,10 @@ button{
 
   <div class="content">
 
+    <div class="eyebrow">
+      THE UNSEEN YEARS
+    </div>
+
     <!-- 기존 유화 붓글씨 -->
     <img
       class="title-image"
@@ -633,46 +561,46 @@ button{
       850년의 기록
     </div>
 
-    <!-- 본문 문구 -->
+    <div class="line"></div>
+
+    <!-- 변경된 문구 -->
     <div class="quote">
       빛 한 줄기 들지 않는 시간을 홀로 견뎌냈다.<br>
       끝 모를 고독의 끝자락에서, 마침내 너를 만났다.
     </div>
 
-    <!-- 꽃 자체가 입장 버튼 -->
+    <!-- 회전하는 꽃 + 잔상 버튼 -->
     <button
       class="flower-enter"
       type="button"
       onclick="openDoor()"
-      aria-label="꽃을 눌러 기록 보관소 열기"
-      title="기록 보관소 열기"
+      aria-label="문을 열다"
     >
 
       <span class="flower-stage">
 
-        <!-- 첫 번째 꽃 잔상 -->
+        <!-- 후광용 이미지 -->
         <img
-          class="flower-ghost-one"
+          class="flower-aura"
           src="flower.png"
           alt=""
           aria-hidden="true"
         >
 
-        <!-- 두 번째 꽃 잔상 -->
+        <!-- 실제 회전하는 꽃 -->
         <img
-          class="flower-ghost-two"
-          src="flower.png"
-          alt=""
-          aria-hidden="true"
-        >
-
-        <!-- 실제 꽃 -->
-        <img
-          class="flower-main"
+          class="flower-image"
           src="flower.png"
           alt=""
         >
 
+      </span>
+
+      <span
+        class="flower-label"
+        data-text="문을 열다"
+      >
+        문을 열다
       </span>
 
     </button>
@@ -701,6 +629,8 @@ button{
     <div class="subtitle">
       이제야 보여줄 수 있는 것들
     </div>
+
+    <div class="line"></div>
 
     <div class="cards">
 
@@ -743,7 +673,7 @@ button{
 
 
 <!-- ==================================
-     JavaScript 화면 전환
+     화면 전환 JavaScript
 ================================== -->
 
 <script>
@@ -778,6 +708,7 @@ function openDoor(){
       requestAnimationFrame(()=>{
 
         archive.classList.add("visible");
+
         transitioning=false;
 
       });
@@ -787,6 +718,7 @@ function openDoor(){
   },reduced?20:1100);
 
 }
+
 
 function closeDoor(){
 
@@ -809,7 +741,9 @@ function closeDoor(){
   setTimeout(()=>{
 
     archive.classList.add("hidden");
+
     entrance.classList.remove("hidden");
+
     entrance.classList.remove("fading");
 
     transitioning=false;
