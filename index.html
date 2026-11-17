@@ -5,9 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>留華 | 유화</title>
+<title>留華 | 850년의 기록</title>
 
-<!-- 마루부리 무료 웹폰트 -->
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri.css">
 
@@ -19,9 +18,7 @@ href="https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri.css">
   --gold:#b99a75;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html,body{
   margin:0;
@@ -39,9 +36,9 @@ button{
   cursor:pointer;
 }
 
-/* ==================================
+/* =====================================
    공통 화면
-================================== */
+===================================== */
 
 .screen{
   min-height:100vh;
@@ -50,10 +47,10 @@ button{
   align-items:center;
   justify-content:center;
   position:relative;
-  overflow:hidden;
+  overflow-x:hidden;
+  overflow-y:auto;
   padding:40px 30px;
   text-align:center;
-
   background:radial-gradient(
     ellipse at 50% 40%,
     #292329,
@@ -79,9 +76,9 @@ button{
   display:none!important;
 }
 
-/* ==================================
-   인트로 — 유화 붓글씨
-================================== */
+/* =====================================
+   메인 붓글씨
+===================================== */
 
 .title-image{
   display:block;
@@ -89,13 +86,10 @@ button{
   height:clamp(230px,43vh,390px);
   object-fit:contain;
   margin:0 auto;
-
-  filter:drop-shadow(
-    0 0 22px #d8bda426
-  );
+  filter:drop-shadow(0 0 22px #d8bda426);
 }
 
-/* 인트로 문구 */
+/* 메인 문구 */
 
 .quote{
   margin-top:28px;
@@ -106,24 +100,20 @@ button{
   word-break:keep-all;
 }
 
-/* ==================================
-   V9 공통 꽃 버튼
-================================== */
+/* =====================================
+   V10 공통 꽃 버튼
+===================================== */
 
 .flower-enter{
   display:grid;
   place-items:center;
   position:relative;
-
   width:250px;
   height:250px;
   margin:6px auto 0;
   padding:0;
-
   border:0;
   background:transparent;
-  cursor:pointer;
-
   -webkit-tap-highlight-color:transparent;
 }
 
@@ -135,28 +125,24 @@ button{
   pointer-events:none;
 }
 
-/* 원본 꽃은 항상 온전하게 유지 */
+/* 원본 꽃 : 변형하지 않음 */
 
 .flower-main{
   position:absolute;
-  z-index:2;
-
   display:block;
+  z-index:2;
   width:150px;
   height:150px;
-
   top:5px;
   left:50%;
   transform:translateX(-50%);
-
   object-fit:contain;
-
   filter:drop-shadow(
     0 0 8px rgba(245,226,202,.13)
   );
 }
 
-/* 별도 꽃잎 레이어 */
+/* 꽃잎 레이어 */
 
 .petals-layer{
   position:absolute;
@@ -165,45 +151,36 @@ button{
   pointer-events:none;
 }
 
-/* 떨어지는 꽃잎 */
-
 .falling-petal{
   position:absolute;
-
   left:50%;
   top:80px;
-
   width:19px;
   height:34px;
-
   opacity:0;
   transform-origin:50% 15%;
   pointer-events:none;
 }
-
-/* SVG 꽃잎 */
 
 .falling-petal svg{
   display:block;
   width:100%;
   height:100%;
   overflow:visible;
-
   filter:drop-shadow(
     0 2px 3px rgba(238,220,196,.12)
   );
 }
 
-/* 마우스 호버 또는 키보드 포커스 */
+/* 두 버튼 모두 동일한 재생 클래스 사용 */
 
-.flower-enter:hover .falling-petal,
-.flower-enter:focus-visible .falling-petal{
+.flower-enter.is-playing .falling-petal{
   animation:
     petalFall var(--duration) ease-in-out
     var(--delay) both;
 }
 
-/* 꽃잎 낙하 */
+/* 꽃잎 낙하 : 양쪽 공통 */
 
 @keyframes petalFall{
 
@@ -260,58 +237,52 @@ button{
   }
 }
 
-/* 키보드 접근성 */
-
 .flower-enter:focus-visible{
   outline:1px solid #d9b78f;
   outline-offset:4px;
 }
 
-/* ==================================
+/* =====================================
    기록 보관소
-================================== */
+===================================== */
 
 .eyebrow{
   font-family:Arial,sans-serif;
   font-size:10px;
   letter-spacing:5px;
   color:#ad9c89;
-  margin-bottom:28px;
+  margin-bottom:22px;
 }
 
-/* V9 : 한자 대신 큰 궁서체 유화 */
+/* V10 : 동일한 붓글씨 이미지 사용 */
 
-.archive-title{
-  font-family:"Gungsuh","궁서","궁서체",serif;
-  font-size:70px;
-  font-weight:400;
-  letter-spacing:5px;
-  line-height:1.35;
-  color:#e9ddc8;
+.archive-title-image{
+  display:block;
+  width:150px;
+  height:175px;
+  object-fit:contain;
+  margin:0 auto;
+  filter:drop-shadow(0 0 14px #d8bda41e);
 }
 
-/* ==================================
-   카드 3개
-================================== */
+/* =====================================
+   기록 카드
+===================================== */
 
 .cards{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:12px;
-
   max-width:760px;
-  margin:40px auto 0;
+  margin:28px auto 0;
 }
 
 .card{
   border:1px solid #66594c;
   border-radius:14px;
-
   padding:35px 12px;
   min-height:160px;
-
   background:#ffffff05;
-
   transition:
     background .3s,
     border-color .3s,
@@ -321,8 +292,7 @@ button{
 .card:hover{
   background:#ffffff0b;
   border-color:#a58b71;
-  box-shadow:
-    0 0 22px rgba(185,154,117,.07);
+  box-shadow:0 0 22px rgba(185,154,117,.07);
 }
 
 .card span{
@@ -345,18 +315,18 @@ button{
 .note{
   font-size:11px;
   color:#8c8076;
-  margin-top:35px;
+  margin-top:30px;
 }
 
-/* 기록 보관소 하단 꽃 */
+/* 기록 보관소 꽃 버튼 */
 
 .archive-flower{
-  margin-top:12px;
+  margin-top:0;
 }
 
-/* ==================================
-   페이드 화면 전환
-================================== */
+/* =====================================
+   화면 전환
+===================================== */
 
 #entrance,
 #archive{
@@ -375,9 +345,9 @@ button{
   opacity:0;
 }
 
-/* ==================================
-   모바일 반응형
-================================== */
+/* =====================================
+   모바일
+===================================== */
 
 @media(max-width:600px){
 
@@ -394,23 +364,24 @@ button{
     line-height:1.6;
   }
 
-  .archive-title{
-    font-size:56px;
+  .archive-title-image{
+    width:120px;
+    height:150px;
   }
 
   .cards{
     grid-template-columns:1fr;
     max-width:290px;
-    margin-top:30px;
+    margin-top:24px;
   }
 
   .card{
-    min-height:135px;
-    padding:25px 12px;
+    min-height:125px;
+    padding:22px 12px;
   }
 
   .card span{
-    margin-bottom:13px;
+    margin-bottom:12px;
   }
 
   .flower-enter{
@@ -425,12 +396,11 @@ button{
   }
 
   .archive-flower{
-    margin-top:10px;
+    margin-top:0;
   }
-
 }
 
-/* 동작 최소화 설정 */
+/* 접근성 : 움직임 최소화 */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -443,7 +413,6 @@ button{
   #archive{
     transition-duration:.01s;
   }
-
 }
 
 </style>
@@ -451,35 +420,32 @@ button{
 
 <body>
 
-<!-- ==================================
+<!-- =====================================
      첫 화면
-================================== -->
+===================================== -->
 
 <section class="screen" id="entrance">
-
   <div class="content">
 
-    <!-- 기존 붓글씨 이미지 -->
     <img
       class="title-image"
       src="yuhwa-title.png"
-      alt="留華"
+      alt="留華 붓글씨"
     >
 
-    <!-- 요청한 본문 유지 -->
     <div class="quote">
       빛 한 줄기 들지 않는 시간을 홀로 견뎌냈다.<br>
       끝 모를 고독의 끝자락에서, 마침내 너를 만났다.
     </div>
 
     <!-- 꽃 클릭 : 기록 보관소 입장 -->
+
     <button
       class="flower-enter"
       type="button"
       onclick="openDoor()"
       aria-label="기록 보관소 열기"
     >
-
       <span class="flower-stage">
 
         <img
@@ -494,32 +460,31 @@ button{
         ></span>
 
       </span>
-
     </button>
 
   </div>
-
 </section>
 
-
-<!-- ==================================
+<!-- =====================================
      기록 보관소
-================================== -->
+===================================== -->
 
 <section class="screen hidden" id="archive">
-
   <div class="content">
 
     <div class="eyebrow">
       THE ARCHIVE OF YUHWA
     </div>
 
-    <!-- 한자 대신 큰 궁서체 한글 -->
-    <div class="archive-title">
-      유화
-    </div>
+    <!-- V10 : 메인과 동일한 붓글씨 -->
 
-    <!-- 기존 카드 3개 -->
+    <img
+      class="archive-title-image"
+      src="yuhwa-title.png"
+      alt="留華 붓글씨"
+    >
+
+    <!-- 둥근 카드 3개 -->
 
     <div class="cards">
 
@@ -547,14 +512,14 @@ button{
       기록은 아직 잠들어 있다.
     </p>
 
-    <!-- 꽃 클릭 : 인트로로 돌아가기 -->
+    <!-- 메인과 동일한 꽃 + 동일한 애니메이션 -->
+
     <button
       class="flower-enter archive-flower"
       type="button"
       onclick="closeDoor()"
       aria-label="첫 화면으로 돌아가기"
     >
-
       <span class="flower-stage">
 
         <img
@@ -569,202 +534,165 @@ button{
         ></span>
 
       </span>
-
     </button>
 
   </div>
-
 </section>
-
-
-<!-- ==================================
-     JavaScript
-================================== -->
 
 <script>
 
-/* ==================================
-   꽃잎 8장 설정
-================================== */
+/* =====================================
+   양쪽 공통 꽃잎 8장
+===================================== */
 
 const petalSettings=[
 
   {
-    x:-63,y:0,
-    sway:-13,drift:-39,
-    fall:136,delay:0,
-    duration:2.8,
+    x:-63,y:0,sway:-13,drift:-39,
+    fall:136,delay:0,duration:2.8,
     rotate:-25,end:-205
   },
 
   {
-    x:46,y:10,
-    sway:16,drift:48,
-    fall:150,delay:.21,
-    duration:3.1,
+    x:46,y:10,sway:16,drift:48,
+    fall:150,delay:.21,duration:3.1,
     rotate:38,end:260
   },
 
   {
-    x:-37,y:27,
-    sway:18,drift:-18,
-    fall:125,delay:.43,
-    duration:2.9,
+    x:-37,y:27,sway:18,drift:-18,
+    fall:125,delay:.43,duration:2.9,
     rotate:-42,end:190
   },
 
   {
-    x:65,y:-8,
-    sway:-17,drift:28,
-    fall:148,delay:.62,
-    duration:3.2,
+    x:65,y:-8,sway:-17,drift:28,
+    fall:148,delay:.62,duration:3.2,
     rotate:55,end:300
   },
 
   {
-    x:12,y:36,
-    sway:12,drift:-25,
-    fall:122,delay:.83,
-    duration:2.7,
+    x:12,y:36,sway:12,drift:-25,
+    fall:122,delay:.83,duration:2.7,
     rotate:15,end:-210
   },
 
   {
-    x:-53,y:19,
-    sway:-12,drift:-45,
-    fall:157,delay:1.04,
-    duration:3.2,
+    x:-53,y:19,sway:-12,drift:-45,
+    fall:157,delay:1.04,duration:3.2,
     rotate:-35,end:-260
   },
 
   {
-    x:34,y:29,
-    sway:18,drift:39,
-    fall:137,delay:1.25,
-    duration:3.0,
+    x:34,y:29,sway:18,drift:39,
+    fall:137,delay:1.25,duration:3.0,
     rotate:30,end:240
   },
 
   {
-    x:-8,y:43,
-    sway:-16,drift:15,
-    fall:149,delay:1.46,
-    duration:3.1,
+    x:-8,y:43,sway:-16,drift:15,
+    fall:149,delay:1.46,duration:3.1,
     rotate:-15,end:210
   }
-
 ];
 
+/* =====================================
+   꽃잎 SVG 생성
+===================================== */
 
-/* ==================================
-   꽃잎 SVG
-================================== */
+function createPetalSVG(index){
 
-const petalSVG=`
-<svg
-  viewBox="0 0 36 66"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <defs>
-    <linearGradient
-      id="petalGradient"
-      x1="0" y1="0"
-      x2="1" y2="1"
-    >
-      <stop
-        offset="0%"
-        stop-color="#fffdf8"
-      />
-      <stop
-        offset="45%"
-        stop-color="#f2ede3"
-      />
-      <stop
-        offset="100%"
-        stop-color="#d6c8b6"
-      />
-    </linearGradient>
-  </defs>
+  const gradientId="petal-gradient-"+index;
 
-  <path
-    d="
-      M18 3
-      C31 17 36 37 23 56
-      Q19 63 16 62
-      C2 46 1 24 18 3
-      Z
-    "
-    fill="url(#petalGradient)"
-  />
+  return `
+  <svg viewBox="0 0 36 66"
+    xmlns="http://www.w3.org/2000/svg">
 
-  <path
-    d="M18 9 Q24 35 18 57"
-    fill="none"
-    stroke="#d1c4b3"
-    stroke-width=".8"
-    opacity=".38"
-  />
+    <defs>
+      <linearGradient
+        id="${gradientId}"
+        x1="0" y1="0" x2="1" y2="1">
 
-  <path
-    d="M16 15 Q9 36 16 52"
-    fill="none"
-    stroke="#ffffff"
-    stroke-width="1.4"
-    opacity=".45"
-  />
-</svg>
-`;
+        <stop offset="0%"
+          stop-color="#fffdf8"/>
 
+        <stop offset="45%"
+          stop-color="#f2ede3"/>
 
-/* ==================================
-   양쪽 화면에 동일한 꽃잎 생성
-================================== */
+        <stop offset="100%"
+          stop-color="#d6c8b6"/>
 
-document.querySelectorAll(
-  ".petals-layer"
-).forEach((layer)=>{
+      </linearGradient>
+    </defs>
 
-  petalSettings.forEach((p)=>{
+    <path
+      d="
+        M18 3
+        C31 17 36 37 23 56
+        Q19 63 16 62
+        C2 46 1 24 18 3
+        Z
+      "
+      fill="url(#${gradientId})"
+    />
+
+    <path
+      d="M18 9 Q24 35 18 57"
+      fill="none"
+      stroke="#d1c4b3"
+      stroke-width=".8"
+      opacity=".38"
+    />
+
+    <path
+      d="M16 15 Q9 36 16 52"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="1.4"
+      opacity=".45"
+    />
+
+  </svg>`;
+}
+
+/* =====================================
+   두 꽃에 동일한 꽃잎 생성
+===================================== */
+
+const flowerButtons=[
+  ...document.querySelectorAll(".flower-enter")
+];
+
+flowerButtons.forEach((button,buttonIndex)=>{
+
+  const layer=button.querySelector(".petals-layer");
+
+  petalSettings.forEach((p,index)=>{
 
     const petal=document.createElement("span");
 
     petal.className="falling-petal";
-    petal.innerHTML=petalSVG;
 
-    petal.style.setProperty(
-      "--start-x",p.x+"px"
+    petal.innerHTML=createPetalSVG(
+      buttonIndex+"-"+index
     );
 
-    petal.style.setProperty(
-      "--start-y",p.y+"px"
-    );
+    const properties={
+      "--start-x":p.x+"px",
+      "--start-y":p.y+"px",
+      "--sway":p.sway+"px",
+      "--drift":p.drift+"px",
+      "--fall":p.fall+"px",
+      "--delay":p.delay+"s",
+      "--duration":p.duration+"s",
+      "--start-rotate":p.rotate+"deg",
+      "--end-rotate":p.end+"deg"
+    };
 
-    petal.style.setProperty(
-      "--sway",p.sway+"px"
-    );
-
-    petal.style.setProperty(
-      "--drift",p.drift+"px"
-    );
-
-    petal.style.setProperty(
-      "--fall",p.fall+"px"
-    );
-
-    petal.style.setProperty(
-      "--delay",p.delay+"s"
-    );
-
-    petal.style.setProperty(
-      "--duration",p.duration+"s"
-    );
-
-    petal.style.setProperty(
-      "--start-rotate",p.rotate+"deg"
-    );
-
-    petal.style.setProperty(
-      "--end-rotate",p.end+"deg"
+    Object.entries(properties).forEach(
+      ([name,value])=>{
+        petal.style.setProperty(name,value);
+      }
     );
 
     layer.appendChild(petal);
@@ -773,10 +701,9 @@ document.querySelectorAll(
 
 });
 
-
-/* ==================================
-   기존 화면 전환 기능
-================================== */
+/* =====================================
+   V10 애니메이션 초기화
+===================================== */
 
 let transitioning=false;
 
@@ -784,69 +711,125 @@ const motionReduced=window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 ).matches;
 
+/* 양쪽 꽃 상태 동시 초기화 */
 
-/* 꽃 클릭 -> 기록 보관소 */
+function resetPetalAnimations(){
+
+  flowerButtons.forEach(button=>{
+    button.classList.remove("is-playing");
+  });
+
+}
+
+/* 처음부터 재생 */
+
+function startPetalAnimation(button){
+
+  if(transitioning || motionReduced)return;
+
+  const screen=button.closest(".screen");
+
+  if(screen.classList.contains("hidden"))return;
+
+  resetPetalAnimations();
+
+  /* 기존 애니메이션 프레임 초기화 */
+  void button.offsetWidth;
+
+  button.classList.add("is-playing");
+
+}
+
+/* 마우스 진입/이탈 */
+
+flowerButtons.forEach(button=>{
+
+  button.addEventListener("pointerenter",event=>{
+
+    if(event.pointerType==="mouse"){
+      startPetalAnimation(button);
+    }
+
+  });
+
+  button.addEventListener("pointerleave",()=>{
+    button.classList.remove("is-playing");
+  });
+
+  /* 키보드 Tab 접근 시 재생 */
+  button.addEventListener("focus",event=>{
+    if(!button.matches(":focus-visible"))return;
+    startPetalAnimation(button);
+  });
+
+  button.addEventListener("blur",()=>{
+    button.classList.remove("is-playing");
+  });
+
+});
+
+/* =====================================
+   기존 화면 전환
+===================================== */
 
 function openDoor(){
 
   if(transitioning)return;
-
   transitioning=true;
 
-  const entrance=
-    document.getElementById("entrance");
+  const entrance=document.getElementById("entrance");
+  const archive=document.getElementById("archive");
 
-  const archive=
-    document.getElementById("archive");
+  /* 이전 꽃잎 애니메이션 제거 */
+  resetPetalAnimations();
+
+  /* 클릭 포커스 해제 */
+  if(document.activeElement instanceof HTMLElement){
+    document.activeElement.blur();
+  }
 
   entrance.classList.add("fading");
 
   setTimeout(()=>{
 
     entrance.classList.add("hidden");
-
     archive.classList.remove("hidden");
 
     requestAnimationFrame(()=>{
-
       requestAnimationFrame(()=>{
-
         archive.classList.add("visible");
-
         transitioning=false;
-
       });
-
     });
 
   },motionReduced?20:1100);
 
 }
 
-
-/* 꽃 클릭 -> 첫 화면 복귀 */
-
 function closeDoor(){
 
   if(transitioning)return;
-
   transitioning=true;
 
-  const entrance=
-    document.getElementById("entrance");
+  const entrance=document.getElementById("entrance");
+  const archive=document.getElementById("archive");
 
-  const archive=
-    document.getElementById("archive");
+  resetPetalAnimations();
+
+  if(document.activeElement instanceof HTMLElement){
+    document.activeElement.blur();
+  }
 
   archive.classList.remove("visible");
 
   setTimeout(()=>{
 
     archive.classList.add("hidden");
-
     entrance.classList.remove("hidden");
-
     entrance.classList.remove("fading");
+
+    /* 재진입 때도 항상 처음 상태 */
+    resetPetalAnimations();
 
     transitioning=false;
 
@@ -855,6 +838,5 @@ function closeDoor(){
 }
 
 </script>
-
 </body>
 </html>
