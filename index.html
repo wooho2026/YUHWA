@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>留華 | 850년의 기록</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;background:#0d0d10;color:#eee7dc;
+  font-family:Georgia,"Noto Serif KR",serif;
+}
+.screen{
+  min-height:100svh;display:flex;align-items:center;
+  justify-content:center;text-align:center;padding:30px;
+  position:relative;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 35%,#29232b,#0d0d10 70%);
+}
+.screen:before{
+  content:"";position:absolute;inset:20px;
+  border:1px solid #ffffff14;pointer-events:none;
+}
+.content{position:relative;z-index:1}
+.eyebrow{
+  font:10px Arial,sans-serif;letter-spacing:5px;
+  color:#a99b8a;margin-bottom:38px;
+}
+h1{
+  font-size:clamp(85px,18vw,170px);
+  font-weight:400;letter-spacing:12px;
+  margin:0;color:#e8ddca;
+  text-shadow:0 0 65px #c7a78125;
+}
+.subtitle{
+  font-size:13px;letter-spacing:5px;
+  color:#b6a797;margin-top:15px;
+}
+.line{height:1px;width:48px;background:#a78d70;margin:45px auto}
+.quote{
+  font-size:15px;line-height:2.4;color:#c9beb2;
+  word-break:keep-all;
+}
+button{
+  margin-top:55px;background:transparent;
+  border:1px solid #a9967c;color:#e5d5c0;
+  padding:17px 42px;letter-spacing:4px;
+  font-size:12px;cursor:pointer;
+  transition:all .35s;
+}
+button:hover{background:#d7c2a5;color:#171316}
+.hidden{display:none!important}
+#archive{animation:appear 1.5s ease both}
+@keyframes appear{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.cards{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:760px;margin:40px auto 0;
+}
+.card{
+  border:1px solid #66594c;padding:40px 15px;
+  background:#ffffff05;min-height:155px;
+}
+.card span{display:block;font-size:30px;margin-bottom:22px}
+.card small{font:11px Arial,sans-serif;letter-spacing:2px;color:#bba992}
+@media(max-width:600px){
+  .cards{grid-template-columns:1fr;max-width:290px}
+  h1{letter-spacing:4px}
+  .screen{padding:35px 25px}
+}
+</style>
+</head>
+<body>
+
+<section class="screen" id="entrance">
+  <div class="content">
+    <div class="eyebrow">THE UNSEEN YEARS</div>
+    <h1>留華</h1>
+    <div class="subtitle">850년의 기록</div>
+    <div class="line"></div>
+    <div class="quote">
+      오래도록 이곳에 머물렀다.<br>
+      수많은 계절이 지나갔고,<br>
+      마침내 누군가 나를 보았다.
+    </div>
+    <button onclick="openDoor()">문을 열다</button>
+  </div>
+</section>
+
+<section class="screen hidden" id="archive">
+  <div class="content">
+    <div class="eyebrow">THE ARCHIVE OF YUHWA</div>
+    <h1 style="font-size:75px">留華</h1>
+    <div class="subtitle">이제야 보여줄 수 있는 것들</div>
+    <div class="line"></div>
+    <div class="cards">
+      <div class="card">
+        <span>壹</span>
+        <small>THE PORTRAITS</small>
+        <p>그의 모습</p>
+      </div>
+      <div class="card">
+        <span>貳</span>
+        <small>THE MEMORIES</small>
+        <p>오래된 기억</p>
+      </div>
+      <div class="card">
+        <span>參</span>
+        <small>THE VOICE</small>
+        <p>그의 목소리</p>
+      </div>
+    </div>
+    <p style="font-size:11px;color:#8c8076;margin-top:35px">
+      기록은 아직 잠들어 있다.
+    </p>
+    <button onclick="closeDoor()">돌아가기</button>
+  </div>
+</section>
+
+<script>
+function openDoor(){
+  document.getElementById("entrance").classList.add("hidden");
+  document.getElementById("archive").classList.remove("hidden");
+  window.scrollTo(0,0);
+}
+function closeDoor(){
+  document.getElementById("archive").classList.add("hidden");
+  document.getElementById("entrance").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
