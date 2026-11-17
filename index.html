@@ -3,72 +3,140 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>留華 | 850년의 기록</title>
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;background:#0d0d10;color:#eee7dc;
-  font-family:Georgia,"Noto Serif KR",serif;
-}
+html,body{margin:0;min-height:100%;background:#0d0c10}
+body{color:#eee7dc;font-family:"Malgun Gothic",sans-serif}
+button{font:inherit;cursor:pointer}
 .screen{
   min-height:100svh;display:flex;align-items:center;
-  justify-content:center;text-align:center;padding:30px;
-  position:relative;overflow:hidden;
-  background:radial-gradient(ellipse at 50% 35%,#29232b,#0d0d10 70%);
+  justify-content:center;text-align:center;
+  position:relative;overflow:hidden;padding:30px;
+  background:radial-gradient(ellipse at 50% 40%,#292329,#0d0c10 75%);
 }
 .screen:before{
-  content:"";position:absolute;inset:20px;
+  content:"";position:absolute;inset:18px;
   border:1px solid #ffffff14;pointer-events:none;
 }
-.content{position:relative;z-index:1}
+.content{position:relative;z-index:2;width:100%}
 .eyebrow{
   font:10px Arial,sans-serif;letter-spacing:5px;
-  color:#a99b8a;margin-bottom:38px;
+  color:#ad9c89;margin-bottom:28px;
 }
-h1{
-  font-size:clamp(85px,18vw,170px);
-  font-weight:400;letter-spacing:12px;
-  margin:0;color:#e8ddca;
-  text-shadow:0 0 65px #c7a78125;
+.title-image{
+  display:block;width:min(250px,62vw);
+  height:clamp(230px,43vh,390px);
+  object-fit:contain;margin:0 auto;
+  filter:drop-shadow(0 0 22px #d8bda426);
 }
 .subtitle{
-  font-size:13px;letter-spacing:5px;
-  color:#b6a797;margin-top:15px;
+  font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  font-size:13px;font-weight:400;letter-spacing:3px;
+  color:#c4b29e;margin-top:20px;
 }
-.line{height:1px;width:48px;background:#a78d70;margin:45px auto}
+.line{width:46px;height:1px;background:#a58b71;margin:35px auto}
 .quote{
-  font-size:15px;line-height:2.4;color:#c9beb2;
+  font-size:14px;line-height:2.4;color:#c9beb2;
   word-break:keep-all;
 }
-button{
-  margin-top:55px;background:transparent;
+.enter{
+  margin-top:43px;background:transparent;
   border:1px solid #a9967c;color:#e5d5c0;
-  padding:17px 42px;letter-spacing:4px;
-  font-size:12px;cursor:pointer;
-  transition:all .35s;
+  padding:17px 42px;letter-spacing:4px;font-size:12px;
+  transition:background .3s,color .3s;
 }
-button:hover{background:#d7c2a5;color:#171316}
+.enter:hover{background:#d7c2a5;color:#171316}
 .hidden{display:none!important}
-#archive{animation:appear 1.5s ease both}
-@keyframes appear{
-  from{opacity:0;transform:translateY(18px)}
+
+/* 문이 열리는 전환 */
+#doorScene{
+  position:fixed;inset:0;z-index:10;overflow:hidden;
+  background:#080709;perspective:1100px;
+}
+.door-frame{
+  position:absolute;inset:0;
+  border:clamp(10px,3vw,30px) solid #211712;
+  box-shadow:inset 0 0 50px #000;
+  pointer-events:none;z-index:5;
+}
+.light{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse,#fff3cf 0%,#cba77a 35%,#493125 90%);
+  opacity:.2;transition:opacity 2s ease;
+}
+.door{
+  position:absolute;top:0;width:50%;height:100%;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 28px,#00000016 29px 31px),
+    linear-gradient(90deg,#251710,#4a3020 50%,#241710);
+  box-shadow:inset 0 0 50px #0009;
+  backface-visibility:hidden;
+  transition:transform 2.8s cubic-bezier(.2,.65,.15,1);
+}
+.door.left{left:0;transform-origin:left center}
+.door.right{right:0;transform-origin:right center}
+.door:before{
+  content:"";position:absolute;inset:6% 8%;
+  border:5px double #8d6746;
+  box-shadow:inset 0 0 0 12px #1c110d;
+}
+.door:after{
+  content:"";position:absolute;top:50%;
+  width:16px;height:16px;border-radius:50%;
+  background:#b99b67;box-shadow:0 0 0 4px #25170f;
+}
+.left:after{right:9%}
+.right:after{left:9%}
+#doorScene.open .left{transform:rotateY(-105deg)}
+#doorScene.open .right{transform:rotateY(105deg)}
+#doorScene.open .light{opacity:1}
+.door-caption{
+  position:absolute;bottom:13%;left:0;right:0;z-index:6;
+  color:#f4e5cf;font-size:13px;letter-spacing:5px;
+  transition:opacity .6s;
+}
+#doorScene.open .door-caption{opacity:0}
+.flash{
+  position:absolute;inset:0;z-index:8;
+  background:#fff3d7;opacity:0;pointer-events:none;
+}
+#doorScene.open .flash{
+  animation:flashIn 1s 2.35s forwards;
+}
+@keyframes flashIn{to{opacity:1}}
+
+/* 기록 보관소 */
+#archive{animation:fadeIn 1.5s both}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(15px)}
   to{opacity:1;transform:translateY(0)}
 }
+.archive-title{font-size:65px;font-weight:400;color:#e9ddc8}
 .cards{
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:12px;max-width:760px;margin:40px auto 0;
 }
 .card{
-  border:1px solid #66594c;padding:40px 15px;
-  background:#ffffff05;min-height:155px;
+  border:1px solid #66594c;padding:35px 12px;
+  background:#ffffff05;min-height:160px;
 }
-.card span{display:block;font-size:30px;margin-bottom:22px}
-.card small{font:11px Arial,sans-serif;letter-spacing:2px;color:#bba992}
+.card span{display:block;font-size:30px;margin-bottom:20px}
+.card small{
+  font:10px Arial,sans-serif;letter-spacing:2px;color:#bba992;
+}
+.card p{font-size:13px}
+.note{font-size:11px;color:#8c8076;margin-top:35px}
 @media(max-width:600px){
   .cards{grid-template-columns:1fr;max-width:290px}
-  h1{letter-spacing:4px}
   .screen{padding:35px 25px}
+  .title-image{height:clamp(210px,38vh,330px)}
+  .quote{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){
+  .door,.light{transition-duration:.1s}
+  #doorScene.open .flash{animation-duration:.1s;animation-delay:.2s}
 }
 </style>
 </head>
@@ -77,24 +145,40 @@ button:hover{background:#d7c2a5;color:#171316}
 <section class="screen" id="entrance">
   <div class="content">
     <div class="eyebrow">THE UNSEEN YEARS</div>
-    <h1>留華</h1>
+
+    <img class="title-image"
+         src="yuhwa-title.png"
+         alt="留華 붓글씨">
+
     <div class="subtitle">850년의 기록</div>
     <div class="line"></div>
+
     <div class="quote">
       오래도록 이곳에 머물렀다.<br>
       수많은 계절이 지나갔고,<br>
       마침내 누군가 나를 보았다.
     </div>
-    <button onclick="openDoor()">문을 열다</button>
+
+    <button class="enter" onclick="openDoor()">문을 열다</button>
   </div>
 </section>
+
+<div id="doorScene" class="hidden" aria-hidden="true">
+  <div class="light"></div>
+  <div class="door left"></div>
+  <div class="door right"></div>
+  <div class="door-frame"></div>
+  <div class="door-caption">오래된 문이 열린다</div>
+  <div class="flash"></div>
+</div>
 
 <section class="screen hidden" id="archive">
   <div class="content">
     <div class="eyebrow">THE ARCHIVE OF YUHWA</div>
-    <h1 style="font-size:75px">留華</h1>
+    <div class="archive-title">留華</div>
     <div class="subtitle">이제야 보여줄 수 있는 것들</div>
     <div class="line"></div>
+
     <div class="cards">
       <div class="card">
         <span>壹</span>
@@ -112,18 +196,32 @@ button:hover{background:#d7c2a5;color:#171316}
         <p>그의 목소리</p>
       </div>
     </div>
-    <p style="font-size:11px;color:#8c8076;margin-top:35px">
-      기록은 아직 잠들어 있다.
-    </p>
-    <button onclick="closeDoor()">돌아가기</button>
+
+    <p class="note">기록은 아직 잠들어 있다.</p>
+    <button class="enter" onclick="closeDoor()">돌아가기</button>
   </div>
 </section>
 
 <script>
+let transitioning=false;
 function openDoor(){
-  document.getElementById("entrance").classList.add("hidden");
-  document.getElementById("archive").classList.remove("hidden");
-  window.scrollTo(0,0);
+  if(transitioning)return;
+  transitioning=true;
+  const scene=document.getElementById("doorScene");
+  scene.classList.remove("hidden");
+  scene.setAttribute("aria-hidden","false");
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>scene.classList.add("open"));
+  });
+  const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  setTimeout(()=>{
+    document.getElementById("entrance").classList.add("hidden");
+    document.getElementById("archive").classList.remove("hidden");
+    scene.classList.add("hidden");
+    scene.classList.remove("open");
+    scene.setAttribute("aria-hidden","true");
+    transitioning=false;
+  },reduced?450:3450);
 }
 function closeDoor(){
   document.getElementById("archive").classList.add("hidden");
