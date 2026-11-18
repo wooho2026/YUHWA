@@ -3,8 +3,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>留華</title>
 
 <link rel="stylesheet"
@@ -13,8 +12,8 @@ href="https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri.css">
 <style>
 
 /* ========================================
-   留華 V13
-   기본 환경
+   留華 V14
+   기본 설정
 ======================================== */
 
 :root{
@@ -76,11 +75,9 @@ img{
   justify-content:center;
 
   position:relative;
-
   text-align:center;
 
   padding:40px 30px;
-
   overflow:hidden;
 
   background:radial-gradient(
@@ -129,7 +126,6 @@ img{
   height:clamp(230px,43vh,390px);
 
   object-fit:contain;
-
   margin:0 auto;
 
   filter:drop-shadow(
@@ -145,12 +141,11 @@ img{
   line-height:1.7;
 
   color:var(--muted);
-
   word-break:keep-all;
 }
 
 /* ========================================
-   공통 흰 꽃 버튼
+   흰 꽃 및 꽃잎 8장
 ======================================== */
 
 .flower-enter{
@@ -185,6 +180,7 @@ img{
 .flower-main{
   position:absolute;
   display:block;
+
   z-index:2;
 
   width:150px;
@@ -194,7 +190,6 @@ img{
   left:50%;
 
   transform:translateX(-50%);
-
   object-fit:contain;
 
   filter:drop-shadow(
@@ -206,7 +201,6 @@ img{
   position:absolute;
   inset:0;
   z-index:3;
-
   pointer-events:none;
 }
 
@@ -224,13 +218,11 @@ img{
   transform-origin:50% 15%;
 
   pointer-events:none;
-
   will-change:transform,opacity;
 }
 
 .falling-petal svg{
   display:block;
-
   width:100%;
   height:100%;
 
@@ -251,7 +243,6 @@ img{
 
   0%{
     opacity:0;
-
     transform:
       translate(
         var(--start-x),
@@ -267,7 +258,6 @@ img{
 
   30%{
     opacity:.95;
-
     transform:
       translate(
         calc(var(--start-x) + var(--sway)),
@@ -279,7 +269,6 @@ img{
 
   60%{
     opacity:.85;
-
     transform:
       translate(
         calc(var(--start-x) - var(--sway)),
@@ -295,7 +284,6 @@ img{
 
   100%{
     opacity:0;
-
     transform:
       translate(
         calc(var(--start-x) + var(--drift)),
@@ -308,8 +296,8 @@ img{
 }
 
 /* ========================================
-   V13 기록 보관소
-   단일선 마름모
+   V14 기록 보관소
+   기존 일렬 배치 / 간격 60%
 ======================================== */
 
 .archive-content{
@@ -317,143 +305,62 @@ img{
   margin:0 auto;
 }
 
-.archive-diamond{
-  position:relative;
-
-  width:min(760px,100%);
-  aspect-ratio:1.12;
-
-  margin:0 auto;
-}
-
-/* 마름모 단일선 */
-
-.diamond-lines{
-  position:absolute;
-  inset:0;
-
-  width:100%;
-  height:100%;
-
-  overflow:visible;
-
-  pointer-events:none;
-}
-
-.diamond-line{
-  fill:none;
-
-  stroke:#ad9275;
-  stroke-width:1;
-
-  opacity:.43;
-
-  transition:
-    opacity .7s ease,
-    stroke .7s ease,
-    filter .7s ease;
-}
-
-.archive-diamond:has(.diamond-menu:hover)
-.diamond-line{
-  opacity:.76;
-  stroke:#cbb08c;
-
-  filter:drop-shadow(
-    0 0 5px #cbb08c50
-  );
-}
-
-/* ========================================
-   마름모 중앙 유화 로고
-======================================== */
-
-.diamond-center{
-  position:absolute;
-
-  left:50%;
-  top:49%;
-
-  transform:translate(-50%,-50%);
-
-  width:37%;
-
-  z-index:4;
-
-  pointer-events:none;
-}
-
 .archive-title-image{
   display:block;
 
-  width:min(155px,90%);
-  height:clamp(110px,23vw,205px);
+  width:150px;
+  height:175px;
 
   object-fit:contain;
-
   margin:0 auto;
 
   filter:drop-shadow(
-    0 0 18px #ded0bc25
+    0 0 14px #d8bda41e
   );
 }
 
 .archive-eyebrow{
-  margin-top:14px;
+  margin-top:15px;
+  margin-bottom:30px;
 
-  font-size:9px;
-  letter-spacing:3px;
-
+  font-size:10px;
+  letter-spacing:5px;
   line-height:1.6;
 }
 
-/* ========================================
-   마름모 3개 메뉴
-   테두리 및 박스 없음
-======================================== */
+/* 기존 760px의 60% */
 
-.diamond-menu{
+.cards{
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:16.8px;
+
+  width:100%;
+  max-width:456px;
+
+  margin:25px auto 0;
+}
+
+.card{
   display:flex;
 
   flex-direction:column;
   align-items:center;
   justify-content:center;
 
-  position:absolute;
+  position:relative;
 
-  width:25%;
+  min-width:0;
+  min-height:190px;
 
-  padding:10px 0;
-
-  transform:translate(-50%,-50%);
+  padding:15px 0;
 
   border:0;
   background:transparent;
 
   text-align:center;
-
-  z-index:5;
-}
-
-/* 壹 : 상단 */
-
-.menu-first{
-  left:50%;
-  top:15%;
-}
-
-/* 貳 : 좌측 */
-
-.menu-second{
-  left:13%;
-  top:50%;
-}
-
-/* 參 : 우측 */
-
-.menu-third{
-  left:87%;
-  top:50%;
 }
 
 .menu-symbol{
@@ -466,7 +373,7 @@ img{
 
   object-fit:contain;
 
-  margin:0 auto 10px;
+  margin:0 auto 14px;
 
   opacity:.88;
 
@@ -475,8 +382,8 @@ img{
     filter .7s ease;
 }
 
-.diamond-menu:hover .menu-symbol,
-.diamond-menu:focus-visible .menu-symbol{
+.card:hover .menu-symbol,
+.card:focus-visible .menu-symbol{
   opacity:1;
 
   filter:drop-shadow(
@@ -484,7 +391,7 @@ img{
   );
 }
 
-.diamond-menu small{
+.card small{
   font-family:Arial,sans-serif;
 
   font-size:10px;
@@ -492,60 +399,35 @@ img{
 
   color:#bba992;
 
-  line-height:1.4;
+  white-space:nowrap;
 
-  transition:
-    color .5s,
-    text-shadow .5s;
+  transition:color .5s ease;
 }
 
-.diamond-menu p{
-  margin:9px 0 0;
+.card p{
+  margin:12px 0 0;
 
   font-size:15px;
-  line-height:1.4;
-
   color:#e7dad0;
 
   transition:
-    color .5s,
-    text-shadow .5s;
+    color .5s ease,
+    text-shadow .5s ease;
 }
 
-.diamond-menu:hover small{
+.card:hover small{
   color:#e1c7a5;
-
-  text-shadow:0 0 10px #e1c7a550;
 }
 
-.diamond-menu:hover p{
+.card:hover p{
   color:#fff3e2;
 
-  text-shadow:0 0 12px #e7d3b94d;
+  text-shadow:
+    0 0 12px #e7d3b94d;
 }
 
-/* ========================================
-   마름모 하단 흰 꽃
-======================================== */
-
-.diamond-flower{
-  position:absolute;
-
-  left:50%;
-  top:85%;
-
-  width:150px;
-  height:150px;
-
-  margin:0;
-
-  transform:translate(-50%,-50%);
-
-  z-index:6;
-}
-
-.diamond-flower .flower-stage{
-  top:0;
+#archive .flower-enter{
+  margin:25px auto 0;
 }
 
 /* ========================================
@@ -569,7 +451,7 @@ img{
   letter-spacing:3px;
 }
 
-/* 책 전체는 고정 */
+/* 책 자체는 고정 */
 
 .book-cover-button{
   display:block;
@@ -588,7 +470,7 @@ img{
   isolation:isolate;
 }
 
-/* 표지 뒤 종이 단면 */
+/* 표지 뒤에 보이는 종이 단면 */
 
 .cover-paper-edges{
   position:absolute;
@@ -626,20 +508,17 @@ img{
   border:1px solid #bba88c;
 
   overflow:hidden;
-
   pointer-events:none;
 }
 
 .cover-inner-paper::after{
   content:"";
-
   position:absolute;
   inset:15px;
-
   border:1px solid #aa967c38;
 }
 
-/* 움직이는 책 표지 */
+/* 움직이는 표지 */
 
 .cover-leaf{
   position:absolute;
@@ -695,7 +574,7 @@ img{
     inset 0 0 25px #77634b30;
 }
 
-/* 마우스를 올리면 표지만 살짝 열림 */
+/* 표지에 마우스를 올리면 살짝 열림 */
 
 @media(hover:hover) and (pointer:fine){
 
@@ -711,7 +590,7 @@ img{
   transform:rotateY(-23deg);
 }
 
-/* 클릭하면 표지가 열림 */
+/* 책을 클릭하면 펼쳐짐 */
 
 .book-cover-button.opening
 .cover-leaf{
@@ -726,7 +605,6 @@ img{
 
   font-size:12px;
   color:#a89989;
-
   letter-spacing:1px;
 }
 
@@ -743,7 +621,7 @@ img{
   margin-bottom:26px;
 }
 
-/* 사진 크기와 무관하게 책 크기 고정 */
+/* 모든 사진에서 책 크기 고정 */
 
 .book{
   position:relative;
@@ -833,7 +711,6 @@ img{
 
 .book-spine{
   position:absolute;
-
   z-index:5;
 
   top:0;
@@ -903,8 +780,6 @@ img{
 
 /* ========================================
    유화의 대사
-   문장 사이 줄바꿈
-   쉼표는 자연스러운 행바꿈
 ======================================== */
 
 .page-writing{
@@ -930,7 +805,6 @@ img{
 
 .page-decoration{
   font-size:25px;
-
   color:#aa9378;
 
   margin:20px 0;
@@ -946,14 +820,14 @@ img{
 
   word-break:keep-all;
   overflow-wrap:break-word;
-  white-space:pre-line;
 
+  white-space:pre-line;
   text-wrap:pretty;
 
   color:#52463c;
 }
 
-/* 사진 확대 버튼 */
+/* 사진 확대 */
 
 .zoom-button{
   position:absolute;
@@ -973,12 +847,11 @@ img{
   background:#eee3d5b0;
 
   padding:0;
-
   font-size:15px;
 }
 
 /* ========================================
-   실제 책장 넘김
+   입체적인 책장 넘김
 ======================================== */
 
 .flip-sheet{
@@ -1026,7 +899,8 @@ img{
 
   overflow:hidden;
 
-  box-shadow:8px 2px 20px #0002;
+  box-shadow:
+    8px 2px 20px #0002;
 }
 
 .flip-back{
@@ -1074,12 +948,11 @@ img{
   margin-top:13px;
 
   font-size:11px;
-
   color:#8c8076;
 }
 
 /* ========================================
-   마지막 사진 이후 전체 보기
+   마지막 장 이후 전체 보기
 ======================================== */
 
 .view-all-button{
@@ -1090,7 +963,6 @@ img{
 
   border:0;
   border-bottom:1px solid #b99a7580;
-
   background:transparent;
 
   font-size:14px;
@@ -1106,7 +978,8 @@ img{
 .view-all-button:hover{
   color:#fff4df;
 
-  text-shadow:0 0 12px #dfb78580;
+  text-shadow:
+    0 0 12px #dfb78580;
 }
 
 /* ========================================
@@ -1130,6 +1003,7 @@ img{
 
 .gallery-item{
   display:block;
+
   position:relative;
 
   padding:0;
@@ -1157,7 +1031,6 @@ img{
 
 .gallery-item:hover img{
   transform:scale(1.035);
-
   filter:brightness(1.08);
 }
 
@@ -1178,14 +1051,13 @@ img{
 }
 
 /* ========================================
-   사진 전체 화면 확대
+   사진 확대
 ======================================== */
 
 .lightbox{
   position:fixed;
 
   z-index:1000;
-
   inset:0;
 
   display:flex;
@@ -1221,7 +1093,6 @@ img{
   background:transparent;
 
   font-size:28px;
-
   color:#eee1ce;
 }
 
@@ -1229,7 +1100,6 @@ img{
   position:absolute;
 
   top:50%;
-
   transform:translateY(-50%);
 
   border:0;
@@ -1238,7 +1108,6 @@ img{
   padding:10px;
 
   font-size:25px;
-
   color:#cbb49a;
 }
 
@@ -1262,7 +1131,6 @@ img{
   font:10px Arial,sans-serif;
 
   letter-spacing:3px;
-
   color:#b7a28e;
 }
 
@@ -1290,68 +1158,47 @@ img{
     letter-spacing:3px;
   }
 
-  /* 모바일 마름모 */
-
-  .archive-diamond{
-    width:100%;
-    aspect-ratio:.76;
-
-    margin:10px auto 0;
-  }
-
-  .diamond-menu{
-    width:29%;
-  }
-
-  .menu-first{
-    top:15%;
-  }
-
-  .menu-second{
-    left:14%;
-  }
-
-  .menu-third{
-    left:86%;
-  }
-
-  .menu-symbol{
-    width:70px;
-    height:75px;
-
-    margin-bottom:8px;
-  }
-
-  .diamond-menu small{
-    font-size:7px;
-
-    letter-spacing:.5px;
-  }
-
-  .diamond-menu p{
-    font-size:11px;
-
-    margin-top:7px;
-  }
-
-  .diamond-center{
-    width:37%;
-  }
-
   .archive-title-image{
-    width:100px;
-    height:135px;
-
-    max-width:100%;
+    width:120px;
+    height:150px;
   }
 
   .archive-eyebrow{
-    margin-top:8px;
+    font-size:9px;
+    letter-spacing:3px;
+  }
 
+  .cards{
+    grid-template-columns:repeat(3,1fr);
+
+    max-width:340px;
+    gap:4px;
+
+    margin-top:18px;
+  }
+
+  .card{
+    min-height:130px;
+    padding:8px 0;
+  }
+
+  .menu-symbol{
+    width:74px;
+    height:74px;
+
+    max-width:100%;
+
+    margin-bottom:10px;
+  }
+
+  .card small{
     font-size:7px;
-    letter-spacing:1px;
+    letter-spacing:.6px;
+  }
 
-    line-height:1.5;
+  .card p{
+    font-size:12px;
+    margin-top:9px;
   }
 
   .flower-enter{
@@ -1366,16 +1213,8 @@ img{
     transform-origin:top center;
   }
 
-  .diamond-flower{
-    width:110px;
-    height:110px;
-
-    margin:0;
-  }
-
-  .diamond-flower .flower-stage{
-    transform:
-      translateX(-50%) scale(.73);
+  #archive .flower-enter{
+    margin-top:20px;
   }
 
   .book-cover-button{
@@ -1431,7 +1270,6 @@ img{
 
   .gallery{
     grid-template-columns:repeat(2,1fr);
-
     gap:9px;
   }
 
@@ -1521,67 +1359,31 @@ img{
 
 
 <!-- ========================================
-     V13 기록 보관소
-     단일선 마름모
+     V14 기록 보관소
+     기존 일렬 배치
+     메뉴 간격 60%
 ======================================== -->
 
 <section class="screen hidden" id="archive">
 
   <div class="content archive-content">
 
-    <div class="archive-diamond">
+    <img
+      class="archive-title-image"
+      src="yuhwa-title.png"
+      alt="留華"
+    >
 
-      <!-- 마름모 선 하나 -->
+    <div class="eyebrow archive-eyebrow">
+      THE ARCHIVE OF YUHWA
+    </div>
 
-      <svg
-        class="diamond-lines"
-        viewBox="0 0 1000 1000"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
+    <div class="cards">
 
-        <path
-          class="diamond-line"
-          vector-effect="non-scaling-stroke"
-          d="
-            M 444 202
-            L 207 427
-
-            M 207 573
-            L 439 793
-
-            M 561 793
-            L 793 573
-
-            M 793 427
-            L 556 202
-          "
-        />
-
-      </svg>
-
-
-      <!-- 중앙 유화 붓글씨 -->
-
-      <div class="diamond-center">
-
-        <img
-          class="archive-title-image"
-          src="yuhwa-title.png"
-          alt="留華"
-        >
-
-        <div class="eyebrow archive-eyebrow">
-          THE ARCHIVE OF YUHWA
-        </div>
-
-      </div>
-
-
-      <!-- 상단 : 壹 -->
+      <!-- 壹 : 그의 모습 -->
 
       <button
-        class="diamond-menu menu-first"
+        class="card"
         type="button"
         onclick="goTo('album-cover')"
       >
@@ -1592,21 +1394,17 @@ img{
           alt="壹"
         >
 
-        <small>
-          THE PORTRAITS
-        </small>
+        <small>THE PORTRAITS</small>
 
-        <p>
-          그의 모습
-        </p>
+        <p>그의 모습</p>
 
       </button>
 
 
-      <!-- 좌측 : 貳 -->
+      <!-- 貳 : 오래된 기억 -->
 
       <button
-        class="diamond-menu menu-second"
+        class="card"
         type="button"
         onclick="goTo('memories')"
       >
@@ -1617,21 +1415,17 @@ img{
           alt="貳"
         >
 
-        <small>
-          THE MEMORIES
-        </small>
+        <small>THE MEMORIES</small>
 
-        <p>
-          오래된 기억
-        </p>
+        <p>오래된 기억</p>
 
       </button>
 
 
-      <!-- 우측 : 參 -->
+      <!-- 參 : 그의 목소리 -->
 
       <button
-        class="diamond-menu menu-third"
+        class="card"
         type="button"
         onclick="goTo('voice')"
       >
@@ -1642,27 +1436,20 @@ img{
           alt="參"
         >
 
-        <small>
-          THE VOICE
-        </small>
+        <small>THE VOICE</small>
 
-        <p>
-          그의 목소리
-        </p>
+        <p>그의 목소리</p>
 
       </button>
 
-
-      <!-- 하단 : 흰 꽃 -->
-
-      <button
-        class="flower-enter diamond-flower"
-        type="button"
-        data-target="entrance"
-        aria-label="첫 화면으로 돌아가기"
-      ></button>
-
     </div>
+
+    <button
+      class="flower-enter"
+      type="button"
+      data-target="entrance"
+      aria-label="첫 화면으로 돌아가기"
+    ></button>
 
   </div>
 
@@ -1921,7 +1708,7 @@ img{
 
 
 <!-- ========================================
-     사진 확대
+     사진 확대 화면
 ======================================== -->
 
 <div
@@ -1970,13 +1757,11 @@ img{
 <script>
 
 /* ========================================
-   V13 유화 사진 32장
+   사진 32장 및 확정 대사
 
-   모든 사진 PNG 사용
-
-   \n = 두 문장 사이 강제 줄바꿈
-
-   쉼표는 강제 줄바꿈하지 않음
+   모든 이미지 PNG
+   문장 사이 \n 줄바꿈
+   쉼표는 자연스러운 줄바꿈
 ======================================== */
 
 const photos=[
@@ -2171,11 +1956,10 @@ function numberFormat(n){
 
 
 /* ========================================
-   V13 사진 경로 로딩 보완
+   이미지 경로 및 오류 보완
 ======================================== */
 
-const assetVersion="v13";
-
+const assetVersion="v14";
 const resolvedPhotos=new Map();
 
 function imageURL(file){
@@ -2186,14 +1970,14 @@ function imageURL(file){
 
 }
 
-
-/* 사진 파일 경로 후보 */
-
 function photoCandidates(index){
 
   const original=photos[index].src;
 
-  const base=original.replace(/\.png$/i,"");
+  const base=original.replace(
+    /\.png$/i,
+    ""
+  );
 
   const shortBase=base.replace(
     /^portrait-0(\d)/,
@@ -2221,9 +2005,6 @@ function photoCandidates(index){
 
 }
 
-
-/* 정상적으로 불러온 경로는 재사용 */
-
 function getPhotoSource(index){
 
   return resolvedPhotos.get(index)||
@@ -2231,40 +2012,30 @@ function getPhotoSource(index){
 
 }
 
-
-/* 이미지 로딩 실패 시 후보 경로 시도 */
-
 function loadPortrait(img,index){
 
   if(img._portraitCleanup){
+
     img._portraitCleanup();
+
   }
 
-  let candidates=photoCandidates(index);
+  img.alt="유화의 모습 "+(index+1);
 
-  let attempt=0;
+  let candidates=photoCandidates(index)
+    .map(imageURL);
 
   const cached=resolvedPhotos.get(index);
 
   if(cached){
 
     candidates=[
-
-      ...new Set([
-
-        cached,
-
-        ...candidates.map(imageURL)
-
-      ])
-
+      ...new Set([cached,...candidates])
     ];
 
-  }else{
-
-    candidates=candidates.map(imageURL);
-
   }
+
+  let attempt=0;
 
   function cleanup(){
 
@@ -2304,7 +2075,6 @@ function loadPortrait(img,index){
     }else{
 
       img.alt=
-
         "사진 파일을 불러올 수 없습니다: "+
         photos[index].src;
 
@@ -2337,7 +2107,7 @@ function loadPortrait(img,index){
 
 
 /* ========================================
-   공통 화면 전환
+   화면 전환
 ======================================== */
 
 function goTo(target){
@@ -2373,7 +2143,6 @@ function goTo(target){
   setTimeout(()=>{
 
     previous.classList.add("hidden");
-
     previous.classList.remove("fading");
 
     bookCoverButton.classList.remove(
@@ -2381,7 +2150,6 @@ function goTo(target){
     );
 
     next.classList.add("fading");
-
     next.classList.remove("hidden");
 
     currentScreen=target;
@@ -2410,7 +2178,7 @@ function goTo(target){
 
 
 /* ========================================
-   꽃잎 8장
+   흰 꽃 및 꽃잎 애니메이션
 ======================================== */
 
 const petalSettings=[
@@ -2432,7 +2200,6 @@ const petalSettings=[
   [-8,43,-16,15,149,1.46,3.1,-15,210]
 
 ];
-
 
 function createPetalSVG(index){
 
@@ -2507,7 +2274,6 @@ function createPetalSVG(index){
 
 }
 
-
 const flowerButtons=[
 
   ...document.querySelectorAll(
@@ -2515,7 +2281,6 @@ const flowerButtons=[
   )
 
 ];
-
 
 flowerButtons.forEach((button,buttonIndex)=>{
 
@@ -2547,7 +2312,6 @@ flowerButtons.forEach((button,buttonIndex)=>{
     const [
 
       x,y,sway,drift,fall,
-
       delay,duration,rotate,end
 
     ]=setting;
@@ -2565,21 +2329,13 @@ flowerButtons.forEach((button,buttonIndex)=>{
     const properties={
 
       "--start-x":x+"px",
-
       "--start-y":y+"px",
-
       "--sway":sway+"px",
-
       "--drift":drift+"px",
-
       "--fall":fall+"px",
-
       "--delay":delay+"s",
-
       "--duration":duration+"s",
-
       "--start-rotate":rotate+"deg",
-
       "--end-rotate":end+"deg"
 
     };
@@ -2601,7 +2357,6 @@ flowerButtons.forEach((button,buttonIndex)=>{
 
   });
 
-
   button.addEventListener(
     "pointerenter",
     event=>{
@@ -2615,7 +2370,6 @@ flowerButtons.forEach((button,buttonIndex)=>{
     }
   );
 
-
   button.addEventListener(
     "pointerleave",
     ()=>{
@@ -2626,7 +2380,6 @@ flowerButtons.forEach((button,buttonIndex)=>{
 
     }
   );
-
 
   button.addEventListener(
     "focus",
@@ -2641,7 +2394,6 @@ flowerButtons.forEach((button,buttonIndex)=>{
     }
   );
 
-
   button.addEventListener(
     "blur",
     ()=>{
@@ -2652,7 +2404,6 @@ flowerButtons.forEach((button,buttonIndex)=>{
 
     }
   );
-
 
   button.addEventListener(
     "click",
@@ -2796,8 +2547,7 @@ function fillLeftPage(
 
 /* ========================================
    오른쪽 대사 페이지
-
-   留華 서명 없음
+   유화 한자 서명 없음
 ======================================== */
 
 function createRightPage(index){
@@ -2838,7 +2588,7 @@ function fillRightPage(element,index){
 }
 
 
-/* 다음 사진 미리 불러오기 */
+/* 인접 사진 미리 불러오기 */
 
 function preloadAdjacent(index){
 
@@ -2863,7 +2613,7 @@ function preloadAdjacent(index){
 
 
 /* ========================================
-   현재 페이지 표시
+   페이지 표시
 ======================================== */
 
 function renderPage(){
@@ -3086,7 +2836,6 @@ function turnPage(direction){
   }
 
   sheet.appendChild(front);
-
   sheet.appendChild(back);
 
   sheet.setAttribute(
@@ -3152,8 +2901,6 @@ rightPage.addEventListener("click",()=>{
 
 });
 
-
-/* 키보드 접근 */
 
 leftPage.addEventListener(
   "keydown",
@@ -3351,7 +3098,7 @@ function openGallery(){
 
 
 /* ========================================
-   사진 확대 보기
+   사진 확대
 ======================================== */
 
 let lightboxIndex=0;
@@ -3370,8 +3117,6 @@ const lightboxCount=document.getElementById(
   "lightboxCount"
 );
 
-
-/* 확대 화면 활성화 */
 
 function showLightbox(index,allowAll){
 
@@ -3408,8 +3153,6 @@ function showLightbox(index,allowAll){
 
 }
 
-
-/* 확대 사진 변경 */
 
 function updateLightbox(){
 
@@ -3502,7 +3245,7 @@ lightbox.addEventListener(
 );
 
 
-/* 확대 화면에서 모바일 스와이프 */
+/* 확대 화면 스와이프 */
 
 let lightboxTouchStart=0;
 
@@ -3549,7 +3292,7 @@ lightbox.addEventListener(
 
 
 /* ========================================
-   방향키 및 ESC
+   키보드 지원
 ======================================== */
 
 document.addEventListener(
