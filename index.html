@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>留華</title>
 
@@ -13,7 +13,8 @@ href="https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri.css">
 <style>
 
 /* ========================================
-   留華 V12 : 기본 설정
+   留華 V13
+   기본 환경
 ======================================== */
 
 :root{
@@ -25,7 +26,9 @@ href="https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri.css">
   --ink:#51473e;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 html,body{
   margin:0;
@@ -34,8 +37,8 @@ html,body{
 }
 
 body{
-  font-family:"Maru Buri","Malgun Gothic",serif;
   color:var(--ivory);
+  font-family:"Maru Buri","Malgun Gothic",serif;
 }
 
 button{
@@ -48,7 +51,7 @@ button{
 button:focus-visible,
 [role="button"]:focus-visible{
   outline:1px solid #d9b78f;
-  outline-offset:4px;
+  outline-offset:5px;
 }
 
 img{
@@ -67,12 +70,17 @@ img{
 .screen{
   min-height:100vh;
   min-height:100svh;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   position:relative;
+
   text-align:center;
+
   padding:40px 30px;
+
   overflow:hidden;
 
   background:radial-gradient(
@@ -116,9 +124,12 @@ img{
 
 .title-image{
   display:block;
+
   width:min(250px,62vw);
   height:clamp(230px,43vh,390px);
+
   object-fit:contain;
+
   margin:0 auto;
 
   filter:drop-shadow(
@@ -128,24 +139,30 @@ img{
 
 .quote{
   margin-top:28px;
+
   font-size:14px;
   font-weight:400;
   line-height:1.7;
+
   color:var(--muted);
+
   word-break:keep-all;
 }
 
 /* ========================================
-   공통 꽃 버튼
+   공통 흰 꽃 버튼
 ======================================== */
 
 .flower-enter{
   display:block;
   position:relative;
+
   width:150px;
   height:250px;
+
   margin:6px auto 0;
   padding:0;
+
   border:0;
   background:transparent;
 }
@@ -153,11 +170,15 @@ img{
 .flower-stage{
   position:absolute;
   display:block;
+
   width:250px;
   height:250px;
+
   top:0;
   left:50%;
+
   transform:translateX(-50%);
+
   pointer-events:none;
 }
 
@@ -165,11 +186,15 @@ img{
   position:absolute;
   display:block;
   z-index:2;
+
   width:150px;
   height:150px;
+
   top:5px;
   left:50%;
+
   transform:translateX(-50%);
+
   object-fit:contain;
 
   filter:drop-shadow(
@@ -181,25 +206,34 @@ img{
   position:absolute;
   inset:0;
   z-index:3;
+
   pointer-events:none;
 }
 
 .falling-petal{
   position:absolute;
+
   left:50%;
   top:80px;
+
   width:19px;
   height:34px;
+
   opacity:0;
+
   transform-origin:50% 15%;
+
   pointer-events:none;
+
   will-change:transform,opacity;
 }
 
 .falling-petal svg{
   display:block;
+
   width:100%;
   height:100%;
+
   overflow:visible;
 
   filter:drop-shadow(
@@ -217,6 +251,7 @@ img{
 
   0%{
     opacity:0;
+
     transform:
       translate(
         var(--start-x),
@@ -232,6 +267,7 @@ img{
 
   30%{
     opacity:.95;
+
     transform:
       translate(
         calc(var(--start-x) + var(--sway)),
@@ -243,6 +279,7 @@ img{
 
   60%{
     opacity:.85;
+
     transform:
       translate(
         calc(var(--start-x) - var(--sway)),
@@ -258,6 +295,7 @@ img{
 
   100%{
     opacity:0;
+
     transform:
       translate(
         calc(var(--start-x) + var(--drift)),
@@ -270,85 +308,203 @@ img{
 }
 
 /* ========================================
-   기록 보관소
+   V13 기록 보관소
+   단일선 마름모
 ======================================== */
+
+.archive-content{
+  max-width:850px;
+  margin:0 auto;
+}
+
+.archive-diamond{
+  position:relative;
+
+  width:min(760px,100%);
+  aspect-ratio:1.12;
+
+  margin:0 auto;
+}
+
+/* 마름모 단일선 */
+
+.diamond-lines{
+  position:absolute;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  overflow:visible;
+
+  pointer-events:none;
+}
+
+.diamond-line{
+  fill:none;
+
+  stroke:#ad9275;
+  stroke-width:1;
+
+  opacity:.43;
+
+  transition:
+    opacity .7s ease,
+    stroke .7s ease,
+    filter .7s ease;
+}
+
+.archive-diamond:has(.diamond-menu:hover)
+.diamond-line{
+  opacity:.76;
+  stroke:#cbb08c;
+
+  filter:drop-shadow(
+    0 0 5px #cbb08c50
+  );
+}
+
+/* ========================================
+   마름모 중앙 유화 로고
+======================================== */
+
+.diamond-center{
+  position:absolute;
+
+  left:50%;
+  top:49%;
+
+  transform:translate(-50%,-50%);
+
+  width:37%;
+
+  z-index:4;
+
+  pointer-events:none;
+}
 
 .archive-title-image{
   display:block;
-  width:150px;
-  height:175px;
+
+  width:min(155px,90%);
+  height:clamp(110px,23vw,205px);
+
   object-fit:contain;
+
   margin:0 auto;
 
   filter:drop-shadow(
-    0 0 14px #d8bda41e
+    0 0 18px #ded0bc25
   );
 }
 
 .archive-eyebrow{
-  margin-top:15px;
-  margin-bottom:30px;
+  margin-top:14px;
+
+  font-size:9px;
+  letter-spacing:3px;
+
+  line-height:1.6;
 }
 
-/* 테두리 없는 메뉴 */
+/* ========================================
+   마름모 3개 메뉴
+   테두리 및 박스 없음
+======================================== */
 
-.cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:28px;
-  max-width:760px;
-  margin:25px auto 0;
-}
-
-.card{
+.diamond-menu{
   display:flex;
+
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  position:relative;
 
-  min-width:0;
-  min-height:190px;
-  padding:15px 8px;
+  position:absolute;
+
+  width:25%;
+
+  padding:10px 0;
+
+  transform:translate(-50%,-50%);
 
   border:0;
   background:transparent;
+
   text-align:center;
+
+  z-index:5;
+}
+
+/* 壹 : 상단 */
+
+.menu-first{
+  left:50%;
+  top:15%;
+}
+
+/* 貳 : 좌측 */
+
+.menu-second{
+  left:13%;
+  top:50%;
+}
+
+/* 參 : 우측 */
+
+.menu-third{
+  left:87%;
+  top:50%;
 }
 
 .menu-symbol{
   display:block;
+
   width:112px;
   height:112px;
+
+  max-width:100%;
+
   object-fit:contain;
-  margin:0 auto 14px;
-  opacity:.85;
+
+  margin:0 auto 10px;
+
+  opacity:.88;
 
   transition:
     opacity .7s ease,
     filter .7s ease;
 }
 
-.card:hover .menu-symbol,
-.card:focus-visible .menu-symbol{
+.diamond-menu:hover .menu-symbol,
+.diamond-menu:focus-visible .menu-symbol{
   opacity:1;
 
   filter:drop-shadow(
-    0 0 16px rgba(247,227,201,.38)
+    0 0 17px rgba(247,227,201,.45)
   );
 }
 
-.card small{
+.diamond-menu small{
   font-family:Arial,sans-serif;
+
   font-size:10px;
   letter-spacing:2px;
+
   color:#bba992;
-  transition:color .5s;
+
+  line-height:1.4;
+
+  transition:
+    color .5s,
+    text-shadow .5s;
 }
 
-.card p{
-  margin:12px 0 0;
+.diamond-menu p{
+  margin:9px 0 0;
+
   font-size:15px;
+  line-height:1.4;
+
   color:#e7dad0;
 
   transition:
@@ -356,19 +512,40 @@ img{
     text-shadow .5s;
 }
 
-.card:hover p{
+.diamond-menu:hover small{
+  color:#e1c7a5;
+
+  text-shadow:0 0 10px #e1c7a550;
+}
+
+.diamond-menu:hover p{
   color:#fff3e2;
+
   text-shadow:0 0 12px #e7d3b94d;
 }
 
-.card:hover small{
-  color:#e1c7a5;
+/* ========================================
+   마름모 하단 흰 꽃
+======================================== */
+
+.diamond-flower{
+  position:absolute;
+
+  left:50%;
+  top:85%;
+
+  width:150px;
+  height:150px;
+
+  margin:0;
+
+  transform:translate(-50%,-50%);
+
+  z-index:6;
 }
 
-.note{
-  font-size:11px;
-  color:#8c8076;
-  margin-top:25px;
+.diamond-flower .flower-stage{
+  top:0;
 }
 
 /* ========================================
@@ -386,31 +563,38 @@ img{
 
 .album-heading{
   margin:15px 0 30px;
+
   font-weight:400;
   font-size:21px;
   letter-spacing:3px;
 }
 
-/* 책 전체는 움직이지 않음 */
+/* 책 전체는 고정 */
 
 .book-cover-button{
   display:block;
   position:relative;
+
   width:min(340px,72vw);
   aspect-ratio:2/3;
+
   margin:0 auto;
   padding:0;
+
   border:0;
   background:transparent;
+
   perspective:1300px;
   isolation:isolate;
 }
 
-/* 표지 뒤의 종이 단면 */
+/* 표지 뒤 종이 단면 */
 
 .cover-paper-edges{
   position:absolute;
+
   inset:5px 4px 5px 11px;
+
   border-radius:4px 9px 9px 4px;
 
   background:repeating-linear-gradient(
@@ -424,11 +608,11 @@ img{
   box-shadow:0 12px 25px #0006;
 }
 
-/* 표지를 열면 보이는 안쪽 종이 */
-
 .cover-inner-paper{
   position:absolute;
+
   inset:9px 9px 9px 16px;
+
   border-radius:2px 5px 5px 2px;
 
   background:linear-gradient(
@@ -440,22 +624,29 @@ img{
   );
 
   border:1px solid #bba88c;
-  pointer-events:none;
+
   overflow:hidden;
+
+  pointer-events:none;
 }
 
 .cover-inner-paper::after{
   content:"";
+
   position:absolute;
   inset:15px;
+
   border:1px solid #aa967c38;
 }
 
-/* 실제로 움직이는 표지만 따로 분리 */
+/* 움직이는 책 표지 */
 
 .cover-leaf{
   position:absolute;
   inset:0;
+
+  z-index:3;
+
   transform-origin:left center;
   transform-style:preserve-3d;
 
@@ -463,19 +654,19 @@ img{
 
   transition:
     transform .7s cubic-bezier(.22,.7,.25,1);
-
-  z-index:3;
 }
-
-/* 보내준 실제 고서 이미지 */
 
 .book-cover-image{
   position:absolute;
   inset:0;
+
   display:block;
+
   width:100%;
   height:100%;
+
   object-fit:contain;
+
   backface-visibility:hidden;
 
   filter:drop-shadow(
@@ -483,12 +674,12 @@ img{
   );
 }
 
-/* 표지 뒷면 */
-
 .cover-leaf-back{
   position:absolute;
   inset:5px;
+
   border-radius:4px;
+
   backface-visibility:hidden;
   transform:rotateY(180deg);
 
@@ -500,10 +691,11 @@ img{
     #bfad92
   );
 
-  box-shadow:inset 0 0 25px #77634b30;
+  box-shadow:
+    inset 0 0 25px #77634b30;
 }
 
-/* 호버했을 때 표지만 살짝 열림 */
+/* 마우스를 올리면 표지만 살짝 열림 */
 
 @media(hover:hover) and (pointer:fine){
 
@@ -519,7 +711,7 @@ img{
   transform:rotateY(-23deg);
 }
 
-/* 클릭했을 때 책 표지 열림 */
+/* 클릭하면 표지가 열림 */
 
 .book-cover-button.opening
 .cover-leaf{
@@ -530,10 +722,12 @@ img{
 }
 
 .cover-hint{
+  margin-top:22px;
+
   font-size:12px;
   color:#a89989;
+
   letter-spacing:1px;
-  margin-top:22px;
 }
 
 /* ========================================
@@ -549,17 +743,21 @@ img{
   margin-bottom:26px;
 }
 
-/* 모든 사진에서 동일한 책 크기 */
+/* 사진 크기와 무관하게 책 크기 고정 */
 
 .book{
   position:relative;
+
   width:min(960px,100%);
   aspect-ratio:1.65;
+
   margin:0 auto;
-  perspective:1800px;
   padding:9px;
 
+  perspective:1800px;
+
   background:#292521;
+
   border-radius:6px 10px 10px 6px;
 
   box-shadow:
@@ -572,21 +770,29 @@ img{
 
 .book-spread{
   display:grid;
+
   grid-template-columns:1fr 1fr;
+
   position:relative;
+
   width:100%;
   height:100%;
 }
 
 .page{
   position:relative;
+
   width:100%;
   height:100%;
+
   min-width:0;
   min-height:0;
+
   overflow:hidden;
+
   color:var(--ink);
   background:var(--paper);
+
   cursor:pointer;
 }
 
@@ -616,19 +822,26 @@ img{
 
 .page::after{
   content:"";
+
   position:absolute;
   inset:5%;
+
   border:1px solid rgba(128,105,75,.13);
+
   pointer-events:none;
 }
 
 .book-spine{
   position:absolute;
+
   z-index:5;
+
   top:0;
   bottom:0;
   left:50%;
+
   width:24px;
+
   transform:translateX(-50%);
 
   background:linear-gradient(
@@ -643,10 +856,13 @@ img{
   pointer-events:none;
 }
 
-/* 고정된 사진 영역 */
+/* ========================================
+   사진 영역
+======================================== */
 
 .photo-frame{
   position:absolute;
+
   top:8%;
   right:9%;
   bottom:12%;
@@ -655,73 +871,98 @@ img{
   display:flex;
   align-items:center;
   justify-content:center;
+
   overflow:hidden;
 }
 
 .album-photo{
   display:block;
+
   width:100%;
   height:100%;
+
   object-fit:contain;
+
   pointer-events:none;
 }
 
 .photo-number{
   position:absolute;
+
   left:0;
   right:0;
   bottom:5%;
 
   font-family:Arial,sans-serif;
+
   font-size:9px;
   letter-spacing:3px;
+
   color:#8e7e69;
 }
 
 /* ========================================
-   유화의 한마디
-   한자 서명 삭제 / 행간 축소
+   유화의 대사
+   문장 사이 줄바꿈
+   쉼표는 자연스러운 행바꿈
 ======================================== */
 
 .page-writing{
   display:flex;
+
   flex-direction:column;
   align-items:center;
   justify-content:center;
+
   height:100%;
-  padding:12%;
+
+  padding:9%;
 }
 
 .chapter-number{
   font-family:Arial,sans-serif;
+
   font-size:9px;
   letter-spacing:3px;
+
   color:#9a846b;
 }
 
 .page-decoration{
   font-size:25px;
+
   color:#aa9378;
+
   margin:20px 0;
 }
 
 .photo-quote{
+  width:100%;
+
   font-size:clamp(12px,1.7vw,19px);
-  line-height:1.5;
   font-weight:400;
+
+  line-height:1.5;
+
   word-break:keep-all;
   overflow-wrap:break-word;
   white-space:pre-line;
+
+  text-wrap:pretty;
+
   color:#52463c;
 }
 
-/* 사진 확대 */
+/* 사진 확대 버튼 */
 
 .zoom-button{
   position:absolute;
+
   z-index:8;
+
   right:7%;
   bottom:5%;
+
   width:30px;
   height:30px;
 
@@ -730,26 +971,34 @@ img{
 
   color:#75634d;
   background:#eee3d5b0;
+
   padding:0;
+
   font-size:15px;
 }
 
 /* ========================================
-   기존 입체적인 책장 넘김
+   실제 책장 넘김
 ======================================== */
 
 .flip-sheet{
   position:absolute;
+
   z-index:20;
+
   top:0;
+
   width:50%;
   height:100%;
+
   transform-style:preserve-3d;
+
   pointer-events:none;
 }
 
 .flip-sheet.forward{
   left:50%;
+
   transform-origin:left center;
 
   animation:
@@ -760,6 +1009,7 @@ img{
 
 .flip-sheet.backward{
   left:0;
+
   transform-origin:right center;
 
   animation:
@@ -771,8 +1021,11 @@ img{
 .flip-face{
   position:absolute;
   inset:0;
+
   backface-visibility:hidden;
+
   overflow:hidden;
+
   box-shadow:8px 2px 20px #0002;
 }
 
@@ -781,13 +1034,27 @@ img{
 }
 
 @keyframes turnForward{
-  from{transform:rotateY(0deg)}
-  to{transform:rotateY(-180deg)}
+
+  from{
+    transform:rotateY(0deg);
+  }
+
+  to{
+    transform:rotateY(-180deg);
+  }
+
 }
 
 @keyframes turnBackward{
-  from{transform:rotateY(0deg)}
-  to{transform:rotateY(180deg)}
+
+  from{
+    transform:rotateY(0deg);
+  }
+
+  to{
+    transform:rotateY(180deg);
+  }
+
 }
 
 .reader-footer{
@@ -796,32 +1063,39 @@ img{
 
 .page-counter{
   font-family:Arial,sans-serif;
+
   font-size:11px;
-  color:#c1ad96;
   letter-spacing:4px;
+
+  color:#c1ad96;
 }
 
 .reader-hint{
-  font-size:11px;
-  color:#8c8076;
   margin-top:13px;
+
+  font-size:11px;
+
+  color:#8c8076;
 }
 
 /* ========================================
-   마지막 페이지 이후 전체 보기
+   마지막 사진 이후 전체 보기
 ======================================== */
 
 .view-all-button{
   display:block;
+
   margin:24px auto 0;
   padding:10px 24px;
 
   border:0;
   border-bottom:1px solid #b99a7580;
+
   background:transparent;
 
   font-size:14px;
   letter-spacing:2px;
+
   color:#ead8bd;
 
   transition:
@@ -831,11 +1105,12 @@ img{
 
 .view-all-button:hover{
   color:#fff4df;
+
   text-shadow:0 0 12px #dfb78580;
 }
 
 /* ========================================
-   전체 사진 보기
+   전체 갤러리
 ======================================== */
 
 .gallery-content{
@@ -845,25 +1120,34 @@ img{
 
 .gallery{
   display:grid;
+
   grid-template-columns:repeat(3,1fr);
+
   gap:16px;
+
   margin:35px auto 0;
 }
 
 .gallery-item{
   display:block;
   position:relative;
+
   padding:0;
+
   border:0;
   background:#ffffff04;
+
   overflow:hidden;
+
   aspect-ratio:3/4;
 }
 
 .gallery-item img{
   display:block;
+
   width:100%;
   height:100%;
+
   object-fit:cover;
 
   transition:
@@ -873,29 +1157,35 @@ img{
 
 .gallery-item:hover img{
   transform:scale(1.035);
+
   filter:brightness(1.08);
 }
 
 .gallery-index{
   position:absolute;
+
   bottom:10px;
   left:12px;
 
   font-family:Arial,sans-serif;
+
   font-size:10px;
   letter-spacing:2px;
+
   color:#fff;
 
   text-shadow:0 1px 7px #000;
 }
 
 /* ========================================
-   사진 확대 보기
+   사진 전체 화면 확대
 ======================================== */
 
 .lightbox{
   position:fixed;
+
   z-index:1000;
+
   inset:0;
 
   display:flex;
@@ -903,21 +1193,27 @@ img{
   justify-content:center;
 
   background:#08070bed;
+
   padding:35px 55px;
 }
 
 .lightbox-image{
   display:block;
+
   max-width:100%;
   max-height:85vh;
+
   object-fit:contain;
+
   box-shadow:0 10px 50px #0008;
 }
 
 .lightbox-close{
   position:absolute;
+
   top:20px;
   right:24px;
+
   width:38px;
   height:38px;
 
@@ -925,34 +1221,48 @@ img{
   background:transparent;
 
   font-size:28px;
+
   color:#eee1ce;
 }
 
 .lightbox-arrow{
   position:absolute;
+
   top:50%;
+
   transform:translateY(-50%);
 
   border:0;
   background:transparent;
+
   padding:10px;
 
   font-size:25px;
+
   color:#cbb49a;
 }
 
-.lightbox-prev{left:12px}
-.lightbox-next{right:12px}
+.lightbox-prev{
+  left:12px;
+}
+
+.lightbox-next{
+  right:12px;
+}
 
 .lightbox-count{
   position:absolute;
+
   bottom:18px;
   left:0;
   right:0;
+
   text-align:center;
 
   font:10px Arial,sans-serif;
+
   letter-spacing:3px;
+
   color:#b7a28e;
 }
 
@@ -975,42 +1285,73 @@ img{
     line-height:1.6;
   }
 
-  .archive-title-image{
-    width:120px;
-    height:150px;
-  }
-
   .eyebrow{
     font-size:9px;
     letter-spacing:3px;
   }
 
-  .cards{
-    grid-template-columns:repeat(3,1fr);
-    gap:7px;
-    margin-top:18px;
+  /* 모바일 마름모 */
+
+  .archive-diamond{
+    width:100%;
+    aspect-ratio:.76;
+
+    margin:10px auto 0;
   }
 
-  .card{
-    min-height:130px;
-    padding:8px 2px;
+  .diamond-menu{
+    width:29%;
+  }
+
+  .menu-first{
+    top:15%;
+  }
+
+  .menu-second{
+    left:14%;
+  }
+
+  .menu-third{
+    left:86%;
   }
 
   .menu-symbol{
-    width:74px;
-    height:74px;
-    max-width:100%;
-    margin-bottom:10px;
+    width:70px;
+    height:75px;
+
+    margin-bottom:8px;
   }
 
-  .card small{
+  .diamond-menu small{
     font-size:7px;
-    letter-spacing:.8px;
+
+    letter-spacing:.5px;
   }
 
-  .card p{
-    font-size:12px;
-    margin-top:9px;
+  .diamond-menu p{
+    font-size:11px;
+
+    margin-top:7px;
+  }
+
+  .diamond-center{
+    width:37%;
+  }
+
+  .archive-title-image{
+    width:100px;
+    height:135px;
+
+    max-width:100%;
+  }
+
+  .archive-eyebrow{
+    margin-top:8px;
+
+    font-size:7px;
+    letter-spacing:1px;
+
+    line-height:1.5;
   }
 
   .flower-enter{
@@ -1019,8 +1360,22 @@ img{
   }
 
   .flower-stage{
-    transform:translateX(-50%) scale(.87);
+    transform:
+      translateX(-50%) scale(.87);
+
     transform-origin:top center;
+  }
+
+  .diamond-flower{
+    width:110px;
+    height:110px;
+
+    margin:0;
+  }
+
+  .diamond-flower .flower-stage{
+    transform:
+      translateX(-50%) scale(.73);
   }
 
   .book-cover-button{
@@ -1070,11 +1425,13 @@ img{
   .zoom-button{
     width:24px;
     height:24px;
+
     font-size:12px;
   }
 
   .gallery{
     grid-template-columns:repeat(2,1fr);
+
     gap:9px;
   }
 
@@ -1087,13 +1444,18 @@ img{
     padding:3px;
   }
 
-  .lightbox-prev{left:5px}
-  .lightbox-next{right:5px}
+  .lightbox-prev{
+    left:5px;
+  }
+
+  .lightbox-next{
+    right:5px;
+  }
 
 }
 
 /* ========================================
-   움직임 최소화 사용자 설정
+   움직임 최소화 설정
 ======================================== */
 
 @media(prefers-reduced-motion:reduce){
@@ -1121,6 +1483,7 @@ img{
 </style>
 </head>
 
+
 <body>
 
 <!-- ========================================
@@ -1138,8 +1501,11 @@ img{
     >
 
     <div class="quote">
+
       빛 한 줄기 들지 않는 시간을 홀로 견뎌냈다.<br>
+
       끝 모를 고독의 끝자락에서, 마침내 너를 만났다.
+
     </div>
 
     <button
@@ -1155,27 +1521,67 @@ img{
 
 
 <!-- ========================================
-     기록 보관소
+     V13 기록 보관소
+     단일선 마름모
 ======================================== -->
 
 <section class="screen hidden" id="archive">
 
-  <div class="content">
+  <div class="content archive-content">
 
-    <img
-      class="archive-title-image"
-      src="yuhwa-title.png"
-      alt="留華"
-    >
+    <div class="archive-diamond">
 
-    <div class="eyebrow archive-eyebrow">
-      THE ARCHIVE OF YUHWA
-    </div>
+      <!-- 마름모 선 하나 -->
 
-    <div class="cards">
+      <svg
+        class="diamond-lines"
+        viewBox="0 0 1000 1000"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+
+        <path
+          class="diamond-line"
+          vector-effect="non-scaling-stroke"
+          d="
+            M 444 202
+            L 207 427
+
+            M 207 573
+            L 439 793
+
+            M 561 793
+            L 793 573
+
+            M 793 427
+            L 556 202
+          "
+        />
+
+      </svg>
+
+
+      <!-- 중앙 유화 붓글씨 -->
+
+      <div class="diamond-center">
+
+        <img
+          class="archive-title-image"
+          src="yuhwa-title.png"
+          alt="留華"
+        >
+
+        <div class="eyebrow archive-eyebrow">
+          THE ARCHIVE OF YUHWA
+        </div>
+
+      </div>
+
+
+      <!-- 상단 : 壹 -->
 
       <button
-        class="card"
+        class="diamond-menu menu-first"
         type="button"
         onclick="goTo('album-cover')"
       >
@@ -1186,13 +1592,21 @@ img{
           alt="壹"
         >
 
-        <small>THE PORTRAITS</small>
-        <p>그의 모습</p>
+        <small>
+          THE PORTRAITS
+        </small>
+
+        <p>
+          그의 모습
+        </p>
 
       </button>
 
+
+      <!-- 좌측 : 貳 -->
+
       <button
-        class="card"
+        class="diamond-menu menu-second"
         type="button"
         onclick="goTo('memories')"
       >
@@ -1203,13 +1617,21 @@ img{
           alt="貳"
         >
 
-        <small>THE MEMORIES</small>
-        <p>오래된 기억</p>
+        <small>
+          THE MEMORIES
+        </small>
+
+        <p>
+          오래된 기억
+        </p>
 
       </button>
 
+
+      <!-- 우측 : 參 -->
+
       <button
-        class="card"
+        class="diamond-menu menu-third"
         type="button"
         onclick="goTo('voice')"
       >
@@ -1220,23 +1642,27 @@ img{
           alt="參"
         >
 
-        <small>THE VOICE</small>
-        <p>그의 목소리</p>
+        <small>
+          THE VOICE
+        </small>
+
+        <p>
+          그의 목소리
+        </p>
 
       </button>
 
+
+      <!-- 하단 : 흰 꽃 -->
+
+      <button
+        class="flower-enter diamond-flower"
+        type="button"
+        data-target="entrance"
+        aria-label="첫 화면으로 돌아가기"
+      ></button>
+
     </div>
-
-    <p class="note">
-      기록은 아직 잠들어 있다.
-    </p>
-
-    <button
-      class="flower-enter"
-      type="button"
-      data-target="entrance"
-      aria-label="첫 화면으로 돌아가기"
-    ></button>
 
   </div>
 
@@ -1245,7 +1671,6 @@ img{
 
 <!-- ========================================
      사진첩 표지
-     한글 제목 삭제
 ======================================== -->
 
 <section class="screen hidden" id="album-cover">
@@ -1264,8 +1689,6 @@ img{
       aria-label="유화의 사진첩 열기"
     >
 
-      <!-- 표지 뒤의 종이 -->
-
       <span
         class="cover-paper-edges"
         aria-hidden="true"
@@ -1275,8 +1698,6 @@ img{
         class="cover-inner-paper"
         aria-hidden="true"
       ></span>
-
-      <!-- 실제 고서 표지 -->
 
       <span class="cover-leaf">
 
@@ -1406,7 +1827,10 @@ img{
       유화의 모든 모습
     </h1>
 
-    <div class="gallery" id="galleryGrid"></div>
+    <div
+      class="gallery"
+      id="galleryGrid"
+    ></div>
 
     <button
       class="flower-enter"
@@ -1546,7 +1970,13 @@ img{
 <script>
 
 /* ========================================
-   유화 사진 32장 및 확정 대사
+   V13 유화 사진 32장
+
+   모든 사진 PNG 사용
+
+   \n = 두 문장 사이 강제 줄바꿈
+
+   쉼표는 강제 줄바꿈하지 않음
 ======================================== */
 
 const photos=[
@@ -1558,12 +1988,12 @@ const photos=[
 
   {
     src:"portrait-02.png",
-    quote:"쉿. 조금만 조용히 해보렴. 네가 자꾸 신경 쓰이잖니."
+    quote:"쉿.\n조금만 조용히 해보렴.\n네가 자꾸 신경 쓰이잖니."
   },
 
   {
     src:"portrait-03.png",
-    quote:"이리 와. 이번에는 네가 먼저 내 손을 잡아봐."
+    quote:"이리 와.\n이번에는 네가 먼저 내 손을 잡아봐."
   },
 
   {
@@ -1583,7 +2013,7 @@ const photos=[
 
   {
     src:"portrait-07.png",
-    quote:"잘 다녀와. 나는 늘 여기에 있으니."
+    quote:"잘 다녀와.\n나는 늘 여기에 있으니."
   },
 
   {
@@ -1593,12 +2023,12 @@ const photos=[
 
   {
     src:"portrait-09.png",
-    quote:"왜, 오늘은 나랑 좀 놀아줄 생각이 드니?"
+    quote:".... 살짝 졸려."
   },
 
   {
     src:"portrait-10.png",
-    quote:"내가 언제부터 그리 만만한 사내였을까."
+    quote:"거기서 봐도 잘생겼을 텐데."
   },
 
   {
@@ -1608,12 +2038,12 @@ const photos=[
 
   {
     src:"portrait-12.png",
-    quote:"어떠냐. 네 눈에도 제법 근사한 사내니?"
+    quote:"어떠냐.\n네 눈에도 제법 근사한 사내니?"
   },
 
   {
     src:"portrait-13.png",
-    quote:"나도 가끔은 아무 생각 없이 있고 싶단다."
+    quote:"....... (멍)"
   },
 
   {
@@ -1623,7 +2053,7 @@ const photos=[
 
   {
     src:"portrait-15.png",
-    quote:"하하, 너는 참 별난 인간이야. 그래서 좋지만."
+    quote:"하하, 너는 참 별난 인간이야.\n그래서 좋지만."
   },
 
   {
@@ -1633,22 +2063,22 @@ const photos=[
 
   {
     src:"portrait-17.png",
-    quote:"거기 서서 뭐 하니. 내 옆자리는 비워뒀는데."
+    quote:"내가 지금 몇 시간을 기다렸는지 알아?"
   },
 
   {
     src:"portrait-18.png",
-    quote:"오늘은 이 옷이 마음에 드니? 네게 보여주려고 골랐는데."
+    quote:"내가 먼저, 벗을까?"
   },
 
   {
     src:"portrait-19.png",
-    quote:"내가 지금도 장난을 치는 것처럼 보이니?"
+    quote:"대체 어딜다녀 온거야 밤늦게."
   },
 
   {
     src:"portrait-20.png",
-    quote:"전에는 내가 먼저 손을 내밀어야만 했지. 이제는 너도 그럴 수 있잖아."
+    quote:"조금만, 닿아도 될까?"
   },
 
   {
@@ -1658,12 +2088,12 @@ const photos=[
 
   {
     src:"portrait-22-1.png",
-    quote:"왔어? 오늘따라 집이 영 조용하더라."
+    quote:"왔어?\n오늘따라 집이 영 조용하더라."
   },
 
   {
     src:"portrait-22-2.png",
-    quote:"왜 그렇게 아쉬운 얼굴이야. 다시 돌아봐 줘?"
+    quote:"왜 그렇게 아쉬운 얼굴이야.\n다시 돌아봐 줘?"
   },
 
   {
@@ -1673,7 +2103,7 @@ const photos=[
 
   {
     src:"portrait-24.png",
-    quote:"뭘 그렇게 빤히 봐. 반하겠네, 아주."
+    quote:"뭘 그렇게 빤히 봐.\n반하겠네, 아주."
   },
 
   {
@@ -1683,7 +2113,7 @@ const photos=[
 
   {
     src:"portrait-26.png",
-    quote:"이리 와. 아니, 더 가까이."
+    quote:"이리 와.\n아니, 더 가까이."
   },
 
   {
@@ -1693,12 +2123,12 @@ const photos=[
 
   {
     src:"portrait-27.png",
-    quote:"세상은 참 많이도 변했네. 나는 여전히 여기 있는데."
+    quote:"세상은 참 많이도 변했네.\n나는 여전히 여기 있는데."
   },
 
   {
     src:"portrait-28.png",
-    quote:"손 좀 줘 봐. 별일은 아니고, 입 한번 맞추게."
+    quote:"손 좀 줘 봐.\n별일은 아니고, 입 한번 맞추게."
   },
 
   {
@@ -1708,7 +2138,7 @@ const photos=[
 
   {
     src:"portrait-30.png",
-    quote:"오늘은 무슨 일이 있었는데. 천천히 말해 봐."
+    quote:"내게 남은 모든 계절을 너와..."
   }
 
 ];
@@ -1734,7 +2164,175 @@ const bookCoverButton=document.getElementById(
 );
 
 function numberFormat(n){
+
   return String(n).padStart(2,"0");
+
+}
+
+
+/* ========================================
+   V13 사진 경로 로딩 보완
+======================================== */
+
+const assetVersion="v13";
+
+const resolvedPhotos=new Map();
+
+function imageURL(file){
+
+  return "./"+
+    encodeURIComponent(file)+
+    "?v="+assetVersion;
+
+}
+
+
+/* 사진 파일 경로 후보 */
+
+function photoCandidates(index){
+
+  const original=photos[index].src;
+
+  const base=original.replace(/\.png$/i,"");
+
+  const shortBase=base.replace(
+    /^portrait-0(\d)/,
+    "portrait-$1"
+  );
+
+  return [...new Set([
+
+    original,
+
+    base+".PNG",
+
+    base+"(1).png",
+
+    base+" (1).png",
+
+    shortBase+".png",
+
+    original.replace(
+      /^portrait/,
+      "Portrait"
+    )
+
+  ])];
+
+}
+
+
+/* 정상적으로 불러온 경로는 재사용 */
+
+function getPhotoSource(index){
+
+  return resolvedPhotos.get(index)||
+    imageURL(photos[index].src);
+
+}
+
+
+/* 이미지 로딩 실패 시 후보 경로 시도 */
+
+function loadPortrait(img,index){
+
+  if(img._portraitCleanup){
+    img._portraitCleanup();
+  }
+
+  let candidates=photoCandidates(index);
+
+  let attempt=0;
+
+  const cached=resolvedPhotos.get(index);
+
+  if(cached){
+
+    candidates=[
+
+      ...new Set([
+
+        cached,
+
+        ...candidates.map(imageURL)
+
+      ])
+
+    ];
+
+  }else{
+
+    candidates=candidates.map(imageURL);
+
+  }
+
+  function cleanup(){
+
+    img.removeEventListener(
+      "load",
+      onLoad
+    );
+
+    img.removeEventListener(
+      "error",
+      onError
+    );
+
+    img._portraitCleanup=null;
+
+  }
+
+  function onLoad(){
+
+    resolvedPhotos.set(
+      index,
+      img.getAttribute("src")
+    );
+
+    cleanup();
+
+  }
+
+  function onError(){
+
+    attempt++;
+
+    if(attempt<candidates.length){
+
+      img.src=candidates[attempt];
+
+    }else{
+
+      img.alt=
+
+        "사진 파일을 불러올 수 없습니다: "+
+        photos[index].src;
+
+      cleanup();
+
+      console.warn(
+        "사진 경로 확인 필요:",
+        photos[index].src
+      );
+
+    }
+
+  }
+
+  img._portraitCleanup=cleanup;
+
+  img.addEventListener(
+    "load",
+    onLoad
+  );
+
+  img.addEventListener(
+    "error",
+    onError
+  );
+
+  img.src=candidates[0];
+
 }
 
 
@@ -1744,11 +2342,19 @@ function numberFormat(n){
 
 function goTo(target){
 
-  if(transitioning||pageTurning||coverOpening)return;
+  if(
+    transitioning||
+    pageTurning||
+    coverOpening
+  )return;
+
   if(target===currentScreen)return;
 
   const next=document.getElementById(target);
-  const previous=document.getElementById(currentScreen);
+
+  const previous=document.getElementById(
+    currentScreen
+  );
 
   if(!next||!previous)return;
 
@@ -1757,7 +2363,9 @@ function goTo(target){
   resetPetalAnimations();
 
   if(document.activeElement instanceof HTMLElement){
+
     document.activeElement.blur();
+
   }
 
   previous.classList.add("fading");
@@ -1765,13 +2373,15 @@ function goTo(target){
   setTimeout(()=>{
 
     previous.classList.add("hidden");
+
     previous.classList.remove("fading");
 
-    /* 사진첩 표지 초기화 */
-
-    bookCoverButton.classList.remove("opening");
+    bookCoverButton.classList.remove(
+      "opening"
+    );
 
     next.classList.add("fading");
+
     next.classList.remove("hidden");
 
     currentScreen=target;
@@ -1785,7 +2395,9 @@ function goTo(target){
         next.classList.remove("fading");
 
         setTimeout(()=>{
+
           transitioning=false;
+
         },fadeTime);
 
       });
@@ -1798,7 +2410,7 @@ function goTo(target){
 
 
 /* ========================================
-   공통 꽃잎 8장
+   꽃잎 8장
 ======================================== */
 
 const petalSettings=[
@@ -1821,11 +2433,13 @@ const petalSettings=[
 
 ];
 
+
 function createPetalSVG(index){
 
   const id="petal-gradient-"+index;
 
   return `
+
   <svg
     viewBox="0 0 36 66"
     xmlns="http://www.w3.org/2000/svg"
@@ -1841,14 +2455,20 @@ function createPetalSVG(index){
         y2="100%"
       >
 
-        <stop offset="0%"
-          stop-color="#fffdf8"/>
+        <stop
+          offset="0%"
+          stop-color="#fffdf8"
+        />
 
-        <stop offset="45%"
-          stop-color="#f2ede3"/>
+        <stop
+          offset="45%"
+          stop-color="#f2ede3"
+        />
 
-        <stop offset="100%"
-          stop-color="#d6c8b6"/>
+        <stop
+          offset="100%"
+          stop-color="#d6c8b6"
+        />
 
       </linearGradient>
 
@@ -1881,16 +2501,21 @@ function createPetalSVG(index){
       opacity=".45"
     />
 
-  </svg>`;
+  </svg>
+
+  `;
 
 }
 
+
 const flowerButtons=[
-  ...document.querySelectorAll(".flower-enter")
+
+  ...document.querySelectorAll(
+    ".flower-enter"
+  )
+
 ];
 
-
-/* 모든 화면의 꽃 효과 통일 */
 
 flowerButtons.forEach((button,buttonIndex)=>{
 
@@ -1913,16 +2538,23 @@ flowerButtons.forEach((button,buttonIndex)=>{
 
   `;
 
-  const layer=button.querySelector(".petals-layer");
+  const layer=button.querySelector(
+    ".petals-layer"
+  );
 
   petalSettings.forEach((setting,index)=>{
 
     const [
+
       x,y,sway,drift,fall,
+
       delay,duration,rotate,end
+
     ]=setting;
 
-    const petal=document.createElement("span");
+    const petal=document.createElement(
+      "span"
+    );
 
     petal.className="falling-petal";
 
@@ -1933,54 +2565,103 @@ flowerButtons.forEach((button,buttonIndex)=>{
     const properties={
 
       "--start-x":x+"px",
+
       "--start-y":y+"px",
+
       "--sway":sway+"px",
+
       "--drift":drift+"px",
+
       "--fall":fall+"px",
+
       "--delay":delay+"s",
+
       "--duration":duration+"s",
+
       "--start-rotate":rotate+"deg",
+
       "--end-rotate":end+"deg"
 
     };
 
     Object.entries(properties).forEach(
+
       ([name,value])=>{
-        petal.style.setProperty(name,value);
+
+        petal.style.setProperty(
+          name,
+          value
+        );
+
       }
+
     );
 
     layer.appendChild(petal);
 
   });
 
-  button.addEventListener("pointerenter",event=>{
 
-    if(event.pointerType==="mouse"){
-      startPetalAnimation(button);
+  button.addEventListener(
+    "pointerenter",
+    event=>{
+
+      if(event.pointerType==="mouse"){
+
+        startPetalAnimation(button);
+
+      }
+
     }
+  );
 
-  });
 
-  button.addEventListener("pointerleave",()=>{
-    button.classList.remove("is-playing");
-  });
+  button.addEventListener(
+    "pointerleave",
+    ()=>{
 
-  button.addEventListener("focus",()=>{
+      button.classList.remove(
+        "is-playing"
+      );
 
-    if(button.matches(":focus-visible")){
-      startPetalAnimation(button);
     }
+  );
 
-  });
 
-  button.addEventListener("blur",()=>{
-    button.classList.remove("is-playing");
-  });
+  button.addEventListener(
+    "focus",
+    ()=>{
 
-  button.addEventListener("click",()=>{
-    goTo(button.dataset.target);
-  });
+      if(button.matches(":focus-visible")){
+
+        startPetalAnimation(button);
+
+      }
+
+    }
+  );
+
+
+  button.addEventListener(
+    "blur",
+    ()=>{
+
+      button.classList.remove(
+        "is-playing"
+      );
+
+    }
+  );
+
+
+  button.addEventListener(
+    "click",
+    ()=>{
+
+      goTo(button.dataset.target);
+
+    }
+  );
 
 });
 
@@ -1988,7 +2669,11 @@ flowerButtons.forEach((button,buttonIndex)=>{
 function resetPetalAnimations(){
 
   flowerButtons.forEach(button=>{
-    button.classList.remove("is-playing");
+
+    button.classList.remove(
+      "is-playing"
+    );
+
   });
 
 }
@@ -1996,19 +2681,25 @@ function resetPetalAnimations(){
 
 function startPetalAnimation(button){
 
-  if(transitioning||coverOpening||motionReduced)return;
+  if(
+    transitioning||
+    coverOpening||
+    motionReduced
+  )return;
 
   resetPetalAnimations();
 
   void button.offsetWidth;
 
-  button.classList.add("is-playing");
+  button.classList.add(
+    "is-playing"
+  );
 
 }
 
 
 /* ========================================
-   사진첩 상태 관리
+   사진첩 상태
 ======================================== */
 
 let currentPage=0;
@@ -2016,14 +2707,30 @@ let albumCompleted=false;
 
 const visitedPages=new Set();
 
-const leftPage=document.getElementById("leftPage");
-const rightPage=document.getElementById("rightPage");
-const bookSpread=document.getElementById("bookSpread");
-const pageCounter=document.getElementById("pageCounter");
-const viewAllButton=document.getElementById("viewAllButton");
+const leftPage=document.getElementById(
+  "leftPage"
+);
+
+const rightPage=document.getElementById(
+  "rightPage"
+);
+
+const bookSpread=document.getElementById(
+  "bookSpread"
+);
+
+const pageCounter=document.getElementById(
+  "pageCounter"
+);
+
+const viewAllButton=document.getElementById(
+  "viewAllButton"
+);
 
 
-/* 왼쪽 사진 페이지 */
+/* ========================================
+   왼쪽 사진 페이지
+======================================== */
 
 function createLeftPage(index,withZoom=true){
 
@@ -2033,14 +2740,15 @@ function createLeftPage(index,withZoom=true){
 
       <img
         class="album-photo"
-        src="${photos[index].src}"
         alt="유화의 모습 ${index+1}"
       >
 
     </div>
 
     <div class="photo-number">
+
       PORTRAIT ${numberFormat(index+1)}
+
     </div>
 
     ${withZoom?`
@@ -2062,8 +2770,35 @@ function createLeftPage(index,withZoom=true){
 }
 
 
-/* 오른쪽 대사 페이지 */
-/* 유화 한자 서명은 삽입하지 않음 */
+function fillLeftPage(
+  element,
+  index,
+  withZoom=true
+){
+
+  element.innerHTML=createLeftPage(
+    index,
+    withZoom
+  );
+
+  loadPortrait(
+
+    element.querySelector(
+      ".album-photo"
+    ),
+
+    index
+
+  );
+
+}
+
+
+/* ========================================
+   오른쪽 대사 페이지
+
+   留華 서명 없음
+======================================== */
 
 function createRightPage(index){
 
@@ -2072,11 +2807,15 @@ function createRightPage(index){
     <div class="page-writing">
 
       <div class="chapter-number">
+
         THE PORTRAITS · ${numberFormat(index+1)}
+
       </div>
 
       <div class="page-decoration">
+
         ❖
+
       </div>
 
       <div class="photo-quote"></div>
@@ -2092,8 +2831,9 @@ function fillRightPage(element,index){
 
   element.innerHTML=createRightPage(index);
 
-  element.querySelector(".photo-quote").textContent=
-    photos[index].quote;
+  element.querySelector(
+    ".photo-quote"
+  ).textContent=photos[index].quote;
 
 }
 
@@ -2106,10 +2846,14 @@ function preloadAdjacent(index){
 
     const target=index+direction;
 
-    if(target>=0&&target<photos.length){
+    if(
+      target>=0&&
+      target<photos.length
+    ){
 
       const preload=new Image();
-      preload.src=photos[target].src;
+
+      preload.src=getPhotoSource(target);
 
     }
 
@@ -2118,26 +2862,34 @@ function preloadAdjacent(index){
 }
 
 
-/* 페이지 표시 */
+/* ========================================
+   현재 페이지 표시
+======================================== */
 
 function renderPage(){
 
-  leftPage.innerHTML=createLeftPage(currentPage);
+  fillLeftPage(
+    leftPage,
+    currentPage
+  );
 
-  fillRightPage(rightPage,currentPage);
+  fillRightPage(
+    rightPage,
+    currentPage
+  );
 
   pageCounter.textContent=
 
     numberFormat(currentPage+1)+
+
     " / "+
+
     numberFormat(photos.length);
 
   visitedPages.add(currentPage);
 
-  /* 마지막 사진까지 모두 감상했을 때 */
-
   if(
-    currentPage===photos.length-1 &&
+    currentPage===photos.length-1&&
     visitedPages.size===photos.length
   ){
 
@@ -2146,18 +2898,27 @@ function renderPage(){
   }
 
   viewAllButton.classList.toggle(
+
     "hidden",
+
     !albumCompleted
+
   );
 
   leftPage.setAttribute(
+
     "aria-disabled",
+
     String(currentPage===0)
+
   );
 
   rightPage.setAttribute(
+
     "aria-disabled",
+
     String(currentPage===photos.length-1)
+
   );
 
   preloadAdjacent(currentPage);
@@ -2166,16 +2927,21 @@ function renderPage(){
 
 
 /* ========================================
-   V12 표지 열기
+   책 표지 열기
 ======================================== */
 
 function openAlbum(){
 
   if(
+
     transitioning||
+
     pageTurning||
+
     coverOpening||
+
     currentScreen!=="album-cover"
+
   )return;
 
   coverOpening=true;
@@ -2186,7 +2952,9 @@ function openAlbum(){
 
   renderPage();
 
-  bookCoverButton.classList.add("opening");
+  bookCoverButton.classList.add(
+    "opening"
+  );
 
   setTimeout(()=>{
 
@@ -2205,15 +2973,30 @@ function openAlbum(){
 
 function turnPage(direction){
 
-  if(pageTurning||transitioning||coverOpening)return;
+  if(
 
-  if(currentScreen!=="album-reader")return;
+    pageTurning||
 
-  if(!lightbox.classList.contains("hidden"))return;
+    transitioning||
+
+    coverOpening
+
+  )return;
+
+  if(
+    currentScreen!=="album-reader"
+  )return;
+
+  if(
+    !lightbox.classList.contains("hidden")
+  )return;
 
   const nextPage=currentPage+direction;
 
-  if(nextPage<0||nextPage>=photos.length)return;
+  if(
+    nextPage<0||
+    nextPage>=photos.length
+  )return;
 
   if(motionReduced){
 
@@ -2229,15 +3012,27 @@ function turnPage(direction){
 
   const oldPage=currentPage;
 
-  const sheet=document.createElement("div");
+  const sheet=document.createElement(
+    "div"
+  );
 
   sheet.className=
 
     "flip-sheet "+
-    (direction===1?"forward":"backward");
 
-  const front=document.createElement("div");
-  const back=document.createElement("div");
+    (
+      direction===1
+      ?"forward"
+      :"backward"
+    );
+
+  const front=document.createElement(
+    "div"
+  );
+
+  const back=document.createElement(
+    "div"
+  );
 
   if(direction===1){
 
@@ -2247,13 +3042,21 @@ function turnPage(direction){
     back.className=
       "flip-face flip-back page page-left";
 
-    fillRightPage(front,oldPage);
-
-    back.innerHTML=createLeftPage(
-      nextPage,false
+    fillRightPage(
+      front,
+      oldPage
     );
 
-    fillRightPage(rightPage,nextPage);
+    fillLeftPage(
+      back,
+      nextPage,
+      false
+    );
+
+    fillRightPage(
+      rightPage,
+      nextPage
+    );
 
   }else{
 
@@ -2263,22 +3066,33 @@ function turnPage(direction){
     back.className=
       "flip-face flip-back page page-right";
 
-    front.innerHTML=createLeftPage(
-      oldPage,false
+    fillLeftPage(
+      front,
+      oldPage,
+      false
     );
 
-    fillRightPage(back,nextPage);
+    fillRightPage(
+      back,
+      nextPage
+    );
 
-    leftPage.innerHTML=createLeftPage(
-      nextPage,false
+    fillLeftPage(
+      leftPage,
+      nextPage,
+      false
     );
 
   }
 
   sheet.appendChild(front);
+
   sheet.appendChild(back);
 
-  sheet.setAttribute("aria-hidden","true");
+  sheet.setAttribute(
+    "aria-hidden",
+    "true"
+  );
 
   bookSpread.appendChild(sheet);
 
@@ -2301,9 +3115,13 @@ function turnPage(direction){
   }
 
   sheet.addEventListener(
+
     "animationend",
+
     finishTurn,
+
     {once:true}
+
   );
 
   setTimeout(finishTurn,1050);
@@ -2311,7 +3129,9 @@ function turnPage(direction){
 }
 
 
-/* 좌우 페이지 클릭 */
+/* ========================================
+   좌우 페이지 클릭
+======================================== */
 
 let suppressClickUntil=0;
 
@@ -2323,6 +3143,7 @@ leftPage.addEventListener("click",()=>{
 
 });
 
+
 rightPage.addEventListener("click",()=>{
 
   if(Date.now()<suppressClickUntil)return;
@@ -2332,35 +3153,48 @@ rightPage.addEventListener("click",()=>{
 });
 
 
-/* 키보드 페이지 넘김 */
+/* 키보드 접근 */
 
-leftPage.addEventListener("keydown",event=>{
+leftPage.addEventListener(
+  "keydown",
+  event=>{
 
-  if(event.target!==leftPage)return;
+    if(event.target!==leftPage)return;
 
-  if(event.key==="Enter"||event.key===" "){
+    if(
+      event.key==="Enter"||
+      event.key===" "
+    ){
 
-    event.preventDefault();
+      event.preventDefault();
 
-    turnPage(-1);
+      turnPage(-1);
 
-  }
-
-});
-
-rightPage.addEventListener("keydown",event=>{
-
-  if(event.target!==rightPage)return;
-
-  if(event.key==="Enter"||event.key===" "){
-
-    event.preventDefault();
-
-    turnPage(1);
+    }
 
   }
+);
 
-});
+
+rightPage.addEventListener(
+  "keydown",
+  event=>{
+
+    if(event.target!==rightPage)return;
+
+    if(
+      event.key==="Enter"||
+      event.key===" "
+    ){
+
+      event.preventDefault();
+
+      turnPage(1);
+
+    }
+
+  }
+);
 
 
 /* ========================================
@@ -2370,41 +3204,73 @@ rightPage.addEventListener("keydown",event=>{
 let touchStartX=0;
 let touchStartY=0;
 
-const book=document.getElementById("book");
+const book=document.getElementById(
+  "book"
+);
 
-book.addEventListener("touchstart",event=>{
+book.addEventListener(
 
-  touchStartX=event.changedTouches[0].clientX;
-  touchStartY=event.changedTouches[0].clientY;
+  "touchstart",
 
-},{passive:true});
+  event=>{
+
+    touchStartX=
+
+      event.changedTouches[0].clientX;
+
+    touchStartY=
+
+      event.changedTouches[0].clientY;
+
+  },
+
+  {passive:true}
+
+);
 
 
-book.addEventListener("touchend",event=>{
+book.addEventListener(
 
-  const dx=
+  "touchend",
 
-    event.changedTouches[0].clientX-
-    touchStartX;
+  event=>{
 
-  const dy=
+    const dx=
 
-    event.changedTouches[0].clientY-
-    touchStartY;
+      event.changedTouches[0].clientX-
 
-  if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)){
+      touchStartX;
 
-    suppressClickUntil=Date.now()+500;
+    const dy=
 
-    turnPage(dx<0?1:-1);
+      event.changedTouches[0].clientY-
 
-  }
+      touchStartY;
 
-},{passive:true});
+    if(
+
+      Math.abs(dx)>50&&
+
+      Math.abs(dx)>Math.abs(dy)
+
+    ){
+
+      suppressClickUntil=
+        Date.now()+500;
+
+      turnPage(dx<0?1:-1);
+
+    }
+
+  },
+
+  {passive:true}
+
+);
 
 
 /* ========================================
-   전체 사진 보기
+   전체 갤러리
 ======================================== */
 
 const galleryGrid=document.getElementById(
@@ -2413,41 +3279,67 @@ const galleryGrid=document.getElementById(
 
 function openGallery(){
 
-  if(!albumCompleted||transitioning||pageTurning)return;
+  if(
+
+    !albumCompleted||
+
+    transitioning||
+
+    pageTurning
+
+  )return;
 
   galleryGrid.innerHTML="";
 
   photos.forEach((photo,index)=>{
 
-    const item=document.createElement("button");
+    const item=document.createElement(
+      "button"
+    );
 
     item.type="button";
+
     item.className="gallery-item";
 
     item.setAttribute(
+
       "aria-label",
+
       "사진 "+(index+1)+" 확대"
+
     );
 
     item.innerHTML=`
 
       <img
-        src="${photo.src}"
         alt="유화의 모습 ${index+1}"
         loading="lazy"
       >
 
       <span class="gallery-index">
+
         ${numberFormat(index+1)}
+
       </span>
 
     `;
 
-    item.addEventListener("click",()=>{
+    loadPortrait(
 
-      showLightbox(index,true);
+      item.querySelector("img"),
 
-    });
+      index
+
+    );
+
+    item.addEventListener(
+      "click",
+      ()=>{
+
+        showLightbox(index,true);
+
+      }
+    );
 
     galleryGrid.appendChild(item);
 
@@ -2459,14 +3351,16 @@ function openGallery(){
 
 
 /* ========================================
-   사진 확대
+   사진 확대 보기
 ======================================== */
 
 let lightboxIndex=0;
 let lightboxBrowseAll=false;
 let lightboxPreviousFocus=null;
 
-const lightbox=document.getElementById("lightbox");
+const lightbox=document.getElementById(
+  "lightbox"
+);
 
 const lightboxImage=document.getElementById(
   "lightboxImage"
@@ -2476,44 +3370,77 @@ const lightboxCount=document.getElementById(
   "lightboxCount"
 );
 
+
+/* 확대 화면 활성화 */
+
 function showLightbox(index,allowAll){
 
-  if(pageTurning||transitioning)return;
+  if(
+
+    pageTurning||
+
+    transitioning
+
+  )return;
 
   lightboxIndex=index;
 
-  lightboxBrowseAll=allowAll||albumCompleted;
+  lightboxBrowseAll=
 
-  lightboxPreviousFocus=document.activeElement;
+    allowAll||albumCompleted;
 
-  lightbox.classList.remove("hidden");
+  lightboxPreviousFocus=
 
-  document.body.style.overflow="hidden";
+    document.activeElement;
+
+  lightbox.classList.remove(
+    "hidden"
+  );
+
+  document.body.style.overflow=
+    "hidden";
 
   updateLightbox();
 
-  document.querySelector(".lightbox-close").focus();
+  document.querySelector(
+    ".lightbox-close"
+  ).focus();
 
 }
 
 
+/* 확대 사진 변경 */
+
 function updateLightbox(){
 
-  lightboxImage.src=photos[lightboxIndex].src;
+  loadPortrait(
+
+    lightboxImage,
+
+    lightboxIndex
+
+  );
 
   lightboxCount.textContent=
 
     numberFormat(lightboxIndex+1)+
+
     " / "+
+
     numberFormat(photos.length);
 
   document.querySelectorAll(
+
     ".lightbox-arrow"
+
   ).forEach(button=>{
 
     button.classList.toggle(
+
       "hidden",
+
       !lightboxBrowseAll
+
     );
 
   });
@@ -2528,9 +3455,13 @@ function moveLightbox(direction){
   lightboxIndex=
 
     (
+
       lightboxIndex+
+
       direction+
+
       photos.length
+
     )%photos.length;
 
   updateLightbox();
@@ -2540,11 +3471,15 @@ function moveLightbox(direction){
 
 function closeLightbox(){
 
-  lightbox.classList.add("hidden");
+  lightbox.classList.add(
+    "hidden"
+  );
 
   document.body.style.overflow="";
 
-  if(lightboxPreviousFocus instanceof HTMLElement){
+  if(
+    lightboxPreviousFocus instanceof HTMLElement
+  ){
 
     lightboxPreviousFocus.focus();
 
@@ -2553,117 +3488,175 @@ function closeLightbox(){
 }
 
 
-lightbox.addEventListener("click",event=>{
+lightbox.addEventListener(
+  "click",
+  event=>{
 
-  if(event.target===lightbox){
+    if(event.target===lightbox){
 
-    closeLightbox();
+      closeLightbox();
+
+    }
 
   }
+);
 
-});
 
-
-/* 확대 화면 모바일 스와이프 */
+/* 확대 화면에서 모바일 스와이프 */
 
 let lightboxTouchStart=0;
 
-lightbox.addEventListener("touchstart",event=>{
+lightbox.addEventListener(
 
-  lightboxTouchStart=
-    event.changedTouches[0].clientX;
+  "touchstart",
 
-},{passive:true});
+  event=>{
+
+    lightboxTouchStart=
+
+      event.changedTouches[0].clientX;
+
+  },
+
+  {passive:true}
+
+);
 
 
-lightbox.addEventListener("touchend",event=>{
+lightbox.addEventListener(
 
-  const dx=
-    event.changedTouches[0].clientX-
-    lightboxTouchStart;
+  "touchend",
 
-  if(Math.abs(dx)>50){
+  event=>{
 
-    moveLightbox(dx<0?1:-1);
+    const dx=
 
-  }
+      event.changedTouches[0].clientX-
 
-},{passive:true});
+      lightboxTouchStart;
+
+    if(Math.abs(dx)>50){
+
+      moveLightbox(dx<0?1:-1);
+
+    }
+
+  },
+
+  {passive:true}
+
+);
 
 
 /* ========================================
-   방향키 및 ESC 지원
+   방향키 및 ESC
 ======================================== */
 
-document.addEventListener("keydown",event=>{
+document.addEventListener(
+  "keydown",
+  event=>{
 
-  if(!lightbox.classList.contains("hidden")){
+    if(
+      !lightbox.classList.contains("hidden")
+    ){
 
-    if(event.key==="Escape"){
-      closeLightbox();
-    }
+      if(event.key==="Escape"){
 
-    if(event.key==="ArrowLeft"){
-      event.preventDefault();
-      moveLightbox(-1);
-    }
+        closeLightbox();
 
-    if(event.key==="ArrowRight"){
-      event.preventDefault();
-      moveLightbox(1);
-    }
+      }
 
-    if(event.key==="Tab"){
-
-      const controls=[
-        ...lightbox.querySelectorAll(
-          "button:not(.hidden)"
-        )
-      ];
-
-      const first=controls[0];
-
-      const last=controls[controls.length-1];
-
-      if(event.shiftKey&&document.activeElement===first){
+      if(event.key==="ArrowLeft"){
 
         event.preventDefault();
-        last.focus();
 
-      }else if(
-        !event.shiftKey&&document.activeElement===last
-      ){
+        moveLightbox(-1);
+
+      }
+
+      if(event.key==="ArrowRight"){
 
         event.preventDefault();
-        first.focus();
+
+        moveLightbox(1);
+
+      }
+
+      if(event.key==="Tab"){
+
+        const controls=[
+
+          ...lightbox.querySelectorAll(
+
+            "button:not(.hidden)"
+
+          )
+
+        ];
+
+        const first=controls[0];
+
+        const last=
+
+          controls[controls.length-1];
+
+        if(
+
+          event.shiftKey&&
+
+          document.activeElement===first
+
+        ){
+
+          event.preventDefault();
+
+          last.focus();
+
+        }else if(
+
+          !event.shiftKey&&
+
+          document.activeElement===last
+
+        ){
+
+          event.preventDefault();
+
+          first.focus();
+
+        }
+
+      }
+
+      return;
+
+    }
+
+
+    if(
+      currentScreen==="album-reader"
+    ){
+
+      if(event.key==="ArrowLeft"){
+
+        event.preventDefault();
+
+        turnPage(-1);
+
+      }
+
+      if(event.key==="ArrowRight"){
+
+        event.preventDefault();
+
+        turnPage(1);
 
       }
 
     }
 
-    return;
-
   }
-
-  if(currentScreen==="album-reader"){
-
-    if(event.key==="ArrowLeft"){
-
-      event.preventDefault();
-      turnPage(-1);
-
-    }
-
-    if(event.key==="ArrowRight"){
-
-      event.preventDefault();
-      turnPage(1);
-
-    }
-
-  }
-
-});
+);
 
 </script>
 
