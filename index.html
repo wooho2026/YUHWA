@@ -3160,5 +3160,339 @@ document.addEventListener("keydown",event=>{
 });
 
 </script>
+
+<style>
+
+/* ========================================
+   留華 V15.2
+   책 닫힘 및 꽃 배치 수정
+======================================== */
+
+#moonrise-screen .moonrise-button{
+  margin:0 auto -55px;
+}
+
+#moonrise-screen .flower-enter.small-flower{
+  width:150px;
+  height:250px;
+  margin:0 auto;
+}
+
+#moonrise-screen .flower-stage{
+  width:250px;
+  height:250px;
+  transform:translateX(-50%);
+  transform-origin:top center;
+}
+
+#moonrise-screen .flower-main{
+  width:150px;
+  height:150px;
+  top:5px;
+}
+
+#moonrise-screen .falling-petal{
+  width:19px;
+  height:34px;
+}
+
+/* 실제 책장 위에서 닫히는 뒷표지 */
+
+#book.closing-live{
+  background:transparent;
+  box-shadow:none;
+  overflow:visible;
+  pointer-events:none;
+}
+
+.live-closing-leaf{
+  position:absolute;
+  top:0;
+  left:50%;
+  width:50%;
+  height:100%;
+  z-index:30;
+  transform-origin:left center;
+  transform-style:preserve-3d;
+  transition:transform 1.5s
+  cubic-bezier(.35,.08,.25,1);
+}
+
+.live-closing-front,
+.live-closing-back{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  overflow:hidden;
+}
+
+.live-closing-back{
+  transform:rotateY(180deg);
+  background:#292521;
+  border-radius:4px;
+}
+
+.live-closing-back img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:fill;
+}
+
+.live-closing-leaf.is-closed{
+  transform:rotateY(-180deg);
+}
+
+.live-closed-book{
+  position:absolute;
+  top:0;
+  left:0;
+  width:50%;
+  height:100%;
+  object-fit:fill;
+  z-index:35;
+  border-radius:4px;
+  box-shadow:0 20px 45px #0008;
+  transition:
+    left 1.2s ease-in-out,
+    opacity 1.5s ease;
+}
+
+.live-closed-book.centered{
+  left:25%;
+}
+
+.live-closed-book.dissolving{
+  opacity:0;
+}
+
+#album-reader .reader-header,
+#album-reader .reader-footer,
+#album-reader .flower-enter{
+  transition:opacity 1.2s ease;
+}
+
+#album-reader.closing-live-screen .reader-header,
+#album-reader.closing-live-screen .reader-footer,
+#album-reader.closing-live-screen .flower-enter{
+  opacity:0;
+  pointer-events:none;
+}
+
+.live-closing-petals{
+  position:absolute;
+  left:50%;
+  top:20%;
+  width:260px;
+  height:300px;
+  z-index:40;
+  transform:translateX(-50%);
+  pointer-events:none;
+}
+
+.live-closing-petals.is-playing .falling-petal{
+  animation:petalFall var(--duration)
+  ease-in-out var(--delay) both;
+}
+
+/* 모바일 */
+
+@media(max-width:600px){
+
+  #moonrise-screen .moonrise-button{
+    margin:0 auto -42px;
+  }
+
+  #moonrise-screen .flower-enter.small-flower{
+    width:130px;
+    height:220px;
+    margin:0 auto;
+  }
+
+  #moonrise-screen .flower-stage{
+    transform:translateX(-50%) scale(.87);
+    transform-origin:top center;
+  }
+
+  #moonrise-screen .flower-main{
+    width:150px;
+    height:150px;
+  }
+
+}
+
+</style>
+
+<script>
+
+/* ========================================
+   V15.2 마지막 책장 닫힘 연출
+======================================== */
+
+closeBookAndRevealMoon = async function(){
+
+  if(
+    bookClosing||
+    transitioning||
+    !albumCompleted
+  )return;
+
+  bookClosing=true;
+
+  resetPetalAnimations();
+
+  const reader=$("album-reader");
+  const book=$("book");
+  const spread=$("bookSpread");
+  const left=$("leftPage");
+  const right=$("rightPage");
+  const spine=spread.querySelector(".book-spine");
+
+  /* 기존 마지막 페이지 그대로 복제 */
+
+  const leaf=document.createElement("div");
+
+  leaf.className="live-closing-leaf";
+
+  const front=right.cloneNode(true);
+
+  front.removeAttribute("id");
+  front.removeAttribute("tabindex");
+  front.removeAttribute("role");
+
+  front.classList.add("live-closing-front");
+
+  const back=document.createElement("div");
+
+  back.className="live-closing-back";
+
+  back.innerHTML=`
+    <img src="book%20end.png"
+      alt="유화의 사진첩 뒷표지">
+  `;
+
+  leaf.append(front,back);
+
+  spread.appendChild(leaf);
+
+  /* 원래 화면 위치와 크기 유지 */
+
+  reader.classList.add("closing-live-screen");
+
+  book.classList.add("closing-live");
+
+  right.style.visibility="hidden";
+
+  await new Promise(resolve=>
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(resolve);
+    })
+  );
+
+  /* 우측 페이지가 좌측으로 넘어감 */
+
+  leaf.classList.add("is-closed");
+
+  await wait(1500);
+
+  /* 완전히 닫힌 뒷표지 */
+
+  const closedBook=document.createElement("img");
+
+  closedBook.className="live-closed-book";
+
+  closedBook.src="book%20end.png";
+
+  closedBook.alt="유화의 사진첩 뒷표지";
+
+  spread.appendChild(closedBook);
+
+  left.style.visibility="hidden";
+
+  if(spine){
+    spine.style.visibility="hidden";
+  }
+
+  leaf.remove();
+
+  await new Promise(resolve=>
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(resolve);
+    })
+  );
+
+  /* 닫힌 책이 천천히 중앙으로 이동 */
+
+  closedBook.classList.add("centered");
+
+  await wait(1200);
+
+  /* 꽃잎 8장 */
+
+  const petals=document.createElement("div");
+
+  petals.className="live-closing-petals";
+
+  populatePetals(petals,"live-closing");
+
+  spread.appendChild(petals);
+
+  void petals.offsetWidth;
+
+  petals.classList.add("is-playing");
+
+  await wait(3000);
+
+  /* 책이 어둠 속으로 사라짐 */
+
+  closedBook.classList.add("dissolving");
+
+  await wait(1500);
+
+  /* 달이 깊어지면 해금 */
+
+  nightUnlocked=true;
+
+  /* 기존 사진첩 복구 */
+
+  closedBook.remove();
+
+  petals.remove();
+
+  left.style.visibility="";
+  right.style.visibility="";
+
+  if(spine){
+    spine.style.visibility="";
+  }
+
+  book.classList.remove("closing-live");
+
+  reader.classList.remove("closing-live-screen");
+
+  reader.classList.add("hidden");
+
+  const moonScreen=$("moonrise-screen");
+
+  moonScreen.classList.remove("hidden","reveal");
+
+  currentScreen="moonrise-screen";
+
+  window.scrollTo(0,0);
+
+  void moonScreen.offsetWidth;
+
+  moonScreen.classList.add("reveal");
+
+  await wait(2000);
+
+  bookClosing=false;
+
+};
+
+</script>
+
 </body>
 </html>
