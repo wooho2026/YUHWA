@@ -1673,16 +1673,23 @@ img{
 <!-- 오래된 기억 -->
 
 <section class="screen hidden" id="memories">
-  <div class="content">
-
-    <img class="menu-symbol"
-      src="Second.png" alt="貳">
+  <div class="content memories-content">
 
     <div class="eyebrow">THE MEMORIES</div>
 
-    <h1 class="album-heading">오래된 기억</h1>
+    <h1 class="memories-heading">오래된 기억</h1>
 
-    <p class="quote">기록은 아직 잠들어 있다.</p>
+    <h2 class="memories-subtitle">
+      백연화, 그 마지막 밤.
+    </h2>
+
+    <div class="memories-divider"></div>
+
+    <div class="webtoon">
+      <img src="scene1.png" alt="백연화의 마지막 밤 1">
+      <img src="scene2.png" alt="백연화의 마지막 밤 2">
+      <img src="scene3.png" alt="백연화의 마지막 밤 3">
+    </div>
 
     <button class="flower-enter"
       type="button" data-target="archive"
@@ -1820,7 +1827,7 @@ const photos=[
    quote:"거기서 봐도 잘생겼을 텐데."},
 
   {src:"portrait-11.png",
-   quote:"이게 뭐라고 그리 신기하게 구경하는 거."},
+   quote:"이게 뭐라고 그리 신기하게 구경하는 거지."},
 
   {src:"portrait-12.png",
    quote:"어떠냐.\n네 눈에도 제법 근사한가?"},
@@ -3367,6 +3374,110 @@ document.addEventListener("keydown",event=>{
 
 #night-gallery .flower-enter{
   margin:15px auto 0;
+}/* ========================================
+   오래된 기억 : 백연화, 그 마지막 밤
+======================================== */
+
+#memories{
+  display:block;
+  background:#EDE4D4;
+  color:#51473E;
+  padding:70px 20px 20px;
+}
+
+#memories::before{
+  display:none;
+}
+
+.memories-content{
+  max-width:850px;
+  margin:0 auto;
+}
+
+#memories .eyebrow{
+  color:#8E7963;
+  font-size:10px;
+  letter-spacing:5px;
+}
+
+.memories-heading{
+  margin:25px 0 0;
+  font-size:28px;
+  font-weight:400;
+  letter-spacing:3px;
+  color:#584539;
+}
+
+.memories-subtitle{
+  margin:22px 0 0;
+  font-size:18px;
+  font-weight:400;
+  letter-spacing:1px;
+  color:#76614D;
+}
+
+.memories-divider{
+  width:80px;
+  height:1px;
+  background:#AC957B;
+  margin:30px auto 65px;
+}
+
+.webtoon{
+  width:100%;
+  max-width:800px;
+  margin:0 auto;
+}
+
+.webtoon img{
+  display:block;
+  width:100%;
+  height:auto;
+  margin:0 auto;
+  object-fit:contain;
+}
+
+#memories:not(.hidden) .webtoon{
+  animation:memoryReveal 2s ease both;
+}
+
+@keyframes memoryReveal{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+#memories .flower-enter{
+  margin:100px auto 0;
+}
+
+@media(max-width:600px){
+
+  #memories{
+    padding:50px 8px 10px;
+  }
+
+  .memories-heading{
+    font-size:23px;
+  }
+
+  .memories-subtitle{
+    font-size:16px;
+  }
+
+  .memories-divider{
+    margin:25px auto 45px;
+  }
+
+  #memories .flower-enter{
+    margin:65px auto 0;
+  }
+
 }
 </style>
 
