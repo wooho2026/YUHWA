@@ -3322,7 +3322,40 @@ document.addEventListener("keydown",event=>{
   }
 
 }
+/* 마지막 책장 모서리 말림 효과 */
 
+.page-right.is-final::before{
+  content:"";
+  position:absolute;
+  right:0;
+  bottom:0;
+  width:0;
+  height:0;
+  z-index:10;
+  background:linear-gradient(
+    135deg,
+    #b5a087 0%,
+    #fff8eb 45%,
+    #e3d5bf 49%,
+    #211d21 51%,
+    #211d21 100%
+  );
+  border-radius:5px 0 0 0;
+  box-shadow:-3px -3px 8px #00000018;
+  pointer-events:none;
+  transition:
+    width .65s ease,
+    height .65s ease;
+}
+
+@media(hover:hover) and (pointer:fine){
+
+  .page-right.is-final:hover::before{
+    width:48px;
+    height:48px;
+  }
+
+}
 </style>
 
 <script>
