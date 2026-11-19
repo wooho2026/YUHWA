@@ -3478,6 +3478,20 @@ document.addEventListener("keydown",event=>{
     margin:65px auto 0;
   }
 
+}/* 콘텐츠 복사 및 저장 방지 */
+
+html,body{
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+
+img{
+  -webkit-user-drag:none;
+  user-select:none;
+  -webkit-touch-callout:none;
 }
 </style>
 
@@ -3647,7 +3661,30 @@ closeBookAndRevealMoon = async function(){
   bookClosing=false;
 
 };
+/* 콘텐츠 무단 복제 방지 */
 
+document.addEventListener("contextmenu",e=>{
+  e.preventDefault();
+});
+
+document.addEventListener("dragstart",e=>{
+  e.preventDefault();
+});
+
+document.addEventListener("copy",e=>{
+  e.preventDefault();
+});
+
+document.addEventListener("cut",e=>{
+  e.preventDefault();
+});
+
+document.addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&
+    ["s","c","u","a","p"].includes(e.key.toLowerCase())){
+    e.preventDefault();
+  }
+});
 </script>
 
 </body>
