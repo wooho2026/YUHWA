@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,7 +13,7 @@ href="https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri.css">
 <style>
 
 /* ========================================
-   留華 V15
+   留華 V15.1
 ======================================== */
 
 :root{
@@ -231,7 +232,6 @@ img{
 
 /* ========================================
    기록 보관소
-   기존 일렬 배치 / 간격 60%
 ======================================== */
 
 .archive-content{
@@ -324,7 +324,7 @@ img{
 }
 
 /* ========================================
-   사진첩 표지
+   사진첩 앞표지
 ======================================== */
 
 .album-cover-content{
@@ -603,93 +603,47 @@ img{
 }
 
 /* ========================================
-   V15 마지막 장 : 달빛 인장
+   V15.1 마지막 페이지
+   로고 삭제 / 진한 텍스트 버튼
 ======================================== */
 
 .moon-seal-button{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  margin:20px auto 0;
-  padding:0;
+  display:block;
+  margin:24px auto 0;
+  padding:3px 0;
   border:0;
   background:transparent;
-  color:#78634d;
+  color:#49372b;
   cursor:pointer;
   animation:sealAppear 1.5s ease both;
 }
 
-.moon-seal-glow{
-  display:grid;
-  place-items:center;
-  position:relative;
-  width:118px;
-  height:118px;
-  border-radius:50%;
-  background:radial-gradient(
-    circle,
-    #fffdf6 0%,
-    #fff8e9 30%,
-    #faf1de88 52%,
-    #f0e7d800 74%
-  );
-  transition:filter .9s,transform .9s;
-}
-
-.moon-seal-logo{
-  display:block;
-  width:64px;
-  height:96px;
-  object-fit:contain;
-  filter:drop-shadow(0 1px 2px #88715b90);
-}
-
 .moon-seal-label{
-  font-size:13px;
-  letter-spacing:1px;
-  line-height:1.4;
-  transition:color .7s,text-shadow .7s;
-}
-
-.moon-seal-button:hover .moon-seal-glow{
-  transform:scale(1.04);
-  filter:brightness(1.12)
-  drop-shadow(0 0 14px #fffbea);
+  display:block;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.5px;
+  line-height:1.5;
+  color:#49372b;
+  transition:color .5s,text-shadow .5s;
 }
 
 .moon-seal-button:hover .moon-seal-label{
-  color:#4f3c29;
-  text-shadow:0 0 8px #fff;
+  color:#261a14;
+  text-shadow:0 0 8px #ffffff99;
 }
 
 .final-page-hint{
-  position:absolute;
-  bottom:6%;
-  left:8%;
-  right:8%;
-  font-size:10px;
-  color:#a28b72;
-  letter-spacing:.5px;
-}
-.moon-seal-button{
-  margin:22px auto 0;
-}
-
-.moon-seal-label{
-  font-size:15px;
-  font-weight:700;
-  color:#514033;
-}
-
-.page-right.is-final .final-page-hint{
   position:static;
-  margin:8px auto 0;
+  margin:9px auto 0;
   font-size:12px;
   font-weight:500;
-  color:#514033;
+  line-height:1.5;
+  color:#49372b;
+  letter-spacing:.2px;
+  word-break:keep-all;
 }
+
 @keyframes sealAppear{
   from{opacity:0;transform:translateY(5px)}
   to{opacity:1;transform:translateY(0)}
@@ -809,7 +763,8 @@ img{
 }
 
 /* ========================================
-   V15 책 닫힘 애니메이션
+   책 닫힘 애니메이션
+   V15.1 뒷표지 적용
 ======================================== */
 
 .closing-overlay{
@@ -1354,37 +1309,31 @@ img{
   }
 
   .moon-seal-button{
-    margin-top:8px;
-    gap:1px;
-  }
-
-  .moon-seal-glow{
-    width:64px;
-    height:64px;
-  }
-
-  .moon-seal-logo{
-    width:35px;
-    height:54px;
+    margin-top:17px;
+    padding:2px 0;
   }
 
   .moon-seal-label{
-    font-size:10px;
+    font-size:12px;
+    font-weight:700;
     letter-spacing:0;
+    color:#49372b;
   }
 
   .final-page-hint{
-    font-size:8px;
-    bottom:4%;
+    position:static;
+    margin:7px auto 0;
+    font-size:10px;
+    font-weight:500;
+    color:#49372b;
   }
 
   .page-right.is-final .page-writing{
-    padding-top:5%;
-    padding-bottom:15%;
+    padding:8%;
   }
 
   .page-right.is-final .page-decoration{
-    margin:6px 0;
+    margin:10px 0;
   }
 
   .gallery{
@@ -1450,14 +1399,12 @@ img{
     font-size:11px;
   }
 
-  .moon-seal-glow{
-    width:54px;
-    height:54px;
+  .moon-seal-label{
+    font-size:11px;
   }
 
-  .moon-seal-logo{
-    width:30px;
-    height:45px;
+  .final-page-hint{
+    font-size:9px;
   }
 }
 
@@ -1548,7 +1495,7 @@ img{
   </div>
 </section>
 
-<!-- 사진첩 표지 -->
+<!-- 사진첩 앞표지 -->
 
 <section class="screen hidden" id="album-cover">
   <div class="content album-cover-content">
@@ -1765,7 +1712,7 @@ img{
   </div>
 </section>
 
-<!-- 마지막 책 닫힘 연출 -->
+<!-- 마지막 책 닫힘 연출 : 뒷표지 -->
 
 <div class="closing-overlay hidden" id="closingOverlay">
 
@@ -1791,7 +1738,7 @@ img{
       </div>
 
       <div class="closing-leaf-back">
-        <img src="book%20cover.png" alt="">
+        <img src="book%20end.png" alt="">
       </div>
 
     </div>
@@ -1800,7 +1747,7 @@ img{
 
   <img class="closed-cover-final"
     id="closedCoverFinal"
-    src="book%20cover.png" alt="">
+    src="book%20end.png" alt="">
 
   <div class="closing-petals"
     id="closingPetals"></div>
@@ -1992,7 +1939,7 @@ function numberFormat(n){
    이미지 로딩
 ======================================== */
 
-const assetVersion="v15";
+const assetVersion="v15.1";
 const resolvedPhotos=new Map();
 
 function imageURL(file){
@@ -2345,7 +2292,9 @@ function fillLeftPage(element,index,interactive=true){
 
 }
 
-/* 마지막 페이지 달빛 인장 */
+/* ========================================
+   V15.1 마지막 페이지 텍스트 버튼
+======================================== */
 
 function createMoonSeal(){
 
@@ -2355,12 +2304,8 @@ function createMoonSeal(){
   button.className="moon-seal-button";
 
   button.innerHTML=`
-    <span class="moon-seal-glow">
-      <img class="moon-seal-logo"
-        src="yuhwa-title.png" alt="留華">
-    </span>
     <span class="moon-seal-label">
-      모든 사진 펼쳐보기
+      [ 모든 사진 펼쳐보기 ]
     </span>`;
 
   button.addEventListener("click",event=>{
@@ -2392,15 +2337,16 @@ function fillRightPage(element,index,interactive=true){
 
   if(final&&interactive&&albumCompleted){
 
-    element.querySelector(".page-writing")
-      .appendChild(createMoonSeal());
+    const writing=element.querySelector(".page-writing");
+
+    writing.appendChild(createMoonSeal());
 
     const hint=document.createElement("div");
 
     hint.className="final-page-hint";
     hint.textContent="마지막 책장을 넘겨보세요.";
 
-    element.querySelector(".page-writing").appendChild(hint);
+    writing.appendChild(hint);
 
   }
 
@@ -2702,7 +2648,7 @@ function openGallery(){
 
 /* ========================================
    마지막 책장
-   책 닫힘 → 꽃잎 → 달빛
+   책 닫힘 → 뒷표지 → 꽃잎 → 달빛
 ======================================== */
 
 async function closeBookAndRevealMoon(){
@@ -2941,8 +2887,6 @@ async function selectNight(index){
   nightMain.classList.add("fading-out");
 
   await wait(900);
-
-  /* 다음 이미지의 로딩 완료 후 페이드 인 */
 
   const nextImage=new Image();
 
