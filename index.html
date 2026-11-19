@@ -1663,9 +1663,9 @@ img{
 
     <div class="night-film" id="nightFilm"></div>
 
-    <button class="flower-enter small-flower"
-      type="button" data-target="moonrise-screen"
-      aria-label="돌아가기"></button>
+   <button class="flower-enter"
+  type="button" data-target="album-reader"
+  aria-label="사진첩으로 돌아가기"></button>
 
   </div>
 </section>
@@ -3355,6 +3355,18 @@ document.addEventListener("keydown",event=>{
     height:48px;
   }
 
+}/* 달이 깊어지면 입구 꽃 삭제 */
+
+#moonrise-screen .flower-enter{
+  display:none;
+}
+
+#moonrise-screen .moonrise-button{
+  margin:0 auto;
+}/* 심야 전시실 꽃 간격 */
+
+#night-gallery .flower-enter{
+  margin:15px auto 0;
 }
 </style>
 
