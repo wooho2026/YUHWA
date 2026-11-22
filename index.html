@@ -1775,16 +1775,16 @@ img{
   text-align:left;
 }
 .voice-card{
-  background:linear-gradient(125deg,#2c242d,#211c24);
-  border:1px solid #584550;
+  background:#211d23;
+  border:1px solid #423941;
   border-radius:9px;
   padding:23px 26px 19px;
-  box-shadow:0 9px 30px #0002;
+  box-shadow:none;
   transition:border-color .5s,box-shadow .5s,background .5s;
 }
 .voice-card.is-playing{
-  border-color:#c5a995;
-  box-shadow:0 0 25px #c7a28f1e,0 12px 35px #0003;
+  border-color:#978174;
+  box-shadow:0 0 12px #c7a28f12;
 }
 .voice-card-head{
   display:flex;
@@ -1863,6 +1863,8 @@ img{
   font-size:13px;
   word-break:keep-all;
 }
+.voice-card.transcript-open .voice-excerpt{display:none}
+.voice-card.transcript-open .voice-details{margin-top:15px;border-top:1px solid #50444b;padding-top:15px}
 .voice-details{margin-top:15px;color:#ccb6c1}
 .voice-details summary{
   width:max-content;
@@ -4643,9 +4645,11 @@ document.addEventListener("keydown",event=>{
 
     const details=card.querySelector('.voice-details');
     details.addEventListener('toggle',()=>{
+      card.classList.toggle('transcript-open',details.open);
       details.querySelector('summary').textContent=details.open?'대사 접기':'대사 전문 펼치기';
     });
 
+    card.classList.toggle('transcript-open',details.open);
     updateVoiceCard(card);
   });
 
