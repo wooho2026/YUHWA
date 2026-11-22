@@ -1540,10 +1540,11 @@ img{
   position:absolute;
   top:50%;left:50%;
   width:clamp(145px,30vw,305px);
-  height:92%;
+  aspect-ratio:3/4;
+  height:auto;
   padding:0;
-  background:#171217;
-  border:1px solid #dfc9ae66;
+  background:transparent;
+  border:0;
   box-shadow:0 15px 35px #0006;
   transform-style:preserve-3d;
   transition:transform .75s cubic-bezier(.2,.7,.2,1),
@@ -1553,11 +1554,11 @@ img{
   display:block;
   width:100%;height:100%;
   object-fit:contain;
+  background:transparent;
   pointer-events:none;
 }
 .wedding-photo.is-center{
-  border-color:#ead4b2;
-  box-shadow:0 0 25px #d8b89430,0 18px 40px #0008;
+  box-shadow:0 16px 40px #0008;
 }
 .wedding-arrow{
   flex:0 0 36px;
@@ -1606,6 +1607,125 @@ img{
   .wedding-photo{width:clamp(135px,46vw,225px)}
   .wedding-arrow{flex-basis:26px;font-size:29px}
   .wedding-carousel{gap:0}
+}
+
+/* 이헌과 유화: 비대칭 매거진형 화보 */
+#creator-yihun,#creator-fantasy{
+  overflow:visible;
+}
+.creator-magazine-content{max-width:1000px;margin:0 auto}
+.creator-magazine{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-auto-flow:row;
+  gap:12px;
+  max-width:840px;
+  margin:34px auto 0;
+  align-items:start;
+}
+.creator-magazine-item{
+  display:block;
+  width:100%;
+  min-width:0;
+  padding:0;
+  border:0;
+  background:transparent;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(15px);
+  animation:none;
+}
+#creator-yihun:not(.hidden) .creator-magazine-item{
+  animation:creatorMagazineReveal .9s ease forwards;
+}
+.creator-magazine-item:first-child{grid-column:span 2;grid-row:span 2}
+.creator-magazine-item:nth-child(4),
+.creator-magazine-item:nth-child(5){grid-column:auto}
+.creator-magazine-item img{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  transition:transform .65s,filter .65s;
+}
+.creator-magazine-item:hover img{transform:scale(1.025);filter:brightness(1.07)}
+#creator-yihun .creator-magazine-item:nth-child(2){animation-delay:.1s}
+#creator-yihun .creator-magazine-item:nth-child(3){animation-delay:.2s}
+#creator-yihun .creator-magazine-item:nth-child(4){animation-delay:.3s}
+#creator-yihun .creator-magazine-item:nth-child(5){animation-delay:.4s}
+@keyframes creatorMagazineReveal{
+  to{opacity:1;transform:translateY(0)}
+}
+#creator-yihun .flower-enter{margin:32px auto 0}
+
+/* 발칙한 상상: 다음 장면이 옆에서 덮이는 풀스크린 슬라이드 */
+.creator-fantasy-content{max-width:1180px;margin:0 auto}
+.fantasy-viewer{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  gap:8px;
+  margin:24px auto 0;
+}
+.fantasy-stage{
+  position:relative;
+  width:min(1000px,82vw);
+  height:clamp(300px,54vh,630px);
+  overflow:hidden;
+  background:transparent;
+  touch-action:pan-y;
+}
+.fantasy-slide{
+  position:absolute;
+  inset:0;
+  width:100%;height:100%;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:zoom-in;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:transform .8s cubic-bezier(.22,.65,.25,1);
+  will-change:transform;
+}
+.fantasy-slide img{
+  max-width:100%;max-height:100%;
+  width:auto;height:auto;
+  object-fit:contain;
+  display:block;
+  pointer-events:none;
+  box-shadow:0 10px 35px #0005;
+}
+.fantasy-arrow{
+  flex:0 0 35px;
+  padding:10px 0;
+  border:0;
+  background:transparent;
+  color:#d3bda8;
+  font-size:35px;
+  opacity:.7;
+  transition:opacity .25s;
+}
+.fantasy-arrow:hover{opacity:1}
+.fantasy-counter{
+  margin:14px auto 0;
+  font:12px Arial,sans-serif;
+  letter-spacing:3px;
+  color:#cbb6a8;
+}
+#creator-fantasy .flower-enter{margin:0 auto}
+@media(max-width:600px){
+  .creator-magazine{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:25px}
+  .creator-magazine-item:first-child{grid-column:span 2;grid-row:auto}
+  .fantasy-viewer{gap:0}
+  .fantasy-stage{width:calc(100vw - 90px);height:clamp(280px,51vh,490px)}
+  .fantasy-arrow{flex-basis:25px;font-size:27px}
+}
+@media(prefers-reduced-motion:reduce){
+  .creator-magazine-item{opacity:1;transform:none;animation:none}
+  .fantasy-slide{transition:none}
 }
 </style>
 </head>
@@ -1693,10 +1813,6 @@ img{
     <div class="eyebrow">THE CREATOR'S GIFT</div>
     <h1 class="creator-title">작가의 선물</h1>
 
-    <p class="creator-intro">
-      이곳의 장면들은 이야기의 결말이 아닌,<br>
-      작가가 건네는 또 하나의 가능성이야.
-    </p>
 
     <div class="creator-albums">
       <button type="button" onclick="openCreatorWedding()">
@@ -1739,34 +1855,48 @@ img{
 
     <div class="wedding-counter" id="weddingCounter">01 / 06</div>
     <div class="wedding-dots" id="weddingDots"></div>
-    <p class="wedding-hint">가운데 사진을 누르면 크게 볼 수 있어.</p>
 
     <button class="flower-enter" type="button"
       data-target="creator-gift" aria-label="작가의 선물로 돌아가기"></button>
   </div>
 </section>
 
-<!-- 이헌과 유화 : 추후 갤러리 연결 -->
+<!-- 이헌과 유화 : 매거진형 화보 -->
 
 <section class="screen hidden" id="creator-yihun">
-  <div class="content creator-content">
+  <div class="content creator-magazine-content">
     <span class="creator-mark">❖</span>
     <div class="eyebrow">YIHUN &amp; YUHWA</div>
     <h1 class="creator-title">이헌과 유화</h1>
-    <p class="creator-placeholder">두 사람의 이야기가 머무는 곳.</p>
+
+    <div class="creator-magazine" id="creatorMagazine"
+      aria-label="이헌과 유화 화보 5장"></div>
+
     <button class="flower-enter" type="button"
       data-target="creator-gift" aria-label="작가의 선물로 돌아가기"></button>
   </div>
 </section>
 
-<!-- 발칙한 상상 : 추후 갤러리 연결 -->
+<!-- 발칙한 상상 : 몰입형 슬라이드 -->
 
 <section class="screen hidden" id="creator-fantasy">
-  <div class="content creator-content">
-    <span class="creator-mark">❖</span>
+  <div class="content creator-fantasy-content">
     <div class="eyebrow">SWEET FANTASY</div>
     <h1 class="creator-title">발칙한 상상</h1>
-    <p class="creator-placeholder">상상은 때때로 현실보다 대담하니까.</p>
+
+    <div class="fantasy-viewer">
+      <button class="fantasy-arrow" type="button"
+        onclick="moveCreatorFantasy(-1)" aria-label="이전 사진">‹</button>
+
+      <div class="fantasy-stage" id="fantasyStage"
+        aria-label="발칙한 상상 사진첩"></div>
+
+      <button class="fantasy-arrow" type="button"
+        onclick="moveCreatorFantasy(1)" aria-label="다음 사진">›</button>
+    </div>
+
+    <div class="fantasy-counter" id="fantasyCounter">01 / 09</div>
+
     <button class="flower-enter" type="button"
       data-target="creator-gift" aria-label="작가의 선물로 돌아가기"></button>
   </div>
@@ -3280,6 +3410,8 @@ const lightboxImage=$("lightboxImage");
 function activeCollection(){
 
   if(lightboxMode==="wedding")return creatorWeddingPhotos.map(src=>({src}));
+  if(lightboxMode==="magazine")return creatorMagazinePhotos.map(src=>({src}));
+  if(lightboxMode==="fantasy")return creatorFantasyPhotos.map(src=>({src}));
   return lightboxMode==="night" ? nightPhotos : photos;
 
 }
@@ -4088,6 +4220,118 @@ document.addEventListener("keydown",event=>{
   }else if(event.key==="ArrowRight"){
     event.preventDefault();
     moveCreatorWedding(1);
+  }
+});
+</script>
+
+<script>
+/* ========================================
+   작가의 선물 · 매거진 / 발칙한 상상
+======================================== */
+
+const creatorMagazinePhotos=[
+  "two01.png","two02.png","two03.png","two04.png","two05.png"
+];
+
+const creatorFantasyPhotos=[
+  "boy01.png","boy02.png","boy03.png",
+  "boy04.png","boy05.png","boy06.png",
+  "boy07.png","boy08.png","boy09.png"
+];
+
+let creatorMagazineBuilt=false;
+function buildCreatorMagazine(){
+  const grid=$("creatorMagazine");
+  if(!grid||creatorMagazineBuilt)return;
+  creatorMagazinePhotos.forEach((src,index)=>{
+    const button=document.createElement("button");
+    button.type="button";
+    button.className="creator-magazine-item";
+    button.setAttribute("aria-label",`이헌과 유화 사진 ${index+1} 확대`);
+    const img=document.createElement("img");
+    img.alt=`이헌과 유화 ${index+1}`;
+    img.loading="lazy";
+    loadAsset(img,src);
+    button.appendChild(img);
+    button.addEventListener("click",()=>showLightbox(index,"magazine",true));
+    grid.appendChild(button);
+  });
+  creatorMagazineBuilt=true;
+}
+
+let creatorFantasyIndex=0;
+let creatorFantasyMoving=false;
+let creatorFantasyBuilt=false;
+
+function makeCreatorFantasySlide(index){
+  const button=document.createElement("button");
+  button.type="button";
+  button.className="fantasy-slide";
+  button.setAttribute("aria-label",`발칙한 상상 사진 ${index+1} 확대`);
+  const img=document.createElement("img");
+  img.alt=`발칙한 상상 ${index+1}`;
+  loadAsset(img,creatorFantasyPhotos[index]);
+  button.appendChild(img);
+  button.addEventListener("click",()=>{
+    if(!creatorFantasyMoving&&Date.now()>=suppressClickUntil){
+      showLightbox(creatorFantasyIndex,"fantasy",true);
+    }
+  });
+  return button;
+}
+
+function updateCreatorFantasyCounter(){
+  $("fantasyCounter").textContent=
+    numberFormat(creatorFantasyIndex+1)+" / "+numberFormat(creatorFantasyPhotos.length);
+}
+
+function buildCreatorFantasy(){
+  const stage=$("fantasyStage");
+  if(!stage)return;
+  if(creatorFantasyBuilt)return;
+  creatorFantasyIndex=0;
+  stage.replaceChildren(makeCreatorFantasySlide(0));
+  updateCreatorFantasyCounter();
+  creatorFantasyBuilt=true;
+}
+
+async function moveCreatorFantasy(direction){
+  if(creatorFantasyMoving||transitioning||currentScreen!=="creator-fantasy"||
+     !$("lightbox").classList.contains("hidden"))return;
+  creatorFantasyMoving=true;
+  const stage=$("fantasyStage");
+  const outgoing=stage.firstElementChild;
+  const next=(creatorFantasyIndex+direction+creatorFantasyPhotos.length)%creatorFantasyPhotos.length;
+  const incoming=makeCreatorFantasySlide(next);
+  incoming.style.transform=`translateX(${direction>0?100:-100}%)`;
+  stage.appendChild(incoming);
+
+  if(motionReduced){
+    outgoing.remove();
+    incoming.style.transform="translateX(0)";
+  }else{
+    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+    outgoing.style.transform=`translateX(${direction>0?-100:100}%)`;
+    incoming.style.transform="translateX(0)";
+    await wait(850);
+    outgoing.remove();
+  }
+  creatorFantasyIndex=next;
+  updateCreatorFantasyCounter();
+  creatorFantasyMoving=false;
+}
+
+buildCreatorMagazine();
+buildCreatorFantasy();
+bindSwipe($("fantasyStage"),moveCreatorFantasy);
+
+document.addEventListener("keydown",event=>{
+  if(currentScreen!=="creator-fantasy"||transitioning||
+    !$("lightbox").classList.contains("hidden"))return;
+  if(event.key==="ArrowLeft"){
+    event.preventDefault();moveCreatorFantasy(-1);
+  }else if(event.key==="ArrowRight"){
+    event.preventDefault();moveCreatorFantasy(1);
   }
 });
 </script>
