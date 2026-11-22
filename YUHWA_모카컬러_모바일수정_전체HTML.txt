@@ -1,0 +1,4684 @@
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>留華</title>
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri.css">
+
+<style>
+
+/* ========================================
+   留華 V15.1
+======================================== */
+
+:root{
+  --bg:#0d0c10;
+  --ivory:#eee7dc;
+  --muted:#c9beb2;
+  --gold:#b99a75;
+  --paper:#e9dfce;
+  --ink:#51473e;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  background:var(--bg);
+}
+
+body{
+  color:var(--ivory);
+  font-family:"Maru Buri","Malgun Gothic",serif;
+}
+
+button{
+  font:inherit;
+  color:inherit;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+button:focus-visible,
+[role="button"]:focus-visible{
+  outline:1px solid #d9b78f;
+  outline-offset:5px;
+}
+
+img{
+  -webkit-user-drag:none;
+  user-select:none;
+}
+
+.hidden{display:none!important}
+
+/* ========================================
+   공통 화면
+======================================== */
+
+.screen{
+  min-height:100vh;
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  text-align:center;
+  padding:40px 30px;
+  overflow:hidden;
+  background:radial-gradient(
+    ellipse at 50% 40%,
+    #292329,
+    #0d0c10 75%
+  );
+  transition:opacity 1.1s ease;
+}
+
+.screen::before{
+  content:"";
+  position:absolute;
+  inset:18px;
+  border:1px solid #ffffff14;
+  pointer-events:none;
+}
+
+.screen.fading{
+  opacity:0;
+  pointer-events:none;
+}
+
+.content{
+  position:relative;
+  width:100%;
+  z-index:2;
+}
+
+.eyebrow{
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  letter-spacing:5px;
+  color:#ad9c89;
+}
+
+/* ========================================
+   첫 화면
+======================================== */
+
+.title-image{
+  display:block;
+  width:min(250px,62vw);
+  height:clamp(230px,43vh,390px);
+  object-fit:contain;
+  margin:0 auto;
+  filter:drop-shadow(0 0 22px #d8bda426);
+}
+
+.quote{
+  margin-top:28px;
+  font-size:14px;
+  font-weight:400;
+  line-height:1.7;
+  color:var(--muted);
+  word-break:keep-all;
+}
+
+/* ========================================
+   흰 꽃 및 꽃잎 8장
+======================================== */
+
+.flower-enter{
+  display:block;
+  position:relative;
+  width:150px;
+  height:250px;
+  margin:6px auto 0;
+  padding:0;
+  border:0;
+  background:transparent;
+}
+
+.flower-stage{
+  position:absolute;
+  display:block;
+  width:250px;
+  height:250px;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  pointer-events:none;
+}
+
+.flower-main{
+  position:absolute;
+  display:block;
+  z-index:2;
+  width:150px;
+  height:150px;
+  top:5px;
+  left:50%;
+  transform:translateX(-50%);
+  object-fit:contain;
+  filter:drop-shadow(0 0 8px #f5e2ca21);
+}
+
+.petals-layer{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+}
+
+.falling-petal{
+  position:absolute;
+  left:50%;
+  top:80px;
+  width:19px;
+  height:34px;
+  opacity:0;
+  transform-origin:50% 15%;
+  pointer-events:none;
+}
+
+.falling-petal svg{
+  display:block;
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+
+.flower-enter.is-playing .falling-petal,
+.closing-petals.is-playing .falling-petal{
+  animation:petalFall var(--duration)
+  ease-in-out var(--delay) both;
+}
+
+@keyframes petalFall{
+  0%{
+    opacity:0;
+    transform:translate(
+      var(--start-x),var(--start-y)
+    ) rotate(var(--start-rotate)) scale(.85);
+  }
+  12%{opacity:1}
+  30%{
+    opacity:.95;
+    transform:translate(
+      calc(var(--start-x) + var(--sway)),
+      calc(var(--start-y) + 35px)
+    ) rotate(45deg);
+  }
+  60%{
+    opacity:.85;
+    transform:translate(
+      calc(var(--start-x) - var(--sway)),
+      calc(var(--start-y) + 85px)
+    ) rotate(125deg) scale(.9);
+  }
+  85%{opacity:.5}
+  100%{
+    opacity:0;
+    transform:translate(
+      calc(var(--start-x) + var(--drift)),
+      calc(var(--start-y) + var(--fall))
+    ) rotate(var(--end-rotate)) scale(.7);
+  }
+}
+
+/* ========================================
+   기록 보관소
+======================================== */
+
+.archive-content{
+  max-width:850px;
+  margin:0 auto;
+}
+
+.archive-title-image{
+  display:block;
+  width:150px;
+  height:175px;
+  object-fit:contain;
+  margin:0 auto;
+  filter:drop-shadow(0 0 14px #d8bda41e);
+}
+
+.archive-eyebrow{
+  margin-top:15px;
+  margin-bottom:30px;
+  font-size:10px;
+  letter-spacing:5px;
+  line-height:1.6;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16.8px;
+  width:100%;
+  max-width:456px;
+  margin:25px auto 0;
+}
+
+.card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  min-width:0;
+  min-height:190px;
+  padding:15px 0;
+  border:0;
+  background:transparent;
+  text-align:center;
+}
+
+.menu-symbol{
+  display:block;
+  width:112px;
+  height:112px;
+  max-width:100%;
+  object-fit:contain;
+  margin:0 auto 14px;
+  opacity:.88;
+  transition:opacity .7s,filter .7s;
+}
+
+.card:hover .menu-symbol,
+.card:focus-visible .menu-symbol{
+  opacity:1;
+  filter:drop-shadow(0 0 17px #f7e3c973);
+}
+
+.card small{
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  letter-spacing:2px;
+  color:#bba992;
+  white-space:nowrap;
+  transition:color .5s;
+}
+
+.card p{
+  margin:12px 0 0;
+  font-size:15px;
+  color:#e7dad0;
+  transition:color .5s,text-shadow .5s;
+}
+
+.card:hover small{color:#e1c7a5}
+
+.card:hover p{
+  color:#fff3e2;
+  text-shadow:0 0 12px #e7d3b94d;
+}
+
+#archive .flower-enter{
+  margin:25px auto 0;
+}
+
+/* ========================================
+   사진첩 앞표지
+======================================== */
+
+.album-cover-content{
+  max-width:800px;
+  margin:auto;
+}
+
+.cover-eyebrow{margin-bottom:30px}
+
+.album-heading{
+  margin:15px 0 30px;
+  font-weight:400;
+  font-size:21px;
+  letter-spacing:3px;
+}
+
+.book-cover-button{
+  display:block;
+  position:relative;
+  width:min(340px,72vw);
+  aspect-ratio:471/564;
+  margin:0 auto;
+  padding:0;
+  border:0;
+  background:transparent;
+  perspective:1300px;
+  isolation:isolate;
+}
+
+.cover-paper-edges{
+  position:absolute;
+  inset:5px 6px 5px 11px;
+  border-radius:4px 9px 9px 4px;
+  background:repeating-linear-gradient(
+    0deg,
+    #d5c7ae 0px,
+    #e6dac6 2px,
+    #bba98e 3px,
+    #eadfcb 4px
+  );
+  box-shadow:0 12px 25px #0006;
+}
+
+.cover-inner-paper{
+  position:absolute;
+  inset:9px 9px 9px 16px;
+  border-radius:2px 5px 5px 2px;
+  background:linear-gradient(
+    90deg,#b4a289,#e7dcc8 9%,
+    #f0e6d5 85%,#decfb6
+  );
+  border:1px solid #bba88c;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.cover-leaf{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  transform-origin:left center;
+  transform-style:preserve-3d;
+  transition:transform .7s cubic-bezier(.22,.7,.25,1);
+}
+
+.book-cover-image{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:fill;
+  backface-visibility:hidden;
+  filter:drop-shadow(0 12px 18px #0006);
+}
+
+.cover-leaf-back{
+  position:absolute;
+  inset:5px;
+  border-radius:4px;
+  backface-visibility:hidden;
+  transform:rotateY(180deg);
+  background:linear-gradient(
+    90deg,#bcaa8e,#e4d8c2 12%,
+    #eee3d0 90%,#bfad92
+  );
+}
+
+@media(hover:hover) and (pointer:fine){
+  .book-cover-button:not(.opening):hover .cover-leaf{
+    transform:rotateY(-23deg);
+  }
+}
+
+.book-cover-button:not(.opening):focus-visible .cover-leaf{
+  transform:rotateY(-23deg);
+}
+
+.book-cover-button.opening .cover-leaf{
+  transform:rotateY(-155deg);
+  transition:transform 1s cubic-bezier(.35,.08,.25,1);
+}
+
+.cover-hint{
+  margin-top:22px;
+  font-size:12px;
+  color:#a89989;
+  letter-spacing:1px;
+}
+
+/* ========================================
+   사진첩 내부
+======================================== */
+
+.reader-content{
+  max-width:1120px;
+  margin:0 auto;
+}
+
+.reader-header{margin-bottom:26px}
+
+.book{
+  position:relative;
+  width:min(960px,100%);
+  aspect-ratio:1.65;
+  margin:0 auto;
+  padding:9px;
+  perspective:1800px;
+  background:#292521;
+  border-radius:6px 10px 10px 6px;
+  box-shadow:
+    0 25px 65px #0008,
+    0 4px 0 #82715c,
+    0 7px 0 #55483b;
+  touch-action:pan-y;
+}
+
+.book-spread{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  position:relative;
+  width:100%;
+  height:100%;
+  perspective:1800px;
+}
+
+.page{
+  position:relative;
+  width:100%;
+  height:100%;
+  min-width:0;
+  min-height:0;
+  overflow:hidden;
+  color:var(--ink);
+  background:var(--paper);
+  cursor:pointer;
+}
+
+.page-left{
+  background:linear-gradient(
+    90deg,#e1d3bd,#eee5d5 5%,
+    #ede3d2 90%,#cabcaa
+  );
+  border-radius:2px 0 0 2px;
+}
+
+.page-right{
+  background:linear-gradient(
+    90deg,#cabcaa,#eee5d5 10%,
+    #f1e8da 95%,#decfb9
+  );
+  border-radius:0 4px 4px 0;
+}
+
+.page::after{
+  content:"";
+  position:absolute;
+  inset:5%;
+  border:1px solid #80694b21;
+  pointer-events:none;
+}
+
+.book-spine{
+  position:absolute;
+  z-index:5;
+  top:0;
+  bottom:0;
+  left:50%;
+  width:24px;
+  transform:translateX(-50%);
+  background:linear-gradient(
+    90deg,transparent,#59473730,
+    #47372750,#59473720,transparent
+  );
+  pointer-events:none;
+}
+
+/* ========================================
+   사진 자체를 클릭하여 확대
+======================================== */
+
+.photo-frame{
+  position:absolute;
+  top:8%;
+  right:9%;
+  bottom:12%;
+  left:9%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.album-photo{
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  cursor:zoom-in;
+  transition:filter .6s ease;
+}
+
+.album-photo:hover{
+  filter:brightness(1.045);
+}
+
+.photo-number{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:5%;
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  letter-spacing:3px;
+  color:#8e7e69;
+}
+
+/* ========================================
+   유화의 대사
+======================================== */
+
+.page-writing{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  height:100%;
+  padding:9%;
+}
+
+.chapter-number{
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  letter-spacing:3px;
+  color:#9a846b;
+}
+
+.page-decoration{
+  font-size:25px;
+  color:#aa9378;
+  margin:20px 0;
+}
+
+.photo-quote{
+  width:100%;
+  font-size:clamp(12px,1.7vw,19px);
+  font-weight:400;
+  line-height:1.5;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+  white-space:pre-line;
+  text-wrap:pretty;
+  color:#52463c;
+}
+
+/* ========================================
+   V15.1 마지막 페이지
+   로고 삭제 / 진한 텍스트 버튼
+======================================== */
+
+.moon-seal-button{
+  display:block;
+  margin:24px auto 0;
+  padding:3px 0;
+  border:0;
+  background:transparent;
+  color:#49372b;
+  cursor:pointer;
+  animation:sealAppear 1.5s ease both;
+}
+
+.moon-seal-label{
+  display:block;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.5px;
+  line-height:1.5;
+  color:#49372b;
+  transition:color .5s,text-shadow .5s;
+}
+
+.moon-seal-button:hover .moon-seal-label{
+  color:#261a14;
+  text-shadow:0 0 8px #ffffff99;
+}
+
+.final-page-hint{
+  position:static;
+  margin:9px auto 0;
+  font-size:12px;
+  font-weight:500;
+  line-height:1.5;
+  color:#49372b;
+  letter-spacing:.2px;
+  word-break:keep-all;
+}
+
+@keyframes sealAppear{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ========================================
+   입체적인 책장 넘김
+======================================== */
+
+.flip-sheet{
+  position:absolute;
+  z-index:20;
+  top:0;
+  width:50%;
+  height:100%;
+  transform-style:preserve-3d;
+  pointer-events:none;
+}
+
+.flip-sheet.forward{
+  left:50%;
+  transform-origin:left center;
+  animation:turnForward .9s
+  cubic-bezier(.35,.08,.25,1) forwards;
+}
+
+.flip-sheet.backward{
+  left:0;
+  transform-origin:right center;
+  animation:turnBackward .9s
+  cubic-bezier(.35,.08,.25,1) forwards;
+}
+
+.flip-face{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  overflow:hidden;
+  box-shadow:8px 2px 20px #0002;
+}
+
+.flip-back{transform:rotateY(180deg)}
+
+@keyframes turnForward{
+  from{transform:rotateY(0deg)}
+  to{transform:rotateY(-180deg)}
+}
+
+@keyframes turnBackward{
+  from{transform:rotateY(0deg)}
+  to{transform:rotateY(180deg)}
+}
+
+.reader-footer{margin-top:24px}
+
+.page-counter{
+  font-family:Arial,sans-serif;
+  font-size:11px;
+  letter-spacing:4px;
+  color:#c1ad96;
+}
+
+.reader-hint{
+  margin-top:13px;
+  font-size:11px;
+  color:#8c8076;
+}
+
+/* ========================================
+   일반 사진 전체 보기
+======================================== */
+
+.gallery-content{
+  max-width:1000px;
+  margin:0 auto;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+  margin:35px auto 0;
+}
+
+.gallery-item{
+  display:block;
+  position:relative;
+  padding:0;
+  border:0;
+  background:#ffffff04;
+  overflow:hidden;
+  aspect-ratio:3/4;
+}
+
+.gallery-item img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:filter .5s,transform .7s;
+}
+
+.gallery-item:hover img{
+  transform:scale(1.035);
+  filter:brightness(1.08);
+}
+
+.gallery-index{
+  position:absolute;
+  bottom:10px;
+  left:12px;
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  letter-spacing:2px;
+  color:#fff;
+  text-shadow:0 1px 7px #000;
+}
+
+/* ========================================
+   책 닫힘 애니메이션
+   V15.1 뒷표지 적용
+======================================== */
+
+.closing-overlay{
+  position:fixed;
+  inset:0;
+  z-index:900;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:radial-gradient(
+    ellipse at center,#292329,#100d13 78%
+  );
+  opacity:0;
+  transition:opacity 1.5s ease;
+}
+
+.closing-overlay.visible{opacity:1}
+
+.closing-composition{
+  width:min(740px,86vw);
+  aspect-ratio:1.65;
+  position:relative;
+  perspective:1700px;
+  transition:opacity 1.5s ease;
+}
+
+.closing-base{
+  position:absolute;
+  inset:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  padding:6px;
+  background:#302921;
+  border-radius:6px;
+  box-shadow:0 20px 50px #0008;
+}
+
+.closing-page{
+  background:linear-gradient(
+    90deg,#e8dcc7,#f0e6d6 90%,#c4b297
+  );
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.closing-page img{
+  width:85%;
+  height:85%;
+  object-fit:contain;
+}
+
+.closing-page p{
+  color:#655241;
+  font-size:clamp(10px,1.7vw,17px);
+  padding:10%;
+  text-align:center;
+  line-height:1.5;
+}
+
+.closing-leaf{
+  position:absolute;
+  left:0;
+  top:0;
+  width:50%;
+  height:100%;
+  z-index:3;
+  transform-origin:right center;
+  transform-style:preserve-3d;
+}
+
+.closing-leaf-front,
+.closing-leaf-back{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+}
+
+.closing-leaf-front{
+  background:#eee3d1;
+  display:grid;
+  place-items:center;
+}
+
+.closing-leaf-front img{
+  width:85%;
+  height:85%;
+  object-fit:contain;
+}
+
+.closing-leaf-back{
+  transform:rotateY(180deg);
+  background:#292521;
+}
+
+.closing-leaf-back img{
+  width:100%;
+  height:100%;
+  object-fit:fill;
+}
+
+.closing-composition.fold .closing-leaf{
+  animation:closeBook 1.5s
+  cubic-bezier(.3,.1,.25,1) forwards;
+}
+
+.closing-composition.fold .closing-base{
+  animation:hideLeftBook 1.5s forwards;
+}
+
+@keyframes closeBook{
+  from{transform:rotateY(0deg)}
+  to{transform:rotateY(180deg)}
+}
+
+@keyframes hideLeftBook{
+  0%,30%{clip-path:inset(0 0 0 0)}
+  100%{clip-path:inset(0 0 0 50%)}
+}
+
+.closed-cover-final{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(290px,58vw);
+  aspect-ratio:2/3;
+  transform:translate(-50%,-50%);
+  object-fit:contain;
+  opacity:0;
+  transition:opacity .8s ease;
+  filter:drop-shadow(0 10px 25px #0008);
+}
+
+.closed-cover-final.visible{opacity:1}
+
+.closing-petals{
+  position:absolute;
+  z-index:6;
+  left:50%;
+  top:47%;
+  width:300px;
+  height:300px;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+
+.closing-petals .falling-petal{
+  width:24px;
+  height:42px;
+}
+
+.closing-overlay.dissolve .closed-cover-final{
+  opacity:0;
+  transition:opacity 1.5s ease;
+}
+
+/* ========================================
+   달이 깊어지면 : 입구
+======================================== */
+
+#moonrise-screen,
+#night-gallery{
+  background:radial-gradient(
+    ellipse at 50% 45%,
+    #33242f 0%,
+    #1c151e 45%,
+    #100d13 85%
+  );
+}
+
+#moonrise-screen::before,
+#night-gallery::before{
+  border:0;
+}
+
+.moonrise-content{
+  max-width:650px;
+  margin:auto;
+}
+
+.moonrise-button{
+  display:block;
+  position:relative;
+  width:min(410px,80vw);
+  margin:auto;
+  padding:0;
+  border:0;
+  background:transparent;
+  isolation:isolate;
+}
+
+.moonrise-button::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:-20%;
+  background:radial-gradient(
+    ellipse,#d5bba52a,transparent 66%
+  );
+  opacity:.5;
+  transition:opacity 1s;
+  pointer-events:none;
+}
+
+.moonrise-logo{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 0 12px #e5cdb426);
+  transition:filter 1s ease;
+}
+
+.moonrise-button:hover::before{opacity:1}
+
+.moonrise-button:hover .moonrise-logo{
+  filter:drop-shadow(0 0 24px #e5cdb454);
+}
+
+#moonrise-screen.reveal .moonrise-button{
+  animation:moonriseReveal 2s ease both;
+}
+
+@keyframes moonriseReveal{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+    filter:brightness(.5);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+    filter:brightness(1);
+  }
+}
+
+/* ========================================
+   심야 전시실
+======================================== */
+
+.night-content{
+  width:min(820px,100%);
+  margin:auto;
+}
+
+.night-heading{
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  letter-spacing:6px;
+  color:#b69aa9;
+  margin-bottom:25px;
+}
+
+.night-stage{
+  position:relative;
+  width:100%;
+  height:clamp(300px,64vh,700px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  touch-action:pan-y;
+}
+
+.night-main{
+  position:absolute;
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  cursor:zoom-in;
+  box-shadow:0 12px 45px #0004;
+  opacity:1;
+  transition:opacity .9s ease;
+}
+
+.night-main.fading-out{opacity:0}
+
+.night-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:5;
+  border:0;
+  background:transparent;
+  font-size:30px;
+  color:#b9a1af;
+  opacity:.45;
+  padding:12px;
+  transition:opacity .5s;
+}
+
+.night-arrow:hover{opacity:1}
+
+.night-prev{left:0}
+.night-next{right:0}
+
+.night-caption{
+  margin-top:18px;
+  min-height:14px;
+  font-family:Arial,sans-serif;
+  font-size:8px;
+  letter-spacing:4px;
+  color:#9d8394;
+}
+
+/* 하단 필름형 썸네일 */
+
+
+.night-film{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:80px;
+  gap:9px;
+  width:min(650px,100%);
+  margin:22px auto 0;
+  padding:4px 2px 12px;
+
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-behavior:smooth;
+  overscroll-behavior-x:contain;
+  scrollbar-width:thin;
+  scrollbar-color:#74616e transparent;
+}
+
+.night-film::-webkit-scrollbar{
+  height:4px;
+}
+
+.night-film::-webkit-scrollbar-thumb{
+  background:#74616e;
+  border-radius:10px;
+}
+
+.night-film::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+
+.night-thumb{
+  position:relative;
+  display:block;
+  aspect-ratio:3/4;
+  overflow:hidden;
+  padding:0;
+  border:1px solid transparent;
+  background:#ffffff05;
+  opacity:.5;
+  transition:opacity .65s,border-color .65s;
+}
+
+.night-thumb img,
+.night-thumb canvas{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.night-thumb:hover{opacity:.85}
+
+.night-thumb.selected{
+  opacity:1;
+  border-color:#c9aeba;
+}
+
+.motion-mark{
+  position:absolute;
+  right:4px;
+  bottom:4px;
+  padding:3px 4px;
+  font:7px Arial,sans-serif;
+  letter-spacing:1px;
+  background:#171019a8;
+  color:#eee0e6;
+}
+
+/* 심야 화면의 작은 흰 꽃 */
+
+.small-flower{
+  width:80px;
+  height:120px;
+  margin:22px auto 0;
+}
+
+.small-flower .flower-stage{
+  transform:translateX(-50%) scale(.5);
+  transform-origin:top center;
+}
+
+/* ========================================
+   전체 화면 사진 확대
+======================================== */
+
+.lightbox{
+  position:fixed;
+  z-index:1000;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#08070bf5;
+  padding:35px 55px;
+}
+
+.lightbox-image{
+  display:block;
+  max-width:100%;
+  max-height:85vh;
+  object-fit:contain;
+  box-shadow:0 10px 50px #0008;
+}
+
+.lightbox-close{
+  position:absolute;
+  top:20px;
+  right:24px;
+  width:38px;
+  height:38px;
+  border:0;
+  background:transparent;
+  font-size:28px;
+  color:#eee1ce;
+}
+
+.lightbox-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  border:0;
+  background:transparent;
+  padding:10px;
+  font-size:25px;
+  color:#cbb49a;
+}
+
+.lightbox-prev{left:12px}
+.lightbox-next{right:12px}
+
+.lightbox-count{
+  position:absolute;
+  bottom:18px;
+  left:0;
+  right:0;
+  text-align:center;
+  font:10px Arial,sans-serif;
+  letter-spacing:3px;
+  color:#b7a28e;
+}
+
+/* ========================================
+   모바일 반응형
+======================================== */
+
+@media(max-width:600px){
+
+  .screen{padding:35px 22px}
+
+  .title-image{
+    height:clamp(210px,38vh,330px);
+  }
+
+  .quote{
+    font-size:13px;
+    line-height:1.6;
+  }
+
+  .eyebrow{
+    font-size:9px;
+    letter-spacing:3px;
+  }
+
+  .archive-title-image{
+    width:120px;
+    height:150px;
+  }
+
+  .archive-eyebrow{
+    font-size:9px;
+    letter-spacing:3px;
+  }
+
+  .cards{
+    max-width:340px;
+    gap:4px;
+    margin-top:18px;
+  }
+
+  .card{
+    min-height:130px;
+    padding:8px 0;
+  }
+
+  .menu-symbol{
+    width:74px;
+    height:74px;
+    margin-bottom:10px;
+  }
+
+  .card small{
+    font-size:7px;
+    letter-spacing:.6px;
+  }
+
+  .card p{
+    font-size:12px;
+    margin-top:9px;
+  }
+
+  .flower-enter{
+    width:130px;
+    height:220px;
+  }
+
+  .flower-stage{
+    transform:translateX(-50%) scale(.87);
+    transform-origin:top center;
+  }
+
+  #archive .flower-enter{
+    margin-top:20px;
+  }
+
+  .book-cover-button{
+    width:min(280px,72vw);
+  }
+
+  .book{
+    aspect-ratio:1.1;
+    padding:5px;
+  }
+
+  .book-spine{width:13px}
+
+  .photo-frame{
+    top:7%;
+    bottom:13%;
+    left:6%;
+    right:6%;
+  }
+
+  .page-writing{padding:8%}
+
+  .photo-quote{
+    font-size:12px;
+    line-height:1.5;
+  }
+
+  .chapter-number{
+    font-size:7px;
+    letter-spacing:1px;
+  }
+
+  .page-decoration{
+    font-size:15px;
+    margin:12px 0;
+  }
+
+  .photo-number{
+    font-size:7px;
+    letter-spacing:1px;
+  }
+
+  .moon-seal-button{
+    margin-top:17px;
+    padding:2px 0;
+  }
+
+  .moon-seal-label{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0;
+    color:#49372b;
+  }
+
+  .final-page-hint{
+    position:static;
+    margin:7px auto 0;
+    font-size:10px;
+    font-weight:500;
+    color:#49372b;
+  }
+
+  .page-right.is-final .page-writing{
+    padding:8%;
+  }
+
+  .page-right.is-final .page-decoration{
+    margin:10px 0;
+  }
+
+  .gallery{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+  }
+
+  .night-heading{
+    font-size:8px;
+    letter-spacing:4px;
+    margin-bottom:18px;
+  }
+
+  .night-stage{
+    height:clamp(260px,55vh,520px);
+  }
+
+.night-film{
+  grid-auto-columns:60px;
+  gap:6px;
+  margin-top:18px;
+}
+
+  .night-arrow{
+    font-size:22px;
+    padding:4px;
+  }
+
+  .small-flower{
+    width:70px;
+    height:95px;
+    margin-top:18px;
+  }
+
+  .small-flower .flower-stage{
+    transform:translateX(-50%) scale(.43);
+  }
+
+  .motion-mark{
+    font-size:5px;
+    right:2px;
+    bottom:2px;
+    padding:2px;
+  }
+
+  .lightbox{padding:30px 35px}
+
+  .lightbox-arrow{
+    font-size:20px;
+    padding:3px;
+  }
+
+  .lightbox-prev{left:5px}
+  .lightbox-next{right:5px}
+}
+
+@media(max-width:380px){
+
+  .page-right.is-final .chapter-number{
+    font-size:6px;
+  }
+
+  .page-right.is-final .photo-quote{
+    font-size:11px;
+  }
+
+  .moon-seal-label{
+    font-size:11px;
+  }
+
+  .final-page-hint{
+    font-size:9px;
+  }
+}
+
+/* 움직임 최소화 설정 */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,*::before,*::after{
+    animation-duration:.01s!important;
+    animation-delay:0s!important;
+    transition-duration:.01s!important;
+  }
+
+  .falling-petal{display:none}
+
+  .book-cover-button .cover-leaf{
+    transform:none!important;
+  }
+}
+
+</style>
+<style>
+/* ========================================
+   작가의 선물 V1 · 2×2 메뉴 / 웨딩 Coverflow
+======================================== */
+
+#archive .cards{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  max-width:390px;
+  gap:4px 22px;
+  margin-top:12px;
+}
+#archive .card{min-height:142px;padding:7px 0}
+#archive .menu-symbol{width:95px;height:95px;margin-bottom:8px}
+#archive .card small{font-size:9px;letter-spacing:1.2px}
+#archive .card p{margin-top:7px}
+#archive .flower-enter{margin-top:10px}
+
+.creator-content{max-width:780px;margin:0 auto}
+.creator-title{
+  margin:18px 0 0;
+  font-size:25px;
+  font-weight:400;
+  letter-spacing:2px;
+  color:#eee4dc;
+}
+.creator-intro{
+  margin:22px auto 32px;
+  font-size:12px;
+  line-height:2;
+  color:#b7a89f;
+  word-break:keep-all;
+}
+.creator-albums{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  max-width:650px;
+  margin:35px auto 0;
+}
+.creator-albums button{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  min-height:178px;
+  padding:12px 7px;
+  background:#ffffff05;
+  border:1px solid #cfbaa52b;
+  border-radius:5px;
+  transition:background .45s,border-color .45s,transform .45s;
+}
+.creator-albums button:hover,
+.creator-albums button:focus-visible{
+  background:#ffffff0c;
+  border-color:#d7baa477;
+  transform:translateY(-5px);
+}
+.creator-mark{display:block;color:#d7c2ae;font-size:35px;line-height:1.3}
+.creator-albums strong{font-weight:400;font-size:16px;white-space:nowrap}
+.creator-albums small{
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  letter-spacing:1px;
+  color:#bda694;
+  white-space:nowrap;
+}
+.creator-placeholder{margin:40px auto;color:#b6a69b;font-size:13px}
+
+.creator-wedding-content{width:100%;max-width:1000px;margin:0 auto}
+.wedding-carousel{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  margin:25px auto 0;
+}
+.wedding-stage{
+  position:relative;
+  width:min(780px,78vw);
+  height:clamp(270px,49vh,510px);
+  perspective:1300px;
+  overflow:hidden;
+  touch-action:pan-y;
+}
+.wedding-photo{
+  position:absolute;
+  top:50%;left:50%;
+  width:clamp(145px,30vw,305px);
+  aspect-ratio:3/4;
+  height:auto;
+  padding:0;
+  background:transparent;
+  border:0;
+  box-shadow:0 15px 35px #0006;
+  transform-style:preserve-3d;
+  transition:transform .75s cubic-bezier(.2,.7,.2,1),
+             opacity .75s,filter .75s;
+}
+.wedding-photo img{
+  display:block;
+  width:100%;height:100%;
+  object-fit:contain;
+  background:transparent;
+  pointer-events:none;
+}
+.wedding-photo.is-center{
+  box-shadow:0 16px 40px #0008;
+}
+.wedding-arrow{
+  flex:0 0 36px;
+  padding:8px 0;
+  border:0;
+  background:transparent;
+  color:#d3bda8;
+  font-size:38px;
+  transition:color .3s;
+}
+.wedding-arrow:hover{color:#fff0d9}
+.wedding-counter{
+  margin-top:12px;
+  font:12px Arial,sans-serif;
+  letter-spacing:3px;
+  color:#d6bd9f;
+}
+.wedding-dots{display:flex;justify-content:center;gap:11px;margin-top:16px}
+.wedding-dots button{
+  width:7px;height:7px;padding:0;
+  border:0;border-radius:50%;
+  background:#8d7880;opacity:.45;
+}
+.wedding-dots button.active{
+  background:#f1e1d2;opacity:1;
+  box-shadow:0 0 9px #ecd8c1;
+}
+.wedding-hint{margin:14px 0 0;color:#a89a8f;font-size:10px}
+#creator-wedding .flower-enter{margin-top:0}
+
+@media(max-width:600px){
+  #archive .cards{max-width:310px;gap:0 12px}
+  #archive .card{min-height:120px}
+  #archive .menu-symbol{width:76px;height:76px}
+  #archive .card small{font-size:7px;letter-spacing:.6px}
+  #archive .card p{font-size:12px}
+  #creator-gift{padding:40px 30px}
+  .creator-title{font-size:21px}
+  .creator-albums{gap:8px;max-width:100%}
+  .creator-albums button{min-height:123px;padding:9px 2px;gap:7px}
+  .creator-mark{font-size:26px}
+  .creator-albums strong{font-size:10px}
+  .creator-albums small{font-size:6px;letter-spacing:0}
+  .creator-intro{font-size:11px}
+  .wedding-stage{width:calc(100vw - 88px);height:clamp(270px,47vh,420px)}
+  .wedding-photo{width:clamp(135px,46vw,225px)}
+  .wedding-arrow{flex-basis:26px;font-size:29px}
+  .wedding-carousel{gap:0}
+}
+
+/* 이헌과 유화: 정돈된 2단 에디토리얼 화보 */
+#creator-yihun,#creator-fantasy{
+  overflow:visible;
+}
+.creator-magazine-content{max-width:1000px;margin:0 auto}
+.creator-magazine{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:14px;
+  width:100%;
+  max-width:800px;
+  margin:34px auto 0;
+  align-items:start;
+}
+.creator-magazine-item{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  grid-column:span 2;
+  width:100%;
+  min-width:0;
+  aspect-ratio:4/3;
+  padding:0;
+  border:0;
+  background:transparent;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(15px);
+  animation:none;
+}
+/* 첫 번째 행: 세로형 사진 2장 */
+.creator-magazine-item:nth-child(-n+2){
+  grid-column:span 3;
+  aspect-ratio:3/4;
+}
+/* 두 번째 행: 가로형 사진 3장 */
+.creator-magazine-item:nth-child(n+3){
+  grid-column:span 2;
+  aspect-ratio:4/3;
+}
+#creator-yihun:not(.hidden) .creator-magazine-item{
+  animation:creatorMagazineReveal .9s ease forwards;
+}
+.creator-magazine-item img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .65s,filter .65s;
+}
+.creator-magazine-item:hover img{
+  transform:scale(1.025);
+  filter:brightness(1.07);
+}
+#creator-yihun .creator-magazine-item:nth-child(2){animation-delay:.1s}
+#creator-yihun .creator-magazine-item:nth-child(3){animation-delay:.2s}
+#creator-yihun .creator-magazine-item:nth-child(4){animation-delay:.3s}
+#creator-yihun .creator-magazine-item:nth-child(5){animation-delay:.4s}
+@keyframes creatorMagazineReveal{
+  to{opacity:1;transform:translateY(0)}
+}
+#creator-yihun .flower-enter{margin:32px auto 0}
+
+/* 발칙한 상상: 다음 장면이 옆에서 덮이는 풀스크린 슬라이드 */
+.creator-fantasy-content{max-width:1180px;margin:0 auto}
+.fantasy-viewer{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  gap:8px;
+  margin:24px auto 0;
+}
+.fantasy-stage{
+  position:relative;
+  width:min(1000px,82vw);
+  height:clamp(300px,54vh,630px);
+  overflow:hidden;
+  background:transparent;
+  touch-action:pan-y;
+}
+.fantasy-slide{
+  position:absolute;
+  inset:0;
+  width:100%;height:100%;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:zoom-in;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:transform .8s cubic-bezier(.22,.65,.25,1);
+  will-change:transform;
+}
+.fantasy-slide img{
+  max-width:100%;max-height:100%;
+  width:auto;height:auto;
+  object-fit:contain;
+  display:block;
+  pointer-events:none;
+  box-shadow:0 10px 35px #0005;
+}
+.fantasy-arrow{
+  flex:0 0 35px;
+  padding:10px 0;
+  border:0;
+  background:transparent;
+  color:#d3bda8;
+  font-size:35px;
+  opacity:.7;
+  transition:opacity .25s;
+}
+.fantasy-arrow:hover{opacity:1}
+.fantasy-counter{
+  margin:14px auto 0;
+  font:12px Arial,sans-serif;
+  letter-spacing:3px;
+  color:#cbb6a8;
+}
+#creator-fantasy .flower-enter{margin:0 auto}
+@media(max-width:600px){
+  .creator-magazine{gap:8px;margin-top:25px}
+  .creator-magazine-item:nth-child(-n+2){grid-column:span 3}
+  .creator-magazine-item:nth-child(n+3){grid-column:span 2}
+  .fantasy-viewer{gap:0}
+  .fantasy-stage{width:calc(100vw - 90px);height:clamp(280px,51vh,490px)}
+  .fantasy-arrow{flex-basis:25px;font-size:27px}
+}
+@media(prefers-reduced-motion:reduce){
+  .creator-magazine-item{opacity:1;transform:none;animation:none}
+  .fantasy-slide{transition:none}
+}
+</style>
+
+<style>
+/* 유화 목소리 : 음성 기록 카드 전용 스타일 */
+#voice{
+  display:block;
+  overflow:visible;
+  min-height:100svh;
+  padding:74px 36px 20px;
+}
+#voice .voice-archive-content{
+  width:100%;
+  max-width:680px;
+  margin:0 auto;
+}
+.voice-archive-title{
+  font-size:27px;
+  font-weight:400;
+  letter-spacing:2px;
+  margin:18px 0 0;
+  color:#f0e7df;
+}
+.voice-archive-subtitle{
+  margin:15px 0 36px;
+  color:#b9a693;
+  font-size:12px;
+}
+.voice-card-list{
+  display:grid;
+  gap:16px;
+  text-align:left;
+}
+.voice-card{
+  background:#ffffff05;
+  border:1px solid #cfbaa52b;
+  border-radius:9px;
+  padding:23px 26px 19px;
+  box-shadow:none;
+  transition:border-color .5s,box-shadow .5s,background .5s;
+}
+.voice-card.is-playing{
+  border-color:#cdb39577;
+  box-shadow:0 0 12px #c7a28f18;
+}
+.voice-card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+.voice-card-meta{min-width:0}
+.voice-number,.voice-english{
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  color:#c4a48f;
+  letter-spacing:2px;
+}
+.voice-english{color:#b9a28d;letter-spacing:1.4px;margin-top:7px}
+.voice-card h2{
+  font-size:17px;
+  font-weight:400;
+  letter-spacing:.5px;
+  margin:9px 0 0;
+  color:#f0e7df;
+}
+.voice-play{
+  width:50px;
+  height:50px;
+  border:1px solid #cfbaa54a;
+  border-radius:50%;
+  background:#b99a7522;
+  color:#ead6c2;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  transition:transform .2s,background .3s;
+}
+.voice-play:hover{background:#b99a753d;transform:scale(1.045)}
+.voice-play-icon{font-family:Arial,sans-serif;font-size:18px;line-height:1}
+.voice-card.is-playing .voice-play{background:#b99a7550;border-color:#d0b395}
+.voice-track-row{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin:24px 0 19px;
+}
+.voice-time{
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  color:#bcaa97;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.voice-seek{
+  flex:1;
+  min-width:0;
+  height:4px;
+  margin:0;
+  cursor:pointer;
+  appearance:none;
+  -webkit-appearance:none;
+  background:linear-gradient(to right,#d5b69c 0%,#d5b69c var(--voice-progress,0%),#695b4e var(--voice-progress,0%),#695b4e 100%);
+  border-radius:8px;
+}
+.voice-seek::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  border:0;
+  background:#ead6c4;
+}
+.voice-seek::-moz-range-thumb{width:11px;height:11px;border:0;border-radius:50%;background:#ead6c4}
+.voice-excerpt{
+  padding-top:15px;
+  border-top:1px solid #cfbaa52b;
+  line-height:1.9;
+  color:#ddd0cb;
+  font-size:13px;
+  word-break:keep-all;
+}
+.voice-card.transcript-open .voice-excerpt{display:none}
+.voice-card.transcript-open .voice-details{margin-top:15px;border-top:1px solid #cfbaa52b;padding-top:15px}
+.voice-details{margin-top:15px;color:#c4b09b}
+.voice-details summary{
+  width:max-content;
+  max-width:100%;
+  font-size:11px;
+  letter-spacing:.3px;
+  cursor:pointer;
+  list-style:none;
+}
+.voice-details summary::-webkit-details-marker{display:none}
+.voice-details summary::after{content:'⌄';margin-left:9px}
+.voice-details[open] summary::after{content:'⌃'}
+.voice-details[open] summary{margin-bottom:16px}
+.voice-transcript{
+  border-top:1px solid #cfbaa52b;
+  padding-top:8px;
+  color:#ddd0cb;
+  line-height:2.05;
+  font-size:13px;
+  word-break:keep-all;
+}
+.voice-transcript-para{margin:13px 0}
+.voice-last-line{color:#f2d7c3;margin-top:21px}
+#voice .flower-enter{margin-top:36px}
+@media(max-width:600px){
+  #voice{padding:53px 30px 8px}
+  .voice-archive-title{font-size:23px}
+  .voice-archive-subtitle{margin-bottom:28px}
+  .voice-card{padding:15px 13px 15px}
+  .voice-card h2{font-size:15px}
+  .voice-number,.voice-english{font-size:8px;letter-spacing:1px}
+  .voice-play{width:40px;height:40px}
+  .voice-track-row{gap:8px}
+  .voice-excerpt,.voice-transcript{font-size:12px}
+}
+
+/* 좁은 휴대폰에서도 외곽 테두리 안에 카드 유지 */
+@media(max-width:380px){
+  #creator-gift{padding-left:29px;padding-right:29px}
+  .creator-albums{gap:5px}
+  .creator-albums strong{font-size:9px}
+  .creator-albums small{font-size:5.5px}
+  #voice{padding-left:29px;padding-right:29px}
+  .voice-card{padding:13px 11px}
+  .voice-card-head{gap:10px}
+  .voice-play{width:38px;height:38px}
+  .voice-track-row{gap:6px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 첫 화면 -->
+
+<section class="screen" id="entrance">
+  <div class="content">
+    <img class="title-image"
+      src="yuhwa-title.png" alt="留華">
+
+    <div class="quote">
+      빛 한 줄기 들지 않는 시간을 홀로 견뎌냈다.<br>
+      끝 모를 고독의 끝자락에서, 마침내 너를 만났다.
+    </div>
+
+    <button class="flower-enter"
+      type="button" data-target="archive"
+      aria-label="기록 보관소 열기"></button>
+  </div>
+</section>
+
+<!-- 기록 보관소 -->
+
+<section class="screen hidden" id="archive">
+  <div class="content archive-content">
+
+    <img class="archive-title-image"
+      src="yuhwa-title.png" alt="留華">
+
+    <div class="eyebrow archive-eyebrow">
+      THE ARCHIVE OF YUHWA
+    </div>
+
+    <div class="cards">
+
+      <button class="card" type="button"
+        onclick="goTo('album-cover')">
+        <img class="menu-symbol"
+          src="First.png" alt="壹">
+        <small>THE PORTRAITS</small>
+        <p>그의 모습</p>
+      </button>
+
+      <button class="card" type="button"
+        onclick="goTo('memories')">
+        <img class="menu-symbol"
+          src="Second.png" alt="貳">
+        <small>THE MEMORIES</small>
+        <p>오래된 기억</p>
+      </button>
+
+      <button class="card" type="button"
+        onclick="goTo('voice')">
+        <img class="menu-symbol"
+          src="Third.png" alt="參">
+        <small>THE VOICE</small>
+        <p>그의 목소리</p>
+      </button>
+
+      <button class="card" type="button"
+        onclick="goTo('creator-gift')">
+        <img class="menu-symbol"
+          src="Forth.png" alt="肆">
+        <small>THE CREATOR'S GIFT</small>
+        <p>작가의 선물</p>
+      </button>
+
+    </div>
+
+    <button class="flower-enter"
+      type="button" data-target="entrance"
+      aria-label="첫 화면으로 돌아가기"></button>
+
+  </div>
+</section>
+
+<!-- 작가의 선물 : 세 개의 사진첩 -->
+
+<section class="screen hidden" id="creator-gift">
+  <div class="content creator-content">
+
+    <div class="eyebrow">THE CREATOR'S GIFT</div>
+    <h1 class="creator-title">작가의 선물</h1>
+
+
+    <div class="creator-albums">
+      <button type="button" onclick="openCreatorWedding()">
+        <span class="creator-mark">❖</span>
+        <strong>유화의 결혼식</strong>
+        <small>THE WEDDING</small>
+      </button>
+      <button type="button" onclick="goTo('creator-yihun')">
+        <span class="creator-mark">❖</span>
+        <strong>이헌과 유화</strong>
+        <small>YIHUN &amp; YUHWA</small>
+      </button>
+      <button type="button" onclick="goTo('creator-fantasy')">
+        <span class="creator-mark">❖</span>
+        <strong>발칙한 상상</strong>
+        <small>SWEET FANTASY</small>
+      </button>
+    </div>
+
+    <button class="flower-enter" type="button"
+      data-target="archive" aria-label="기록 보관소로 돌아가기"></button>
+  </div>
+</section>
+
+<!-- 유화의 결혼식 : 몽경형 캐러셀 -->
+
+<section class="screen hidden" id="creator-wedding">
+  <div class="content creator-wedding-content">
+    <div class="eyebrow">THE WEDDING</div>
+    <h1 class="creator-title">유화의 결혼식</h1>
+
+    <div class="wedding-carousel">
+      <button class="wedding-arrow" type="button"
+        onclick="moveCreatorWedding(-1)" aria-label="이전 웨딩 사진">‹</button>
+      <div class="wedding-stage" id="weddingStage"
+        aria-label="유화의 결혼식 사진첩"></div>
+      <button class="wedding-arrow" type="button"
+        onclick="moveCreatorWedding(1)" aria-label="다음 웨딩 사진">›</button>
+    </div>
+
+    <div class="wedding-counter" id="weddingCounter">01 / 06</div>
+    <div class="wedding-dots" id="weddingDots"></div>
+
+    <button class="flower-enter" type="button"
+      data-target="creator-gift" aria-label="작가의 선물로 돌아가기"></button>
+  </div>
+</section>
+
+<!-- 이헌과 유화 : 매거진형 화보 -->
+
+<section class="screen hidden" id="creator-yihun">
+  <div class="content creator-magazine-content">
+    <span class="creator-mark">❖</span>
+    <div class="eyebrow">YIHUN &amp; YUHWA</div>
+    <h1 class="creator-title">이헌과 유화</h1>
+
+    <div class="creator-magazine" id="creatorMagazine"
+      aria-label="이헌과 유화 화보 5장"></div>
+
+    <button class="flower-enter" type="button"
+      data-target="creator-gift" aria-label="작가의 선물로 돌아가기"></button>
+  </div>
+</section>
+
+<!-- 발칙한 상상 : 몰입형 슬라이드 -->
+
+<section class="screen hidden" id="creator-fantasy">
+  <div class="content creator-fantasy-content">
+    <div class="eyebrow">SWEET FANTASY</div>
+    <h1 class="creator-title">발칙한 상상</h1>
+
+    <div class="fantasy-viewer">
+      <button class="fantasy-arrow" type="button"
+        onclick="moveCreatorFantasy(-1)" aria-label="이전 사진">‹</button>
+
+      <div class="fantasy-stage" id="fantasyStage"
+        aria-label="발칙한 상상 사진첩"></div>
+
+      <button class="fantasy-arrow" type="button"
+        onclick="moveCreatorFantasy(1)" aria-label="다음 사진">›</button>
+    </div>
+
+    <div class="fantasy-counter" id="fantasyCounter">01 / 09</div>
+
+    <button class="flower-enter" type="button"
+      data-target="creator-gift" aria-label="작가의 선물로 돌아가기"></button>
+  </div>
+</section>
+
+<!-- 사진첩 앞표지 -->
+
+<section class="screen hidden" id="album-cover">
+  <div class="content album-cover-content">
+
+    <div class="eyebrow cover-eyebrow">
+      THE PORTRAITS
+    </div>
+
+    <button class="book-cover-button"
+      id="bookCoverButton"
+      type="button"
+      onclick="openAlbum()"
+      aria-label="유화의 사진첩 열기">
+
+      <span class="cover-paper-edges"></span>
+      <span class="cover-inner-paper"></span>
+
+      <span class="cover-leaf">
+
+        <img class="book-cover-image"
+          src="book%20cover.png"
+          alt="유화의 사진첩">
+
+        <span class="cover-leaf-back"></span>
+
+      </span>
+
+    </button>
+
+    <p class="cover-hint">
+      책을 눌러 펼쳐보세요.
+    </p>
+
+    <button class="flower-enter"
+      type="button" data-target="archive"
+      aria-label="기록 보관소로 돌아가기"></button>
+
+  </div>
+</section>
+
+<!-- 사진첩 내부 -->
+
+<section class="screen hidden" id="album-reader">
+  <div class="content reader-content">
+
+    <div class="reader-header">
+      <div class="eyebrow">
+        THE PORTRAITS OF YUHWA
+      </div>
+    </div>
+
+    <div class="book" id="book">
+      <div class="book-spread" id="bookSpread">
+
+        <div class="page page-left"
+          id="leftPage"
+          role="button" tabindex="0"
+          aria-label="이전 페이지"></div>
+
+        <div class="page page-right"
+          id="rightPage"
+          role="button" tabindex="0"
+          aria-label="다음 페이지"></div>
+
+        <div class="book-spine"></div>
+
+      </div>
+    </div>
+
+    <div class="reader-footer">
+
+      <div class="page-counter"
+        id="pageCounter" aria-live="polite">
+        01 / 33
+      </div>
+
+      <div class="reader-hint" id="readerHint">
+        책장을 눌러 넘겨보세요.
+      </div>
+
+    </div>
+
+    <button class="flower-enter"
+      type="button" data-target="album-cover"
+      aria-label="사진첩 덮기"></button>
+
+  </div>
+</section>
+
+<!-- 일반 사진 전체 보기 -->
+
+<section class="screen hidden" id="gallery-screen">
+  <div class="content gallery-content">
+
+    <div class="eyebrow">
+      THE COMPLETE COLLECTION
+    </div>
+
+    <h1 class="album-heading">
+      유화의 모든 모습
+    </h1>
+
+    <div class="gallery" id="galleryGrid"></div>
+
+    <button class="flower-enter"
+      type="button" data-target="album-reader"
+      aria-label="사진첩으로 돌아가기"></button>
+
+  </div>
+</section>
+
+<!-- 달이 깊어지면 : 입구 -->
+
+<section class="screen hidden" id="moonrise-screen">
+  <div class="content moonrise-content">
+
+    <button class="moonrise-button"
+      type="button" onclick="openNightGallery()"
+      aria-label="달이 깊어지면">
+
+      <img class="moonrise-logo"
+        src="moonrise.png"
+        alt="달이 깊어지면">
+
+    </button>
+
+    <button class="flower-enter small-flower"
+      type="button" data-target="album-reader"
+      aria-label="일반 사진첩으로 돌아가기"></button>
+
+  </div>
+</section>
+
+<!-- 심야 전시실 -->
+
+<section class="screen hidden" id="night-gallery">
+  <div class="content night-content">
+
+    <div class="night-heading">
+      AFTER MOONRISE
+    </div>
+
+    <div class="night-stage" id="nightStage">
+
+      <button class="night-arrow night-prev"
+        type="button"
+        onclick="moveNight(-1)"
+        aria-label="이전 사진">‹</button>
+
+      <img class="night-main" id="nightMain"
+        alt="유화의 심야 화보"
+        role="button" tabindex="0"
+        aria-label="사진 확대">
+
+      <button class="night-arrow night-next"
+        type="button"
+        onclick="moveNight(1)"
+        aria-label="다음 사진">›</button>
+
+    </div>
+
+    <div class="night-caption" id="nightCaption">
+      MOTION PORTRAIT
+    </div>
+
+    <div class="night-film" id="nightFilm"></div>
+
+   <button class="flower-enter"
+  type="button" data-target="album-reader"
+  aria-label="사진첩으로 돌아가기"></button>
+
+  </div>
+</section>
+
+<!-- 오래된 기억 -->
+
+<section class="screen hidden" id="memories">
+  <div class="content memories-content">
+
+    <div class="eyebrow">THE MEMORIES</div>
+
+    <h1 class="memories-heading">오래된 기억</h1>
+
+    <h2 class="memories-subtitle">
+      백연화, 그 마지막 밤.
+    </h2>
+
+    <div class="memories-divider"></div>
+
+    <div class="webtoon">
+      <img src="scene1.png" alt="백연화의 마지막 밤 1">
+      <img src="scene2.png" alt="백연화의 마지막 밤 2">
+      <img src="scene3.png" alt="백연화의 마지막 밤 3">
+    </div>
+
+    <button class="flower-enter"
+      type="button" data-target="archive"
+      aria-label="기록 보관소로 돌아가기"></button>
+
+  </div>
+</section>
+
+<!-- 그의 목소리 : 음성 기록 카드 -->
+<section class="screen hidden" id="voice">
+  <div class="content voice-archive-content">
+    <div class="eyebrow">THE VOICE ARCHIVE</div>
+    <h1 class="voice-archive-title">그의 목소리</h1>
+    <p class="voice-archive-subtitle">남겨진 세 개의 음성 기록</p>
+    <div class="voice-card-list">
+      <article class="voice-card" data-voice="01">
+        <div class="voice-card-head">
+          <div class="voice-card-meta">
+            <div class="voice-number">01 / VOICE RECORD</div>
+            <h2>생각보다 먼저 움직인 손</h2>
+            <div class="voice-english">AN UNEXPECTED TOUCH</div>
+          </div>
+          <button class="voice-play" type="button" aria-label="01번 녹음 재생" aria-pressed="false">
+            <span class="voice-play-icon" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div class="voice-track-row">
+          <span class="voice-time voice-elapsed">00:00</span>
+          <input class="voice-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="01번 음성 재생 위치" />
+          <span class="voice-time voice-duration">--:--</span>
+        </div>
+        <div class="voice-excerpt">아, 쓸데없는 짓을 했네.<br>상자만 잡으면 될 걸, 사람까지 잡았군.</div>
+        <details class="voice-details">
+          <summary>대사 전문 펼치기</summary>
+          <div class="voice-transcript"><p class="voice-transcript-para">아, 쓸데없는 짓을 했네.<br>상자만 잡으면 될 걸, 사람까지 잡았군.</p>
+<p class="voice-transcript-para">……생각하기도 전에 손이 먼저 나가버렸어.</p>
+<p class="voice-transcript-para">그나저나, 꽤 놀랐겠는걸.</p></div>
+        </details>
+        <audio preload="metadata" src="yhvoice01.mp3"></audio>
+      </article>
+      <article class="voice-card" data-voice="02">
+        <div class="voice-card-head">
+          <div class="voice-card-meta">
+            <div class="voice-number">02 / VOICE RECORD</div>
+            <h2>처음 들린 목소리</h2>
+            <div class="voice-english">THE VOICE HEARD</div>
+          </div>
+          <button class="voice-play" type="button" aria-label="02번 녹음 재생" aria-pressed="false">
+            <span class="voice-play-icon" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div class="voice-track-row">
+          <span class="voice-time voice-elapsed">00:00</span>
+          <input class="voice-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="02번 음성 재생 위치" />
+          <span class="voice-time voice-duration">--:--</span>
+        </div>
+        <div class="voice-excerpt">……잠시만.<br>방금, 내 목소리에 멈춘 건가.</div>
+        <details class="voice-details">
+          <summary>대사 전문 펼치기</summary>
+          <div class="voice-transcript"><p class="voice-transcript-para">……서투르기 짝이 없군. 나였다면 저렇게는 하지 않지. ...각도가 영....</p>
+<p class="voice-transcript-para">뒤늦은 다정함이군. 진작에 그럴 것이지.</p>
+<p class="voice-transcript-para">……잠시만.<br>방금, 내 목소리에 멈춘 건가.</p></div>
+        </details>
+        <audio preload="metadata" src="yhvoice02.mp3"></audio>
+      </article>
+      <article class="voice-card" data-voice="03">
+        <div class="voice-card-head">
+          <div class="voice-card-meta">
+            <div class="voice-number">03 / VOICE RECORD</div>
+            <h2>오래전에 심어진 마음</h2>
+            <div class="voice-english">THE SEED OF LOVE</div>
+          </div>
+          <button class="voice-play" type="button" aria-label="03번 녹음 재생" aria-pressed="false">
+            <span class="voice-play-icon" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div class="voice-track-row">
+          <span class="voice-time voice-elapsed">00:00</span>
+          <input class="voice-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="03번 음성 재생 위치" />
+          <span class="voice-time voice-duration">--:--</span>
+        </div>
+        <div class="voice-excerpt">너 어릴 때 툇마루에 앉아 다리 흔들던 거 기억해?<br>그때마다 내가 몰래 바람을 불어줬거든.</div>
+        <details class="voice-details">
+          <summary>대사 전문 펼치기</summary>
+          <div class="voice-transcript"><p class="voice-transcript-para">너 어릴 때 툇마루에 앉아 다리 흔들던 거 기억해? 하긴, 기억 못 하겠지. 그때마다 내가 몰래 바람을 불어줬거든. 더울 땐 시원하게... 추울 땐 따뜻하게.... 어느 날은 네가 오지도 않았는데 그 자리를 데우고 있더라. 참 별 버릇이 다 들었다 싶었지.</p>
+<p class="voice-transcript-para">그 조그만 게, 나도 모르는 사이 마음에 씨앗 하나 심어두고 간 모양이야. 그 씨앗이 이렇게 자랄 줄은, 나도 몰랐는데....</p>
+<p class="voice-transcript-para">물론 그때는 그저 귀여운 아이였지. .....내가 다시 이런 말을 하게 될 줄은 몰랐는데 말이야....</p>
+<p class="voice-transcript-para voice-last-line">사랑해. 정말, 많이.</p></div>
+        </details>
+        <audio preload="metadata" src="yhvoice03.mp3"></audio>
+      </article>
+    </div>
+    <button class="flower-enter" type="button" data-target="archive" aria-label="기록 보관소로 돌아가기"></button>
+  </div>
+</section>
+
+<!-- 마지막 책 닫힘 연출 : 뒷표지 -->
+
+<div class="closing-overlay hidden" id="closingOverlay">
+
+  <div class="closing-composition"
+    id="closingComposition">
+
+    <div class="closing-base">
+
+      <div class="closing-page">
+        <img id="closingPhoto" alt="">
+      </div>
+
+      <div class="closing-page">
+        <p>내게 남은 모든 계절을 너와...</p>
+      </div>
+
+    </div>
+
+    <div class="closing-leaf">
+
+      <div class="closing-leaf-front">
+        <img id="closingLeafPhoto" alt="">
+      </div>
+
+      <div class="closing-leaf-back">
+        <img src="book%20end.png" alt="">
+      </div>
+
+    </div>
+
+  </div>
+
+  <img class="closed-cover-final"
+    id="closedCoverFinal"
+    src="book%20end.png" alt="">
+
+  <div class="closing-petals"
+    id="closingPetals"></div>
+
+</div>
+
+<!-- 사진 전체 화면 확대 -->
+
+<div class="lightbox hidden" id="lightbox"
+  role="dialog" aria-modal="true"
+  aria-label="사진 확대 보기">
+
+  <button class="lightbox-close"
+    type="button" onclick="closeLightbox()"
+    aria-label="닫기">×</button>
+
+  <button class="lightbox-arrow lightbox-prev"
+    type="button" onclick="moveLightbox(-1)"
+    aria-label="이전 사진">‹</button>
+
+  <img class="lightbox-image"
+    id="lightboxImage" alt="유화의 모습">
+
+  <button class="lightbox-arrow lightbox-next"
+    type="button" onclick="moveLightbox(1)"
+    aria-label="다음 사진">›</button>
+
+  <div class="lightbox-count"
+    id="lightboxCount"></div>
+
+</div>
+
+<script>
+
+/* ========================================
+   일반 사진첩 32장
+   확정 대사 유지
+======================================== */
+
+const photos=[
+
+  {src:"portrait-01.png",
+   quote:"이제는 얼굴을 숨길 이유가 없잖아."},
+
+  {src:"portrait-02.png",
+   quote:"쉿.\n조금만 조용히 해보렴.\n네가 자꾸 신경 쓰이잖니."},
+
+  {src:"portrait-03.png",
+   quote:"이리 와.\n이번에는 네가 먼저 내 손을 잡아봐."},
+
+  {src:"portrait-04.png",
+   quote:"그리 빤히 쳐다보면 내가 부끄러워할 줄 알았니?"},
+
+  {src:"portrait-05.png",
+   quote:"팔백 년도 넘게 본 달인데, 오늘따라 제법 아름답네."},
+
+  {src:"portrait-06.png",
+   quote:"어디를 그리 오래 다녀오시나 했지."},
+
+  {src:"portrait-07.png",
+   quote:"잘 다녀와.\n나는 늘 여기에 있으니."},
+
+  {src:"portrait-08.png",
+   quote:"깨어 있을 때도 이렇게 얌전하면 얼마나 좋을까."},
+
+  {src:"portrait-09.png",
+   quote:".... 살짝."},
+
+  {src:"portrait-10.png",
+   quote:"거기서 봐도 잘생겼을 텐데."},
+
+  {src:"portrait-11.png",
+   quote:"이게 뭐라고 그리 신기하게 구경하는 거지."},
+
+  {src:"portrait-12.png",
+   quote:"어떠냐.\n네 눈에도 제법 근사한가?"},
+
+  {src:"portrait-13.png",
+   quote:"....... 잠깐만."},
+
+  {src:"portrait-14.png",
+   quote:"머무르는 건 익숙한데, \n기다리는 건 여전히 어렵더구나."},
+
+  {src:"portrait-15.png",
+   quote:"하하, 너는 참 별난 인간이야.\n그래서 좋지만."},
+
+  {src:"portrait-16.png",
+   quote:"요즘은 혼자 있어도 네 생각으로 제법 바빠."},
+
+  {src:"portrait-17.png",
+   quote:"내가 지금 몇 시간을 기다렸는지 알아?"},
+
+  {src:"portrait-18.png",
+   quote:"내가 먼저, 벗을까?"},
+
+  {src:"portrait-19.png",
+   quote:"대체 어딜 다녀 온거야 밤늦게."},
+
+  {src:"portrait-20.png",
+   quote:"조금만, 닿아도 될까?"},
+
+  {src:"portrait-21.png",
+   quote:"보고 싶었어."},
+
+  {src:"portrait-22-1.png",
+   quote:"왔어?\n오늘따라 집이 영 조용하더라."},
+
+  {src:"portrait-22-2.png",
+   quote:"왜 그렇게 아쉬운 얼굴이야.\n다시 돌아봐 줘?"},
+
+  {src:"portrait-23.png",
+   quote:"네 얼굴 구경하는 게 웬만한 오락거리보다 재밌어."},
+
+  {src:"portrait-24.png",
+   quote:"뭘 그렇게 빤히 봐.\n반하겠네, 아주."},
+
+  {src:"portrait-25.png",
+   quote:"날씨가 참 좋구나."},
+
+  {src:"portrait-26.png",
+   quote:"이리 와.\n아니, 더 가까이."},
+
+  {src:"portrait-26-1.png",
+   quote:"......."},
+
+  {src:"portrait-27.png",
+   quote:"세상은 참 많이도 변했네.\n나는 여전히 여기 있는데."},
+
+  {src:"portrait-27-1.png",
+   quote:"이렇게 하루종일 보고 있을까?"},
+
+  {src:"portrait-28.png",
+   quote:"손 좀 줘 봐.\n별일은 아니고, 입 한번 맞추게."},
+
+  {src:"portrait-29.png",
+   quote:"....사 랑 해."},
+
+  {src:"portrait-30.png",
+   quote:"내게 남은 모든 계절을 너와 함께 보내고 싶어."}
+
+];
+
+/* ========================================
+   심야 전시실
+======================================== */
+
+
+const nightPhotos=[
+
+  {src:"portrait-31.gif",motion:true},
+  {src:"portrait-32.png",motion:false},
+  {src:"portrait-33.png",motion:false},
+  {src:"portrait-34.png",motion:false},
+  {src:"portrait-35.png",motion:false},
+  {src:"portrait-36.png",motion:false},
+  {src:"portrait-37.png",motion:false},
+
+  {src:"portrait-38.png",motion:false},
+  {src:"portrait-39.png",motion:false},
+  {src:"portrait-40.png",motion:false},
+  {src:"portrait-41.png",motion:false},
+  {src:"portrait-42.png",motion:false},
+  {src:"portrait-43.png",motion:false},
+  {src:"portrait-45.png",motion:false},
+  {src:"portrait-46.png",motion:false},
+  {src:"portrait-47.png",motion:false},
+  {src:"portrait-48.png",motion:false},
+  {src:"portrait-49.png",motion:false}
+
+];
+
+/* ========================================
+   공통 상태
+======================================== */
+
+const $=id=>document.getElementById(id);
+
+const motionReduced=window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
+
+const fadeTime=motionReduced?10:1100;
+
+const wait=ms=>new Promise(resolve=>
+  setTimeout(resolve,motionReduced?10:ms)
+);
+
+let currentScreen="entrance";
+let transitioning=false;
+let coverOpening=false;
+let pageTurning=false;
+let bookClosing=false;
+
+let currentPage=0;
+let albumCompleted=false;
+let nightUnlocked=false;
+
+const visitedPages=new Set();
+
+function numberFormat(n){
+  return String(n).padStart(2,"0");
+}
+
+/* ========================================
+   이미지 로딩
+======================================== */
+
+const assetVersion="v15.1";
+const resolvedPhotos=new Map();
+
+function imageURL(file){
+  return "./"+encodeURIComponent(file)
+  +"?v="+assetVersion;
+}
+
+function imageCandidates(file){
+
+  const match=file.match(/^(.*)\.([^.]+)$/);
+
+  if(!match)return [imageURL(file)];
+
+  const base=match[1];
+  const ext=match[2];
+
+  const shortBase=base.replace(
+    /^portrait-0(\d)/,"portrait-$1"
+  );
+
+  return [...new Set([
+
+    file,
+    base+"."+ext.toUpperCase(),
+    base+"(1)."+ext,
+    base+" (1)."+ext,
+    shortBase+"."+ext
+
+  ])].map(imageURL);
+
+}
+
+function loadAsset(img,file){
+
+  if(img._cleanup)img._cleanup();
+
+  const cached=resolvedPhotos.get(file);
+
+  const candidates=[...new Set([
+    ...(cached?[cached]:[]),
+    ...imageCandidates(file)
+  ])];
+
+  let attempt=0;
+
+  function cleanup(){
+    img.removeEventListener("load",onLoad);
+    img.removeEventListener("error",onError);
+    img._cleanup=null;
+  }
+
+  function onLoad(){
+    resolvedPhotos.set(
+      file,img.getAttribute("src")
+    );
+    cleanup();
+  }
+
+  function onError(){
+
+    attempt++;
+
+    if(attempt<candidates.length){
+      img.src=candidates[attempt];
+    }else{
+      img.alt="사진을 불러올 수 없습니다: "+file;
+      cleanup();
+      console.warn("이미지 경로 확인:",file);
+    }
+
+  }
+
+  img._cleanup=cleanup;
+
+  img.addEventListener("load",onLoad);
+  img.addEventListener("error",onError);
+
+  img.src=candidates[0];
+
+}
+
+/* ========================================
+   화면 전환
+======================================== */
+
+async function goTo(target){
+
+  if(
+    transitioning||
+    pageTurning||
+    coverOpening||
+    bookClosing||
+    target===currentScreen
+  )return;
+
+  if(!$(target))return;
+
+  if(
+    (target==="moonrise-screen"||
+     target==="night-gallery")&&
+    !nightUnlocked
+  )return;
+
+  transitioning=true;
+
+  resetPetalAnimations();
+
+  if(document.activeElement instanceof HTMLElement){
+    document.activeElement.blur();
+  }
+
+  const previous=$(currentScreen);
+  const next=$(target);
+
+  previous.classList.add("fading");
+
+  await wait(fadeTime);
+
+  previous.classList.add("hidden");
+  previous.classList.remove("fading");
+
+  $("bookCoverButton").classList.remove("opening");
+
+  next.classList.add("fading");
+  next.classList.remove("hidden");
+
+  currentScreen=target;
+
+  window.scrollTo(0,0);
+
+  if(target==="album-reader"){
+    renderPage();
+  }
+
+  if(target==="moonrise-screen"){
+    next.classList.remove("reveal");
+    void next.offsetWidth;
+    next.classList.add("reveal");
+  }
+
+  await new Promise(resolve=>
+    requestAnimationFrame(resolve)
+  );
+
+  next.classList.remove("fading");
+
+  await wait(fadeTime);
+
+  transitioning=false;
+
+}
+
+/* ========================================
+   흰 꽃잎 8장
+======================================== */
+
+const petalSettings=[
+
+  [-63,0,-13,-39,136,0,2.8,-25,-205],
+  [46,10,16,48,150,.21,3.1,38,260],
+  [-37,27,18,-18,125,.43,2.9,-42,190],
+  [65,-8,-17,28,148,.62,3.2,55,300],
+  [12,36,12,-25,122,.83,2.7,15,-210],
+  [-53,19,-12,-45,157,1.04,3.2,-35,-260],
+  [34,29,18,39,137,1.25,3,30,240],
+  [-8,43,-16,15,149,1.46,3.1,-15,210]
+
+];
+
+function createPetalSVG(index){
+
+  const id="petal-"+index;
+
+  return `
+  <svg viewBox="0 0 36 66"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="${id}"
+        x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#fffdf8"/>
+        <stop offset="45%" stop-color="#f2ede3"/>
+        <stop offset="100%" stop-color="#d6c8b6"/>
+      </linearGradient>
+    </defs>
+    <path d="M18 3 C31 17 36 37 23 56
+      Q19 63 16 62 C2 46 1 24 18 3 Z"
+      fill="url(#${id})"/>
+    <path d="M18 9 Q24 35 18 57"
+      fill="none" stroke="#d1c4b3"
+      stroke-width=".8" opacity=".38"/>
+    <path d="M16 15 Q9 36 16 52"
+      fill="none" stroke="#fff"
+      stroke-width="1.4" opacity=".45"/>
+  </svg>`;
+
+}
+
+function populatePetals(layer,prefix){
+
+  layer.innerHTML="";
+
+  petalSettings.forEach((setting,index)=>{
+
+    const [
+      x,y,sway,drift,fall,
+      delay,duration,rotate,end
+    ]=setting;
+
+    const petal=document.createElement("span");
+
+    petal.className="falling-petal";
+    petal.innerHTML=createPetalSVG(
+      prefix+"-"+index
+    );
+
+    const props={
+      "--start-x":x+"px",
+      "--start-y":y+"px",
+      "--sway":sway+"px",
+      "--drift":drift+"px",
+      "--fall":fall+"px",
+      "--delay":delay+"s",
+      "--duration":duration+"s",
+      "--start-rotate":rotate+"deg",
+      "--end-rotate":end+"deg"
+    };
+
+    Object.entries(props).forEach(([key,value])=>{
+      petal.style.setProperty(key,value);
+    });
+
+    layer.appendChild(petal);
+
+  });
+
+}
+
+const flowerButtons=[
+  ...document.querySelectorAll(".flower-enter")
+];
+
+flowerButtons.forEach((button,index)=>{
+
+  button.innerHTML=`
+    <span class="flower-stage">
+      <img class="flower-main"
+        src="flower.png" alt="">
+      <span class="petals-layer"></span>
+    </span>`;
+
+  populatePetals(
+    button.querySelector(".petals-layer"),
+    "flower-"+index
+  );
+
+  button.addEventListener("pointerenter",event=>{
+
+    if(event.pointerType==="mouse"&&
+      !transitioning&&!motionReduced){
+
+      button.classList.remove("is-playing");
+      void button.offsetWidth;
+      button.classList.add("is-playing");
+
+    }
+
+  });
+
+  button.addEventListener("pointerleave",()=>{
+    button.classList.remove("is-playing");
+  });
+
+  button.addEventListener("focus",()=>{
+    if(button.matches(":focus-visible")){
+      button.classList.add("is-playing");
+    }
+  });
+
+  button.addEventListener("blur",()=>{
+    button.classList.remove("is-playing");
+  });
+
+  button.addEventListener("click",()=>{
+    goTo(button.dataset.target);
+  });
+
+});
+
+populatePetals($("closingPetals"),"closing");
+
+function resetPetalAnimations(){
+  flowerButtons.forEach(button=>
+    button.classList.remove("is-playing")
+  );
+}
+
+/* ========================================
+   사진첩 페이지
+======================================== */
+
+const leftPage=$("leftPage");
+const rightPage=$("rightPage");
+const bookSpread=$("bookSpread");
+
+function fillLeftPage(element,index,interactive=true){
+
+  element.innerHTML=`
+    <div class="photo-frame">
+      <img class="album-photo"
+        alt="유화의 모습 ${index+1}">
+    </div>
+    <div class="photo-number">
+      PORTRAIT ${numberFormat(index+1)}
+    </div>`;
+
+  const img=element.querySelector(".album-photo");
+
+  loadAsset(img,photos[index].src);
+
+  if(interactive){
+
+    img.tabIndex=0;
+    img.setAttribute("role","button");
+    img.setAttribute("aria-label","사진 확대");
+
+    img.addEventListener("click",event=>{
+      event.stopPropagation();
+
+      if(Date.now()<suppressClickUntil)return;
+
+      showLightbox(index,"album",albumCompleted);
+    });
+
+    img.addEventListener("keydown",event=>{
+
+      if(event.key==="Enter"||event.key===" "){
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        showLightbox(
+          index,"album",albumCompleted
+        );
+
+      }
+
+    });
+
+  }
+
+}
+
+/* ========================================
+   V15.1 마지막 페이지 텍스트 버튼
+======================================== */
+
+function createMoonSeal(){
+
+  const button=document.createElement("button");
+
+  button.type="button";
+  button.className="moon-seal-button";
+
+  button.innerHTML=`
+    <span class="moon-seal-label">
+      [ 모든 사진 펼쳐보기 ]
+    </span>`;
+
+  button.addEventListener("click",event=>{
+    event.stopPropagation();
+    openGallery();
+  });
+
+  return button;
+
+}
+
+function fillRightPage(element,index,interactive=true){
+
+  const final=index===photos.length-1;
+
+  element.classList.toggle("is-final",final);
+
+  element.innerHTML=`
+    <div class="page-writing">
+      <div class="chapter-number">
+        THE PORTRAITS · ${numberFormat(index+1)}
+      </div>
+      <div class="page-decoration">❖</div>
+      <div class="photo-quote"></div>
+    </div>`;
+
+  element.querySelector(".photo-quote")
+    .textContent=photos[index].quote;
+
+  if(final&&interactive&&albumCompleted){
+
+    const writing=element.querySelector(".page-writing");
+
+    writing.appendChild(createMoonSeal());
+
+    const hint=document.createElement("div");
+
+    hint.className="final-page-hint";
+    hint.textContent="마지막 책장을 넘겨보세요.";
+
+    writing.appendChild(hint);
+
+  }
+
+}
+
+function preloadAdjacent(index){
+
+  [-1,1].forEach(direction=>{
+
+    const target=index+direction;
+
+    if(target>=0&&target<photos.length){
+
+      const preload=new Image();
+
+      preload.src=resolvedPhotos.get(
+        photos[target].src
+      )||imageURL(photos[target].src);
+
+    }
+
+  });
+
+}
+
+function renderPage(){
+
+  visitedPages.add(currentPage);
+
+  if(
+    currentPage===photos.length-1&&
+    visitedPages.size===photos.length
+  ){
+    albumCompleted=true;
+  }
+
+  fillLeftPage(leftPage,currentPage);
+  fillRightPage(rightPage,currentPage);
+
+  $("pageCounter").textContent=
+    numberFormat(currentPage+1)+
+    " / "+numberFormat(photos.length);
+
+  $("readerHint").textContent=
+    currentPage===photos.length-1
+    ?"마지막 장입니다."
+    :"책장을 눌러 넘겨보세요.";
+
+  leftPage.setAttribute(
+    "aria-disabled",
+    String(currentPage===0)
+  );
+
+  preloadAdjacent(currentPage);
+
+}
+
+/* ========================================
+   표지 열기
+======================================== */
+
+async function openAlbum(){
+
+  if(
+    transitioning||pageTurning||
+    coverOpening||bookClosing||
+    currentScreen!=="album-cover"
+  )return;
+
+  coverOpening=true;
+
+  currentPage=0;
+
+  renderPage();
+
+  resetPetalAnimations();
+
+  $("bookCoverButton").classList.add("opening");
+
+  await wait(1000);
+
+  coverOpening=false;
+
+  goTo("album-reader");
+
+}
+
+/* ========================================
+   입체적인 페이지 전환
+======================================== */
+
+function turnPage(direction){
+
+  if(
+    transitioning||pageTurning||
+    coverOpening||bookClosing||
+    currentScreen!=="album-reader"||
+    !$("lightbox").classList.contains("hidden")
+  )return;
+
+  if(
+    currentPage===photos.length-1&&
+    direction===1
+  ){
+
+    if(albumCompleted){
+      closeBookAndRevealMoon();
+    }
+
+    return;
+
+  }
+
+  const next=currentPage+direction;
+
+  if(next<0||next>=photos.length)return;
+
+  if(motionReduced){
+
+    currentPage=next;
+    renderPage();
+    return;
+
+  }
+
+  pageTurning=true;
+
+  const sheet=document.createElement("div");
+  const front=document.createElement("div");
+  const back=document.createElement("div");
+
+  sheet.className="flip-sheet "+
+    (direction===1?"forward":"backward");
+
+  if(direction===1){
+
+    front.className="flip-face page page-right";
+    back.className="flip-face flip-back page page-left";
+
+    fillRightPage(front,currentPage,false);
+    fillLeftPage(back,next,false);
+    fillRightPage(rightPage,next,false);
+
+  }else{
+
+    front.className="flip-face page page-left";
+    back.className="flip-face flip-back page page-right";
+
+    fillLeftPage(front,currentPage,false);
+    fillRightPage(back,next,false);
+    fillLeftPage(leftPage,next,false);
+
+  }
+
+  sheet.append(front,back);
+  sheet.setAttribute("aria-hidden","true");
+
+  bookSpread.appendChild(sheet);
+
+  let finished=false;
+
+  function finish(){
+
+    if(finished)return;
+
+    finished=true;
+
+    currentPage=next;
+
+    sheet.remove();
+
+    renderPage();
+
+    pageTurning=false;
+
+  }
+
+  sheet.addEventListener(
+    "animationend",finish,{once:true}
+  );
+
+  setTimeout(finish,1050);
+
+}
+
+let suppressClickUntil=0;
+
+leftPage.addEventListener("click",()=>{
+
+  if(Date.now()<suppressClickUntil)return;
+
+  turnPage(-1);
+
+});
+
+rightPage.addEventListener("click",()=>{
+
+  if(Date.now()<suppressClickUntil)return;
+
+  turnPage(1);
+
+});
+
+[leftPage,rightPage].forEach((page,index)=>{
+
+  page.addEventListener("keydown",event=>{
+
+    if(event.target!==page)return;
+
+    if(event.key==="Enter"||event.key===" "){
+
+      event.preventDefault();
+
+      turnPage(index===0?-1:1);
+
+    }
+
+  });
+
+});
+
+function bindSwipe(element,callback){
+
+  let startX=0;
+  let startY=0;
+
+  element.addEventListener("touchstart",event=>{
+
+    const touch=event.changedTouches[0];
+
+    startX=touch.clientX;
+    startY=touch.clientY;
+
+  },{passive:true});
+
+  element.addEventListener("touchend",event=>{
+
+    const touch=event.changedTouches[0];
+
+    const dx=touch.clientX-startX;
+    const dy=touch.clientY-startY;
+
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){
+
+      suppressClickUntil=Date.now()+500;
+
+      callback(dx<0?1:-1);
+
+    }
+
+  },{passive:true});
+
+}
+
+bindSwipe($("book"),turnPage);
+
+/* ========================================
+   일반 사진 전체 보기
+======================================== */
+
+function openGallery(){
+
+  if(
+    !albumCompleted||
+    transitioning||pageTurning||bookClosing
+  )return;
+
+  const grid=$("galleryGrid");
+
+  grid.innerHTML="";
+
+  photos.forEach((photo,index)=>{
+
+    const item=document.createElement("button");
+
+    item.type="button";
+    item.className="gallery-item";
+
+    item.innerHTML=`
+      <img loading="lazy"
+        alt="유화의 모습 ${index+1}">
+      <span class="gallery-index">
+        ${numberFormat(index+1)}
+      </span>`;
+
+    loadAsset(item.querySelector("img"),photo.src);
+
+    item.addEventListener("click",()=>{
+      showLightbox(index,"album",true);
+    });
+
+    grid.appendChild(item);
+
+  });
+
+  goTo("gallery-screen");
+
+}
+
+/* ========================================
+   마지막 책장
+   책 닫힘 → 뒷표지 → 꽃잎 → 달빛
+======================================== */
+
+async function closeBookAndRevealMoon(){
+
+  if(
+    bookClosing||
+    transitioning||
+    !albumCompleted
+  )return;
+
+  bookClosing=true;
+
+  resetPetalAnimations();
+
+  const overlay=$("closingOverlay");
+  const composition=$("closingComposition");
+  const closedCover=$("closedCoverFinal");
+  const petals=$("closingPetals");
+
+  composition.classList.remove("fold");
+  composition.style.opacity="1";
+
+  closedCover.classList.remove("visible");
+  petals.classList.remove("is-playing");
+
+  overlay.classList.remove("dissolve","visible");
+
+  loadAsset(
+    $("closingPhoto"),
+    photos[photos.length-1].src
+  );
+
+  loadAsset(
+    $("closingLeafPhoto"),
+    photos[photos.length-1].src
+  );
+
+  overlay.classList.remove("hidden");
+
+  await new Promise(resolve=>
+    requestAnimationFrame(resolve)
+  );
+
+  overlay.classList.add("visible");
+
+  await wait(600);
+
+  composition.classList.add("fold");
+
+  await wait(1500);
+
+  closedCover.classList.add("visible");
+
+  composition.style.opacity="0";
+
+  await wait(800);
+
+  petals.classList.add("is-playing");
+
+  await wait(3000);
+
+  overlay.classList.add("dissolve");
+
+  await wait(1500);
+
+  nightUnlocked=true;
+
+  $("album-reader").classList.add("hidden");
+
+  const moonScreen=$("moonrise-screen");
+
+  moonScreen.classList.remove("hidden");
+  moonScreen.classList.remove("reveal");
+
+  currentScreen="moonrise-screen";
+
+  window.scrollTo(0,0);
+
+  overlay.classList.remove("visible");
+
+  void moonScreen.offsetWidth;
+
+  moonScreen.classList.add("reveal");
+
+  await wait(1500);
+
+  overlay.classList.add("hidden");
+
+  petals.classList.remove("is-playing");
+
+  bookClosing=false;
+
+}
+
+/* ========================================
+   심야 전시실
+======================================== */
+
+let nightIndex=0;
+let nightChanging=false;
+let nightBuilt=false;
+
+const nightMain=$("nightMain");
+
+function buildNightFilm(){
+
+  const film=$("nightFilm");
+
+  film.innerHTML="";
+
+  nightPhotos.forEach((photo,index)=>{
+
+    const button=document.createElement("button");
+
+    button.type="button";
+    button.className="night-thumb";
+
+    button.setAttribute(
+      "aria-label",
+      "심야 화보 "+(index+1)
+    );
+
+    if(photo.motion){
+
+      const canvas=document.createElement("canvas");
+      canvas.width=180;
+      canvas.height=240;
+
+      button.appendChild(canvas);
+
+      const still=new Image();
+
+      still.onload=()=>{
+
+        const context=canvas.getContext("2d");
+
+        const scale=Math.max(
+          180/still.naturalWidth,
+          240/still.naturalHeight
+        );
+
+        const w=still.naturalWidth*scale;
+        const h=still.naturalHeight*scale;
+
+        context.drawImage(
+          still,(180-w)/2,(240-h)/2,w,h
+        );
+
+      };
+
+      still.src=imageURL(photo.src);
+
+      const mark=document.createElement("span");
+      mark.className="motion-mark";
+      mark.textContent="GIF";
+
+      button.appendChild(mark);
+
+    }else{
+
+      const img=document.createElement("img");
+
+      img.alt="심야 화보 "+(index+1);
+
+      loadAsset(img,photo.src);
+
+      button.appendChild(img);
+
+    }
+
+    button.addEventListener("click",()=>{
+      selectNight(index);
+    });
+
+    film.appendChild(button);
+
+  });
+
+  nightBuilt=true;
+
+}
+
+function updateNightSelection(){
+
+  document.querySelectorAll(".night-thumb")
+    .forEach((button,index)=>{
+
+      const active=index===nightIndex;
+
+      button.classList.toggle("selected",active);
+
+      button.setAttribute(
+        "aria-pressed",String(active)
+      );
+
+    });
+
+  $("nightCaption").textContent=
+    nightPhotos[nightIndex].motion
+    ?"MOTION PORTRAIT"
+    :numberFormat(nightIndex+1)+
+     " / "+numberFormat(nightPhotos.length);
+
+}
+
+async function openNightGallery(){
+
+  if(!nightUnlocked||transitioning||bookClosing)return;
+
+  if(!nightBuilt){
+    buildNightFilm();
+  }
+
+  nightIndex=0;
+
+  loadAsset(nightMain,nightPhotos[0].src);
+  updateNightSelection();
+
+  goTo("night-gallery");
+
+}
+
+async function selectNight(index){
+
+  if(
+    nightChanging||
+    transitioning||
+    currentScreen!=="night-gallery"||
+    index===nightIndex
+  )return;
+
+  if(index<0||index>=nightPhotos.length)return;
+
+  nightChanging=true;
+
+  nightMain.classList.add("fading-out");
+
+  await wait(900);
+
+  const nextImage=new Image();
+
+  const file=nightPhotos[index].src;
+
+  await new Promise(resolve=>{
+
+    let settled=false;
+
+    function finish(){
+      if(settled)return;
+      settled=true;
+      resolve();
+    }
+
+    nextImage.onload=finish;
+    nextImage.onerror=finish;
+
+    nextImage.src=
+      resolvedPhotos.get(file)||imageURL(file);
+
+    setTimeout(finish,3500);
+
+  });
+
+  nightIndex=index;
+
+  loadAsset(nightMain,file);
+
+  updateNightSelection();
+
+  nightMain.classList.remove("fading-out");
+
+  await wait(900);
+
+  nightChanging=false;
+
+}
+
+function moveNight(direction){
+
+  const target=(
+    nightIndex+direction+nightPhotos.length
+  )%nightPhotos.length;
+
+  selectNight(target);
+
+}
+
+nightMain.addEventListener("click",()=>{
+
+  if(
+    nightChanging||
+    Date.now()<suppressClickUntil
+  )return;
+
+  showLightbox(nightIndex,"night",true);
+
+});
+
+nightMain.addEventListener("keydown",event=>{
+
+  if(event.key==="Enter"||event.key===" "){
+
+    event.preventDefault();
+
+    if(!nightChanging){
+
+      showLightbox(nightIndex,"night",true);
+
+    }
+
+  }
+
+});
+
+bindSwipe($("nightStage"),moveNight);
+
+/* ========================================
+   공통 확대 화면
+======================================== */
+
+let lightboxIndex=0;
+let lightboxMode="album";
+let lightboxBrowseAll=false;
+let lightboxPreviousFocus=null;
+
+const lightbox=$("lightbox");
+const lightboxImage=$("lightboxImage");
+
+function activeCollection(){
+
+  if(lightboxMode==="wedding")return creatorWeddingPhotos.map(src=>({src}));
+  if(lightboxMode==="magazine")return creatorMagazinePhotos.map(src=>({src}));
+  if(lightboxMode==="fantasy")return creatorFantasyPhotos.map(src=>({src}));
+  return lightboxMode==="night" ? nightPhotos : photos;
+
+}
+
+function showLightbox(index,mode,allowAll){
+
+  if(
+    transitioning||
+    pageTurning||
+    bookClosing||
+    nightChanging
+  )return;
+
+  lightboxIndex=index;
+  lightboxMode=mode;
+  lightboxBrowseAll=allowAll;
+
+  lightboxPreviousFocus=document.activeElement;
+
+  lightbox.classList.remove("hidden");
+
+  document.body.style.overflow="hidden";
+
+  updateLightbox();
+
+  lightbox.querySelector(".lightbox-close").focus();
+
+}
+
+function updateLightbox(){
+
+  const collection=activeCollection();
+
+  loadAsset(
+    lightboxImage,
+    collection[lightboxIndex].src
+  );
+
+  $("lightboxCount").textContent=
+    numberFormat(lightboxIndex+1)+
+    " / "+numberFormat(collection.length);
+
+  document.querySelectorAll(".lightbox-arrow")
+    .forEach(button=>{
+
+      button.classList.toggle(
+        "hidden",!lightboxBrowseAll
+      );
+
+    });
+
+}
+
+function moveLightbox(direction){
+
+  if(!lightboxBrowseAll)return;
+
+  const length=activeCollection().length;
+
+  lightboxIndex=(
+    lightboxIndex+direction+length
+  )%length;
+
+  updateLightbox();
+
+}
+
+function closeLightbox(){
+
+  lightbox.classList.add("hidden");
+
+  document.body.style.overflow="";
+
+  if(lightboxImage._cleanup){
+    lightboxImage._cleanup();
+  }
+
+  lightboxImage.removeAttribute("src");
+
+  if(lightboxPreviousFocus instanceof HTMLElement){
+    lightboxPreviousFocus.focus();
+  }
+
+}
+
+lightbox.addEventListener("click",event=>{
+
+  if(event.target===lightbox){
+    closeLightbox();
+  }
+
+});
+
+bindSwipe(lightbox,moveLightbox);
+
+/* ========================================
+   키보드 지원
+======================================== */
+
+document.addEventListener("keydown",event=>{
+
+  if(!lightbox.classList.contains("hidden")){
+
+    if(event.key==="Escape"){
+      closeLightbox();
+    }
+
+    if(event.key==="ArrowLeft"){
+      event.preventDefault();
+      moveLightbox(-1);
+    }
+
+    if(event.key==="ArrowRight"){
+      event.preventDefault();
+      moveLightbox(1);
+    }
+
+    if(event.key==="Tab"){
+
+      const controls=[
+        ...lightbox.querySelectorAll(
+          "button:not(.hidden)"
+        )
+      ];
+
+      const first=controls[0];
+      const last=controls[controls.length-1];
+
+      if(event.shiftKey&&document.activeElement===first){
+
+        event.preventDefault();
+        last.focus();
+
+      }else if(
+        !event.shiftKey&&document.activeElement===last
+      ){
+
+        event.preventDefault();
+        first.focus();
+
+      }
+
+    }
+
+    return;
+
+  }
+
+  if(currentScreen==="album-reader"){
+
+    if(event.key==="ArrowLeft"){
+      event.preventDefault();
+      turnPage(-1);
+    }
+
+    if(event.key==="ArrowRight"){
+      event.preventDefault();
+      turnPage(1);
+    }
+
+  }
+
+  if(currentScreen==="night-gallery"){
+
+    if(event.key==="ArrowLeft"){
+      event.preventDefault();
+      moveNight(-1);
+    }
+
+    if(event.key==="ArrowRight"){
+      event.preventDefault();
+      moveNight(1);
+    }
+
+  }
+
+});
+
+</script>
+
+<style>
+
+/* ========================================
+   留華 V15.2
+   책 닫힘 및 꽃 배치 수정
+======================================== */
+
+#moonrise-screen .moonrise-button{
+  margin:0 auto -55px;
+}
+
+#moonrise-screen .flower-enter.small-flower{
+  width:150px;
+  height:250px;
+  margin:0 auto;
+}
+
+#moonrise-screen .flower-stage{
+  width:250px;
+  height:250px;
+  transform:translateX(-50%);
+  transform-origin:top center;
+}
+
+#moonrise-screen .flower-main{
+  width:150px;
+  height:150px;
+  top:5px;
+}
+
+#moonrise-screen .falling-petal{
+  width:19px;
+  height:34px;
+}
+
+/* 실제 책장 위에서 닫히는 뒷표지 */
+
+#book.closing-live{
+  background:transparent;
+  box-shadow:none;
+  overflow:visible;
+  pointer-events:none;
+}
+
+.live-closing-leaf{
+  position:absolute;
+  top:0;
+  left:50%;
+  width:50%;
+  height:100%;
+  z-index:30;
+  transform-origin:left center;
+  transform-style:preserve-3d;
+  transition:transform 1.5s
+  cubic-bezier(.35,.08,.25,1);
+}
+
+.live-closing-front,
+.live-closing-back{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  overflow:hidden;
+}
+
+.live-closing-back{
+  transform:rotateY(180deg);
+  background:#292521;
+  border-radius:4px;
+}
+
+.live-closing-back img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:fill;
+}
+
+.live-closing-leaf.is-closed{
+  transform:rotateY(-180deg);
+}
+
+.live-closed-book{
+  position:absolute;
+  top:0;
+  left:0;
+  width:50%;
+  height:100%;
+  object-fit:fill;
+  z-index:35;
+  border-radius:4px;
+  box-shadow:0 20px 45px #0008;
+  transition:
+    left 1.2s ease-in-out,
+    opacity 1.5s ease;
+}
+
+.live-closed-book.centered{
+  left:25%;
+}
+
+.live-closed-book.dissolving{
+  opacity:0;
+}
+
+#album-reader .reader-header,
+#album-reader .reader-footer,
+#album-reader .flower-enter{
+  transition:opacity 1.2s ease;
+}
+
+#album-reader.closing-live-screen .reader-header,
+#album-reader.closing-live-screen .reader-footer,
+#album-reader.closing-live-screen .flower-enter{
+  opacity:0;
+  pointer-events:none;
+}
+
+.live-closing-petals{
+  position:absolute;
+  left:50%;
+  top:20%;
+  width:260px;
+  height:300px;
+  z-index:40;
+  transform:translateX(-50%);
+  pointer-events:none;
+}
+
+.live-closing-petals.is-playing .falling-petal{
+  animation:petalFall var(--duration)
+  ease-in-out var(--delay) both;
+}
+
+/* 모바일 */
+
+@media(max-width:600px){
+
+  #moonrise-screen .moonrise-button{
+    margin:0 auto -42px;
+  }
+
+  #moonrise-screen .flower-enter.small-flower{
+    width:130px;
+    height:220px;
+    margin:0 auto;
+  }
+
+  #moonrise-screen .flower-stage{
+    transform:translateX(-50%) scale(.87);
+    transform-origin:top center;
+  }
+
+  #moonrise-screen .flower-main{
+    width:150px;
+    height:150px;
+  }
+
+}
+/* 마지막 책장 모서리 말림 효과 */
+
+.page-right.is-final::before{
+  content:"";
+  position:absolute;
+  right:0;
+  bottom:0;
+  width:0;
+  height:0;
+  z-index:10;
+  background:linear-gradient(
+    135deg,
+    #b5a087 0%,
+    #fff8eb 45%,
+    #e3d5bf 49%,
+    #211d21 51%,
+    #211d21 100%
+  );
+  border-radius:5px 0 0 0;
+  box-shadow:-3px -3px 8px #00000018;
+  pointer-events:none;
+  transition:
+    width .65s ease,
+    height .65s ease;
+}
+
+@media(hover:hover) and (pointer:fine){
+
+  .page-right.is-final:hover::before{
+    width:48px;
+    height:48px;
+  }
+
+}/* 달이 깊어지면 입구 꽃 삭제 */
+
+#moonrise-screen .flower-enter{
+  display:none;
+}
+
+#moonrise-screen .moonrise-button{
+  margin:0 auto;
+}/* 심야 전시실 꽃 간격 */
+
+#night-gallery .flower-enter{
+  margin:15px auto 0;
+}/* ========================================
+   오래된 기억 : 백연화, 그 마지막 밤
+======================================== */
+
+#memories{
+  display:block;
+  background:#EDE4D4;
+  color:#51473E;
+  padding:70px 20px 20px;
+}
+
+#memories::before{
+  display:none;
+}
+
+.memories-content{
+  max-width:850px;
+  margin:0 auto;
+}
+
+#memories .eyebrow{
+  color:#8E7963;
+  font-size:10px;
+  letter-spacing:5px;
+}
+
+.memories-heading{
+  margin:25px 0 0;
+  font-size:28px;
+  font-weight:400;
+  letter-spacing:3px;
+  color:#584539;
+}
+
+.memories-subtitle{
+  margin:22px 0 0;
+  font-size:18px;
+  font-weight:400;
+  letter-spacing:1px;
+  color:#76614D;
+}
+
+.memories-divider{
+  width:80px;
+  height:1px;
+  background:#AC957B;
+  margin:30px auto 65px;
+}
+
+.webtoon{
+  width:100%;
+  max-width:800px;
+  margin:0 auto;
+}
+
+.webtoon img{
+  display:block;
+  width:100%;
+  height:auto;
+  margin:0 auto;
+  object-fit:contain;
+}
+
+#memories:not(.hidden) .webtoon{
+  animation:memoryReveal 2s ease both;
+}
+
+@keyframes memoryReveal{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+#memories .flower-enter{
+  margin:100px auto 0;
+}
+
+@media(max-width:600px){
+
+  #memories{
+    padding:50px 8px 10px;
+  }
+
+  .memories-heading{
+    font-size:23px;
+  }
+
+  .memories-subtitle{
+    font-size:16px;
+  }
+
+  .memories-divider{
+    margin:25px auto 45px;
+  }
+
+  #memories .flower-enter{
+    margin:65px auto 0;
+  }
+
+}/* 콘텐츠 복사 및 저장 방지 */
+
+html,body{
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+
+img{
+  -webkit-user-drag:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+</style>
+
+<script>
+
+/* ========================================
+   V15.2 마지막 책장 닫힘 연출
+======================================== */
+
+closeBookAndRevealMoon = async function(){
+
+  if(
+    bookClosing||
+    transitioning||
+    !albumCompleted
+  )return;
+
+  bookClosing=true;
+
+  resetPetalAnimations();
+
+  const reader=$("album-reader");
+  const book=$("book");
+  const spread=$("bookSpread");
+  const left=$("leftPage");
+  const right=$("rightPage");
+  const spine=spread.querySelector(".book-spine");
+
+  /* 기존 마지막 페이지 그대로 복제 */
+
+  const leaf=document.createElement("div");
+
+  leaf.className="live-closing-leaf";
+
+  const front=right.cloneNode(true);
+
+  front.removeAttribute("id");
+  front.removeAttribute("tabindex");
+  front.removeAttribute("role");
+
+  front.classList.add("live-closing-front");
+
+  const back=document.createElement("div");
+
+  back.className="live-closing-back";
+
+  back.innerHTML=`
+    <img src="book%20end.png"
+      alt="유화의 사진첩 뒷표지">
+  `;
+
+  leaf.append(front,back);
+
+  spread.appendChild(leaf);
+
+  /* 원래 화면 위치와 크기 유지 */
+
+  reader.classList.add("closing-live-screen");
+
+  book.classList.add("closing-live");
+
+  right.style.visibility="hidden";
+
+  await new Promise(resolve=>
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(resolve);
+    })
+  );
+
+  /* 우측 페이지가 좌측으로 넘어감 */
+
+  leaf.classList.add("is-closed");
+
+  await wait(1500);
+
+  /* 완전히 닫힌 뒷표지 */
+
+  const closedBook=document.createElement("img");
+
+  closedBook.className="live-closed-book";
+
+  closedBook.src="book%20end.png";
+
+  closedBook.alt="유화의 사진첩 뒷표지";
+
+  spread.appendChild(closedBook);
+
+  left.style.visibility="hidden";
+
+  if(spine){
+    spine.style.visibility="hidden";
+  }
+
+  leaf.remove();
+
+  await new Promise(resolve=>
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(resolve);
+    })
+  );
+
+  /* 닫힌 책이 천천히 중앙으로 이동 */
+
+  closedBook.classList.add("centered");
+
+  await wait(1200);
+
+  /* 꽃잎 8장 */
+
+  const petals=document.createElement("div");
+
+  petals.className="live-closing-petals";
+
+  populatePetals(petals,"live-closing");
+
+  spread.appendChild(petals);
+
+  void petals.offsetWidth;
+
+  petals.classList.add("is-playing");
+
+  await wait(3000);
+
+  /* 책이 어둠 속으로 사라짐 */
+
+  closedBook.classList.add("dissolving");
+
+  await wait(1500);
+
+  /* 달이 깊어지면 해금 */
+
+  nightUnlocked=true;
+
+  /* 기존 사진첩 복구 */
+
+  closedBook.remove();
+
+  petals.remove();
+
+  left.style.visibility="";
+  right.style.visibility="";
+
+  if(spine){
+    spine.style.visibility="";
+  }
+
+  book.classList.remove("closing-live");
+
+  reader.classList.remove("closing-live-screen");
+
+  reader.classList.add("hidden");
+
+  const moonScreen=$("moonrise-screen");
+
+  moonScreen.classList.remove("hidden","reveal");
+
+  currentScreen="moonrise-screen";
+
+  window.scrollTo(0,0);
+
+  void moonScreen.offsetWidth;
+
+  moonScreen.classList.add("reveal");
+
+  await wait(2000);
+
+  bookClosing=false;
+
+};
+/* 콘텐츠 무단 복제 방지 */
+
+document.addEventListener("contextmenu",e=>{
+  e.preventDefault();
+});
+
+document.addEventListener("dragstart",e=>{
+  e.preventDefault();
+});
+
+document.addEventListener("copy",e=>{
+  e.preventDefault();
+});
+
+document.addEventListener("cut",e=>{
+  e.preventDefault();
+});
+
+document.addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&
+    ["s","c","u","a","p"].includes(e.key.toLowerCase())){
+    e.preventDefault();
+  }
+});
+</script>
+
+
+<script>
+/* ========================================
+   작가의 선물 · 유화의 결혼식
+======================================== */
+
+const creatorWeddingPhotos=[
+  "merry01.png","merry02.png","merry03.png",
+  "merry04.png","merry05.png","merry06.png"
+];
+let creatorWeddingIndex=0;
+
+function openCreatorWedding(){
+  if(transitioning)return;
+  creatorWeddingIndex=0;
+  renderCreatorWedding();
+  goTo("creator-wedding");
+}
+
+function moveCreatorWedding(direction){
+  if(transitioning)return;
+  const count=creatorWeddingPhotos.length;
+  creatorWeddingIndex=(creatorWeddingIndex+direction+count)%count;
+  renderCreatorWedding();
+}
+
+function selectCreatorWedding(index){
+  if(transitioning)return;
+  if(index===creatorWeddingIndex){
+    showLightbox(index,"wedding",true);
+    return;
+  }
+  creatorWeddingIndex=index;
+  renderCreatorWedding();
+}
+
+function renderCreatorWedding(){
+  const stage=$("weddingStage");
+  const dots=$("weddingDots");
+  const counter=$("weddingCounter");
+  if(!stage||!dots||!counter)return;
+
+  const count=creatorWeddingPhotos.length;
+  if(stage.children.length!==count){
+    stage.replaceChildren();
+    dots.replaceChildren();
+    creatorWeddingPhotos.forEach((src,index)=>{
+      const button=document.createElement("button");
+      button.type="button";
+      button.className="wedding-photo";
+      button.setAttribute("aria-label",`웨딩 사진 ${index+1}`);
+      const picture=document.createElement("img");
+      picture.alt=`유화의 결혼식 ${index+1}`;
+      picture.loading="lazy";
+      loadAsset(picture,src);
+      button.appendChild(picture);
+      button.addEventListener("click",()=>selectCreatorWedding(index));
+      stage.appendChild(button);
+
+      const dot=document.createElement("button");
+      dot.type="button";
+      dot.setAttribute("aria-label",`${index+1}번 웨딩 사진 보기`);
+      dot.addEventListener("click",()=>{
+        creatorWeddingIndex=index;
+        renderCreatorWedding();
+      });
+      dots.appendChild(dot);
+    });
+  }
+
+  const mobile=window.innerWidth<=600;
+  const shift=mobile?100:190;
+  [...stage.children].forEach((photo,index)=>{
+    let distance=index-creatorWeddingIndex;
+    if(distance>count/2)distance-=count;
+    if(distance< -count/2)distance+=count;
+    const abs=Math.abs(distance);
+    const x=distance*shift;
+    const rotate=distance===0?0:(distance<0?36:-36);
+    const scale=abs===0?1:abs===1?.78:.58;
+    photo.style.transform=`translate(-50%,-50%) translateX(${x}px) rotateY(${rotate}deg) scale(${scale})`;
+    photo.style.opacity=abs===0?"1":abs===1?".64":abs===2?".2":"0";
+    photo.style.filter=abs===0?"none":"brightness(.7)";
+    photo.style.zIndex=String(10-abs);
+    photo.style.pointerEvents=abs<=2?"auto":"none";
+    photo.classList.toggle("is-center",distance===0);
+    photo.setAttribute("aria-hidden",String(abs>2));
+    photo.tabIndex=abs<=2?0:-1;
+  });
+  [...dots.children].forEach((dot,index)=>{
+    dot.classList.toggle("active",index===creatorWeddingIndex);
+    dot.setAttribute("aria-pressed",String(index===creatorWeddingIndex));
+  });
+  counter.textContent=numberFormat(creatorWeddingIndex+1)+" / "+numberFormat(count);
+}
+
+bindSwipe($("weddingStage"),moveCreatorWedding);
+window.addEventListener("resize",()=>{
+  if(currentScreen==="creator-wedding")renderCreatorWedding();
+});
+document.addEventListener("keydown",event=>{
+  if(currentScreen!=="creator-wedding"||transitioning||
+     !$("lightbox").classList.contains("hidden"))return;
+  if(event.key==="ArrowLeft"){
+    event.preventDefault();
+    moveCreatorWedding(-1);
+  }else if(event.key==="ArrowRight"){
+    event.preventDefault();
+    moveCreatorWedding(1);
+  }
+});
+</script>
+
+<script>
+/* ========================================
+   작가의 선물 · 매거진 / 발칙한 상상
+======================================== */
+
+const creatorMagazinePhotos=[
+  "two01.png","two02.png","two03.png","two04.png","two05.png"
+];
+
+const creatorFantasyPhotos=[
+  "boy01.png","boy02.png","boy03.png",
+  "boy04.png","boy05.png","boy06.png",
+  "boy07.png","boy08.png","boy09.png"
+];
+
+let creatorMagazineBuilt=false;
+function buildCreatorMagazine(){
+  const grid=$("creatorMagazine");
+  if(!grid||creatorMagazineBuilt)return;
+  creatorMagazinePhotos.forEach((src,index)=>{
+    const button=document.createElement("button");
+    button.type="button";
+    button.className="creator-magazine-item";
+    button.setAttribute("aria-label",`이헌과 유화 사진 ${index+1} 확대`);
+    const img=document.createElement("img");
+    img.alt=`이헌과 유화 ${index+1}`;
+    img.loading="lazy";
+    loadAsset(img,src);
+    button.appendChild(img);
+    button.addEventListener("click",()=>showLightbox(index,"magazine",true));
+    grid.appendChild(button);
+  });
+  creatorMagazineBuilt=true;
+}
+
+let creatorFantasyIndex=0;
+let creatorFantasyMoving=false;
+let creatorFantasyBuilt=false;
+
+function makeCreatorFantasySlide(index){
+  const button=document.createElement("button");
+  button.type="button";
+  button.className="fantasy-slide";
+  button.setAttribute("aria-label",`발칙한 상상 사진 ${index+1} 확대`);
+  const img=document.createElement("img");
+  img.alt=`발칙한 상상 ${index+1}`;
+  loadAsset(img,creatorFantasyPhotos[index]);
+  button.appendChild(img);
+  button.addEventListener("click",()=>{
+    if(!creatorFantasyMoving&&Date.now()>=suppressClickUntil){
+      showLightbox(creatorFantasyIndex,"fantasy",true);
+    }
+  });
+  return button;
+}
+
+function updateCreatorFantasyCounter(){
+  $("fantasyCounter").textContent=
+    numberFormat(creatorFantasyIndex+1)+" / "+numberFormat(creatorFantasyPhotos.length);
+}
+
+function buildCreatorFantasy(){
+  const stage=$("fantasyStage");
+  if(!stage)return;
+  if(creatorFantasyBuilt)return;
+  creatorFantasyIndex=0;
+  stage.replaceChildren(makeCreatorFantasySlide(0));
+  updateCreatorFantasyCounter();
+  creatorFantasyBuilt=true;
+}
+
+async function moveCreatorFantasy(direction){
+  if(creatorFantasyMoving||transitioning||currentScreen!=="creator-fantasy"||
+     !$("lightbox").classList.contains("hidden"))return;
+  creatorFantasyMoving=true;
+  const stage=$("fantasyStage");
+  const outgoing=stage.firstElementChild;
+  const next=(creatorFantasyIndex+direction+creatorFantasyPhotos.length)%creatorFantasyPhotos.length;
+  const incoming=makeCreatorFantasySlide(next);
+  incoming.style.transform=`translateX(${direction>0?100:-100}%)`;
+  stage.appendChild(incoming);
+
+  if(motionReduced){
+    outgoing.remove();
+    incoming.style.transform="translateX(0)";
+  }else{
+    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+    outgoing.style.transform=`translateX(${direction>0?-100:100}%)`;
+    incoming.style.transform="translateX(0)";
+    await wait(850);
+    outgoing.remove();
+  }
+  creatorFantasyIndex=next;
+  updateCreatorFantasyCounter();
+  creatorFantasyMoving=false;
+}
+
+buildCreatorMagazine();
+buildCreatorFantasy();
+bindSwipe($("fantasyStage"),moveCreatorFantasy);
+
+document.addEventListener("keydown",event=>{
+  if(currentScreen!=="creator-fantasy"||transitioning||
+    !$("lightbox").classList.contains("hidden"))return;
+  if(event.key==="ArrowLeft"){
+    event.preventDefault();moveCreatorFantasy(-1);
+  }else if(event.key==="ArrowRight"){
+    event.preventDefault();moveCreatorFantasy(1);
+  }
+});
+</script>
+
+
+<script>
+/* 유화 목소리 : 오디오 플레이어 동작 */
+(function(){
+  const cards=Array.from(document.querySelectorAll('#voice .voice-card'));
+  let activeAudio=null;
+
+  function formatVoiceTime(seconds){
+    if(!Number.isFinite(seconds)||seconds<0)return '--:--';
+    const n=Math.floor(seconds);
+    return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');
+  }
+
+  function updateVoiceCard(card){
+    const audio=card.querySelector('audio');
+    const duration=audio.duration;
+    const current=audio.currentTime||0;
+    const playing=!audio.paused&&!audio.ended;
+    const seek=card.querySelector('.voice-seek');
+    const progress=(Number.isFinite(duration)&&duration>0)?current/duration:0;
+    seek.value=String(Math.round(progress*1000));
+    seek.style.setProperty('--voice-progress',(progress*100)+'%');
+    card.querySelector('.voice-elapsed').textContent=formatVoiceTime(current);
+    card.querySelector('.voice-duration').textContent=formatVoiceTime(duration);
+    card.classList.toggle('is-playing',playing);
+    const play=card.querySelector('.voice-play');
+    play.setAttribute('aria-pressed',String(playing));
+    play.setAttribute('aria-label',card.dataset.voice+'번 녹음 '+(playing?'일시정지':'재생'));
+    card.querySelector('.voice-play-icon').textContent=playing?'Ⅱ':'▶';
+  }
+
+  cards.forEach(card=>{
+    const audio=card.querySelector('audio');
+    const button=card.querySelector('.voice-play');
+    const seek=card.querySelector('.voice-seek');
+
+    button.addEventListener('click',async()=>{
+      if(!audio.paused){
+        audio.pause();
+        return;
+      }
+      cards.forEach(other=>{
+        const previous=other.querySelector('audio');
+        if(previous!==audio)previous.pause();
+      });
+      activeAudio=audio;
+      try{await audio.play();}
+      catch(error){
+        console.warn('목소리 재생 실패:',audio.getAttribute('src'),error);
+        updateVoiceCard(card);
+      }
+    });
+
+    seek.addEventListener('input',()=>{
+      if(Number.isFinite(audio.duration)&&audio.duration>0){
+        audio.currentTime=Number(seek.value)/1000*audio.duration;
+      }
+      updateVoiceCard(card);
+    });
+
+    ['loadedmetadata','durationchange','timeupdate','play','pause','ended','seeked'].forEach(type=>{
+      audio.addEventListener(type,()=>updateVoiceCard(card));
+    });
+    audio.addEventListener('error',()=>{
+      console.warn('MP3 파일 경로 확인:',audio.getAttribute('src'));
+    });
+
+    const details=card.querySelector('.voice-details');
+    details.addEventListener('toggle',()=>{
+      card.classList.toggle('transcript-open',details.open);
+      details.querySelector('summary').textContent=details.open?'대사 접기':'대사 전문 펼치기';
+    });
+
+    card.classList.toggle('transcript-open',details.open);
+    updateVoiceCard(card);
+  });
+
+  const voiceScreen=document.getElementById('voice');
+  const observer=new MutationObserver(()=>{
+    if(voiceScreen.classList.contains('hidden')||voiceScreen.classList.contains('fading')){
+      cards.forEach(card=>card.querySelector('audio').pause());
+      activeAudio=null;
+    }
+  });
+  observer.observe(voiceScreen,{attributes:true,attributeFilter:['class']});
+
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden&&activeAudio&&!activeAudio.paused)activeAudio.pause();
+  });
+})();
+</script>
+</body>
+</html>
