@@ -1487,7 +1487,7 @@ img{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:14px;
-  max-width:720px;
+  max-width:650px;
   margin:35px auto 0;
 }
 .creator-albums button{
@@ -1496,8 +1496,8 @@ img{
   justify-content:center;
   align-items:center;
   gap:12px;
-  min-height:210px;
-  padding:14px 8px;
+  min-height:178px;
+  padding:12px 7px;
   background:#ffffff05;
   border:1px solid #cfbaa52b;
   border-radius:5px;
@@ -1595,12 +1595,12 @@ img{
   #archive .menu-symbol{width:76px;height:76px}
   #archive .card small{font-size:7px;letter-spacing:.6px}
   #archive .card p{font-size:12px}
-  #creator-gift{padding:40px 14px}
+  #creator-gift{padding:40px 30px}
   .creator-title{font-size:21px}
-  .creator-albums{gap:7px}
-  .creator-albums button{min-height:150px;padding:10px 3px;gap:8px}
+  .creator-albums{gap:8px;max-width:100%}
+  .creator-albums button{min-height:123px;padding:9px 2px;gap:7px}
   .creator-mark{font-size:26px}
-  .creator-albums strong{font-size:11px}
+  .creator-albums strong{font-size:10px}
   .creator-albums small{font-size:6px;letter-spacing:0}
   .creator-intro{font-size:11px}
   .wedding-stage{width:calc(100vw - 88px);height:clamp(270px,47vh,420px)}
@@ -1750,11 +1750,11 @@ img{
   display:block;
   overflow:visible;
   min-height:100svh;
-  padding:74px 22px 20px;
+  padding:74px 36px 20px;
 }
 #voice .voice-archive-content{
   width:100%;
-  max-width:720px;
+  max-width:680px;
   margin:0 auto;
 }
 .voice-archive-title{
@@ -1766,7 +1766,7 @@ img{
 }
 .voice-archive-subtitle{
   margin:15px 0 36px;
-  color:#ab9ba6;
+  color:#b9a693;
   font-size:12px;
 }
 .voice-card-list{
@@ -1775,16 +1775,16 @@ img{
   text-align:left;
 }
 .voice-card{
-  background:#211d23;
-  border:1px solid #423941;
+  background:#ffffff05;
+  border:1px solid #cfbaa52b;
   border-radius:9px;
   padding:23px 26px 19px;
   box-shadow:none;
   transition:border-color .5s,box-shadow .5s,background .5s;
 }
 .voice-card.is-playing{
-  border-color:#978174;
-  box-shadow:0 0 12px #c7a28f12;
+  border-color:#cdb39577;
+  box-shadow:0 0 12px #c7a28f18;
 }
 .voice-card-head{
   display:flex;
@@ -1799,7 +1799,7 @@ img{
   color:#c4a48f;
   letter-spacing:2px;
 }
-.voice-english{color:#a9909e;letter-spacing:1.4px;margin-top:7px}
+.voice-english{color:#b9a28d;letter-spacing:1.4px;margin-top:7px}
 .voice-card h2{
   font-size:17px;
   font-weight:400;
@@ -1810,18 +1810,18 @@ img{
 .voice-play{
   width:50px;
   height:50px;
-  border:1px solid #816975;
+  border:1px solid #cfbaa54a;
   border-radius:50%;
-  background:#4a3b45;
-  color:#f3dfd0;
+  background:#b99a7522;
+  color:#ead6c2;
   flex-shrink:0;
   display:grid;
   place-items:center;
   transition:transform .2s,background .3s;
 }
-.voice-play:hover{background:#66505e;transform:scale(1.045)}
+.voice-play:hover{background:#b99a753d;transform:scale(1.045)}
 .voice-play-icon{font-family:Arial,sans-serif;font-size:18px;line-height:1}
-.voice-card.is-playing .voice-play{background:#775b62;border-color:#c0a38d}
+.voice-card.is-playing .voice-play{background:#b99a7550;border-color:#d0b395}
 .voice-track-row{
   display:flex;
   gap:12px;
@@ -1831,7 +1831,7 @@ img{
 .voice-time{
   font-family:Arial,sans-serif;
   font-size:10px;
-  color:#baa5ac;
+  color:#bcaa97;
   white-space:nowrap;
   font-variant-numeric:tabular-nums;
 }
@@ -1843,7 +1843,7 @@ img{
   cursor:pointer;
   appearance:none;
   -webkit-appearance:none;
-  background:linear-gradient(to right,#d5b69c 0%,#d5b69c var(--voice-progress,0%),#64525e var(--voice-progress,0%),#64525e 100%);
+  background:linear-gradient(to right,#d5b69c 0%,#d5b69c var(--voice-progress,0%),#695b4e var(--voice-progress,0%),#695b4e 100%);
   border-radius:8px;
 }
 .voice-seek::-webkit-slider-thumb{
@@ -1857,15 +1857,15 @@ img{
 .voice-seek::-moz-range-thumb{width:11px;height:11px;border:0;border-radius:50%;background:#ead6c4}
 .voice-excerpt{
   padding-top:15px;
-  border-top:1px solid #62505b;
+  border-top:1px solid #cfbaa52b;
   line-height:1.9;
   color:#ddd0cb;
   font-size:13px;
   word-break:keep-all;
 }
 .voice-card.transcript-open .voice-excerpt{display:none}
-.voice-card.transcript-open .voice-details{margin-top:15px;border-top:1px solid #50444b;padding-top:15px}
-.voice-details{margin-top:15px;color:#ccb6c1}
+.voice-card.transcript-open .voice-details{margin-top:15px;border-top:1px solid #cfbaa52b;padding-top:15px}
+.voice-details{margin-top:15px;color:#c4b09b}
 .voice-details summary{
   width:max-content;
   max-width:100%;
@@ -1879,7 +1879,7 @@ img{
 .voice-details[open] summary::after{content:'⌃'}
 .voice-details[open] summary{margin-bottom:16px}
 .voice-transcript{
-  border-top:1px solid #584952;
+  border-top:1px solid #cfbaa52b;
   padding-top:8px;
   color:#ddd0cb;
   line-height:2.05;
@@ -1890,15 +1890,28 @@ img{
 .voice-last-line{color:#f2d7c3;margin-top:21px}
 #voice .flower-enter{margin-top:36px}
 @media(max-width:600px){
-  #voice{padding:53px 14px 8px}
+  #voice{padding:53px 30px 8px}
   .voice-archive-title{font-size:23px}
   .voice-archive-subtitle{margin-bottom:28px}
-  .voice-card{padding:18px 16px 17px}
+  .voice-card{padding:15px 13px 15px}
   .voice-card h2{font-size:15px}
   .voice-number,.voice-english{font-size:8px;letter-spacing:1px}
-  .voice-play{width:44px;height:44px}
+  .voice-play{width:40px;height:40px}
   .voice-track-row{gap:8px}
   .voice-excerpt,.voice-transcript{font-size:12px}
+}
+
+/* 좁은 휴대폰에서도 외곽 테두리 안에 카드 유지 */
+@media(max-width:380px){
+  #creator-gift{padding-left:29px;padding-right:29px}
+  .creator-albums{gap:5px}
+  .creator-albums strong{font-size:9px}
+  .creator-albums small{font-size:5.5px}
+  #voice{padding-left:29px;padding-right:29px}
+  .voice-card{padding:13px 11px}
+  .voice-card-head{gap:10px}
+  .voice-play{width:38px;height:38px}
+  .voice-track-row{gap:6px}
 }
 </style>
 </head>
