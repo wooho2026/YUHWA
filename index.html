@@ -4205,6 +4205,54 @@ document.addEventListener("keydown",event=>{
   @keyframes memorySoftEnter{from{opacity:.35;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 }
 
+/* ========================================
+   오래된 기억 · 간격 및 대사 스타일 보정 (2026-11-23)
+   1. 사적인 시선처럼 메뉴 화면 수직 중앙 정렬
+   2. 이미지↔지문 간격 대칭
+   3. 대사만 돋움체 + 촘촘한 행간
+======================================== */
+
+/* 기존 공통 .screen의 중앙 배치를 복원한다.
+   읽기 화면은 긴 스크롤이므로 중앙 배치하지 않는다. */
+#memories:not(.hidden){
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  min-height:100svh;
+  padding:40px 30px;
+}
+#memories .flower-enter{margin:6px auto 0}
+
+/* 이미지 → 지문 = 지문 → 다음 이미지: PC 90px / 모바일 57px */
+#memory-unseen .memory-scene{margin-bottom:0}
+#memory-unseen .memory-story{margin:90px auto 90px}
+#memory-unseen .memory-story > p:last-child{margin-bottom:0}
+#memory-unseen .memory-ending{margin-top:90px}
+
+/* 모든 대화 행에만 돋움체 적용: 서술 지문/강조 컬러 유지 */
+#memory-unseen .memory-lines{
+  font-family:Dotum, '돋움', Arial, sans-serif;
+  font-weight:400;
+  font-style:normal;
+  line-height:1.42;
+}
+#memory-unseen .memory-lines p{
+  font-family:inherit;
+  line-height:inherit;
+  margin:0 auto 5px;
+}
+#memory-unseen .memory-lines p:last-child{margin-bottom:0}
+
+@media(max-width:600px){
+  #memories:not(.hidden){padding:40px 30px}
+  #memories .flower-enter{margin:6px auto 0}
+  #memory-unseen .memory-story{margin:57px auto 57px}
+  #memory-unseen .memory-ending{margin-top:57px}
+  #memory-unseen .memory-lines{line-height:1.38}
+  #memory-unseen .memory-lines p{margin-bottom:4px}
+}
+
 /* 콘텐츠 복사 및 저장 방지 */
 
 html,body{
