@@ -1451,6 +1451,163 @@ img{
 }
 
 </style>
+<style>
+/* ========================================
+   작가의 선물 V1 · 2×2 메뉴 / 웨딩 Coverflow
+======================================== */
+
+#archive .cards{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  max-width:390px;
+  gap:4px 22px;
+  margin-top:12px;
+}
+#archive .card{min-height:142px;padding:7px 0}
+#archive .menu-symbol{width:95px;height:95px;margin-bottom:8px}
+#archive .card small{font-size:9px;letter-spacing:1.2px}
+#archive .card p{margin-top:7px}
+#archive .flower-enter{margin-top:10px}
+
+.creator-content{max-width:780px;margin:0 auto}
+.creator-title{
+  margin:18px 0 0;
+  font-size:25px;
+  font-weight:400;
+  letter-spacing:2px;
+  color:#eee4dc;
+}
+.creator-intro{
+  margin:22px auto 32px;
+  font-size:12px;
+  line-height:2;
+  color:#b7a89f;
+  word-break:keep-all;
+}
+.creator-albums{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  max-width:720px;
+  margin:0 auto;
+}
+.creator-albums button{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  min-height:210px;
+  padding:14px 8px;
+  background:#ffffff05;
+  border:1px solid #cfbaa52b;
+  border-radius:5px;
+  transition:background .45s,border-color .45s,transform .45s;
+}
+.creator-albums button:hover,
+.creator-albums button:focus-visible{
+  background:#ffffff0c;
+  border-color:#d7baa477;
+  transform:translateY(-5px);
+}
+.creator-mark{display:block;color:#d7c2ae;font-size:35px;line-height:1.3}
+.creator-albums strong{font-weight:400;font-size:16px;white-space:nowrap}
+.creator-albums small{
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  letter-spacing:1px;
+  color:#bda694;
+  white-space:nowrap;
+}
+.creator-placeholder{margin:40px auto;color:#b6a69b;font-size:13px}
+
+.creator-wedding-content{width:100%;max-width:1000px;margin:0 auto}
+.wedding-carousel{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  margin:25px auto 0;
+}
+.wedding-stage{
+  position:relative;
+  width:min(780px,78vw);
+  height:clamp(270px,49vh,510px);
+  perspective:1300px;
+  overflow:hidden;
+  touch-action:pan-y;
+}
+.wedding-photo{
+  position:absolute;
+  top:50%;left:50%;
+  width:clamp(145px,30vw,305px);
+  height:92%;
+  padding:0;
+  background:#171217;
+  border:1px solid #dfc9ae66;
+  box-shadow:0 15px 35px #0006;
+  transform-style:preserve-3d;
+  transition:transform .75s cubic-bezier(.2,.7,.2,1),
+             opacity .75s,filter .75s;
+}
+.wedding-photo img{
+  display:block;
+  width:100%;height:100%;
+  object-fit:contain;
+  pointer-events:none;
+}
+.wedding-photo.is-center{
+  border-color:#ead4b2;
+  box-shadow:0 0 25px #d8b89430,0 18px 40px #0008;
+}
+.wedding-arrow{
+  flex:0 0 36px;
+  padding:8px 0;
+  border:0;
+  background:transparent;
+  color:#d3bda8;
+  font-size:38px;
+  transition:color .3s;
+}
+.wedding-arrow:hover{color:#fff0d9}
+.wedding-counter{
+  margin-top:12px;
+  font:12px Arial,sans-serif;
+  letter-spacing:3px;
+  color:#d6bd9f;
+}
+.wedding-dots{display:flex;justify-content:center;gap:11px;margin-top:16px}
+.wedding-dots button{
+  width:7px;height:7px;padding:0;
+  border:0;border-radius:50%;
+  background:#8d7880;opacity:.45;
+}
+.wedding-dots button.active{
+  background:#f1e1d2;opacity:1;
+  box-shadow:0 0 9px #ecd8c1;
+}
+.wedding-hint{margin:14px 0 0;color:#a89a8f;font-size:10px}
+#creator-wedding .flower-enter{margin-top:0}
+
+@media(max-width:600px){
+  #archive .cards{max-width:310px;gap:0 12px}
+  #archive .card{min-height:120px}
+  #archive .menu-symbol{width:76px;height:76px}
+  #archive .card small{font-size:7px;letter-spacing:.6px}
+  #archive .card p{font-size:12px}
+  #creator-gift{padding:40px 14px}
+  .creator-title{font-size:21px}
+  .creator-albums{gap:7px}
+  .creator-albums button{min-height:150px;padding:10px 3px;gap:8px}
+  .creator-mark{font-size:26px}
+  .creator-albums strong{font-size:11px}
+  .creator-albums small{font-size:6px;letter-spacing:0}
+  .creator-intro{font-size:11px}
+  .wedding-stage{width:calc(100vw - 88px);height:clamp(270px,47vh,420px)}
+  .wedding-photo{width:clamp(135px,46vw,225px)}
+  .wedding-arrow{flex-basis:26px;font-size:29px}
+  .wedding-carousel{gap:0}
+}
+</style>
 </head>
 
 <body>
@@ -1511,12 +1668,107 @@ img{
         <p>그의 목소리</p>
       </button>
 
+      <button class="card" type="button"
+        onclick="goTo('creator-gift')">
+        <img class="menu-symbol"
+          src="Forth.png" alt="肆">
+        <small>THE CREATOR'S GIFT</small>
+        <p>작가의 선물</p>
+      </button>
+
     </div>
 
     <button class="flower-enter"
       type="button" data-target="entrance"
       aria-label="첫 화면으로 돌아가기"></button>
 
+  </div>
+</section>
+
+<!-- 작가의 선물 : 세 개의 사진첩 -->
+
+<section class="screen hidden" id="creator-gift">
+  <div class="content creator-content">
+
+    <div class="eyebrow">THE CREATOR'S GIFT</div>
+    <h1 class="creator-title">작가의 선물</h1>
+
+    <p class="creator-intro">
+      이곳의 장면들은 이야기의 결말이 아닌,<br>
+      작가가 건네는 또 하나의 가능성이야.
+    </p>
+
+    <div class="creator-albums">
+      <button type="button" onclick="openCreatorWedding()">
+        <span class="creator-mark">❖</span>
+        <strong>유화의 결혼식</strong>
+        <small>THE WEDDING</small>
+      </button>
+      <button type="button" onclick="goTo('creator-yihun')">
+        <span class="creator-mark">❖</span>
+        <strong>이헌과 유화</strong>
+        <small>YIHUN &amp; YUHWA</small>
+      </button>
+      <button type="button" onclick="goTo('creator-fantasy')">
+        <span class="creator-mark">❖</span>
+        <strong>발칙한 상상</strong>
+        <small>SWEET FANTASY</small>
+      </button>
+    </div>
+
+    <button class="flower-enter" type="button"
+      data-target="archive" aria-label="기록 보관소로 돌아가기"></button>
+  </div>
+</section>
+
+<!-- 유화의 결혼식 : 몽경형 캐러셀 -->
+
+<section class="screen hidden" id="creator-wedding">
+  <div class="content creator-wedding-content">
+    <div class="eyebrow">THE WEDDING</div>
+    <h1 class="creator-title">유화의 결혼식</h1>
+
+    <div class="wedding-carousel">
+      <button class="wedding-arrow" type="button"
+        onclick="moveCreatorWedding(-1)" aria-label="이전 웨딩 사진">‹</button>
+      <div class="wedding-stage" id="weddingStage"
+        aria-label="유화의 결혼식 사진첩"></div>
+      <button class="wedding-arrow" type="button"
+        onclick="moveCreatorWedding(1)" aria-label="다음 웨딩 사진">›</button>
+    </div>
+
+    <div class="wedding-counter" id="weddingCounter">01 / 06</div>
+    <div class="wedding-dots" id="weddingDots"></div>
+    <p class="wedding-hint">가운데 사진을 누르면 크게 볼 수 있어.</p>
+
+    <button class="flower-enter" type="button"
+      data-target="creator-gift" aria-label="작가의 선물로 돌아가기"></button>
+  </div>
+</section>
+
+<!-- 이헌과 유화 : 추후 갤러리 연결 -->
+
+<section class="screen hidden" id="creator-yihun">
+  <div class="content creator-content">
+    <span class="creator-mark">❖</span>
+    <div class="eyebrow">YIHUN &amp; YUHWA</div>
+    <h1 class="creator-title">이헌과 유화</h1>
+    <p class="creator-placeholder">두 사람의 이야기가 머무는 곳.</p>
+    <button class="flower-enter" type="button"
+      data-target="creator-gift" aria-label="작가의 선물로 돌아가기"></button>
+  </div>
+</section>
+
+<!-- 발칙한 상상 : 추후 갤러리 연결 -->
+
+<section class="screen hidden" id="creator-fantasy">
+  <div class="content creator-content">
+    <span class="creator-mark">❖</span>
+    <div class="eyebrow">SWEET FANTASY</div>
+    <h1 class="creator-title">발칙한 상상</h1>
+    <p class="creator-placeholder">상상은 때때로 현실보다 대담하니까.</p>
+    <button class="flower-enter" type="button"
+      data-target="creator-gift" aria-label="작가의 선물로 돌아가기"></button>
   </div>
 </section>
 
@@ -3027,9 +3279,8 @@ const lightboxImage=$("lightboxImage");
 
 function activeCollection(){
 
-  return lightboxMode==="night"
-    ?nightPhotos
-    :photos;
+  if(lightboxMode==="wedding")return creatorWeddingPhotos.map(src=>({src}));
+  return lightboxMode==="night" ? nightPhotos : photos;
 
 }
 
@@ -3724,6 +3975,119 @@ document.addEventListener("keydown",e=>{
   if((e.ctrlKey||e.metaKey)&&
     ["s","c","u","a","p"].includes(e.key.toLowerCase())){
     e.preventDefault();
+  }
+});
+</script>
+
+
+<script>
+/* ========================================
+   작가의 선물 · 유화의 결혼식
+======================================== */
+
+const creatorWeddingPhotos=[
+  "merry01.png","merry02.png","merry03.png",
+  "merry04.png","merry05.png","merry06.png"
+];
+let creatorWeddingIndex=0;
+
+function openCreatorWedding(){
+  if(transitioning)return;
+  creatorWeddingIndex=0;
+  renderCreatorWedding();
+  goTo("creator-wedding");
+}
+
+function moveCreatorWedding(direction){
+  if(transitioning)return;
+  const count=creatorWeddingPhotos.length;
+  creatorWeddingIndex=(creatorWeddingIndex+direction+count)%count;
+  renderCreatorWedding();
+}
+
+function selectCreatorWedding(index){
+  if(transitioning)return;
+  if(index===creatorWeddingIndex){
+    showLightbox(index,"wedding",true);
+    return;
+  }
+  creatorWeddingIndex=index;
+  renderCreatorWedding();
+}
+
+function renderCreatorWedding(){
+  const stage=$("weddingStage");
+  const dots=$("weddingDots");
+  const counter=$("weddingCounter");
+  if(!stage||!dots||!counter)return;
+
+  const count=creatorWeddingPhotos.length;
+  if(stage.children.length!==count){
+    stage.replaceChildren();
+    dots.replaceChildren();
+    creatorWeddingPhotos.forEach((src,index)=>{
+      const button=document.createElement("button");
+      button.type="button";
+      button.className="wedding-photo";
+      button.setAttribute("aria-label",`웨딩 사진 ${index+1}`);
+      const picture=document.createElement("img");
+      picture.alt=`유화의 결혼식 ${index+1}`;
+      picture.loading="lazy";
+      loadAsset(picture,src);
+      button.appendChild(picture);
+      button.addEventListener("click",()=>selectCreatorWedding(index));
+      stage.appendChild(button);
+
+      const dot=document.createElement("button");
+      dot.type="button";
+      dot.setAttribute("aria-label",`${index+1}번 웨딩 사진 보기`);
+      dot.addEventListener("click",()=>{
+        creatorWeddingIndex=index;
+        renderCreatorWedding();
+      });
+      dots.appendChild(dot);
+    });
+  }
+
+  const mobile=window.innerWidth<=600;
+  const shift=mobile?100:190;
+  [...stage.children].forEach((photo,index)=>{
+    let distance=index-creatorWeddingIndex;
+    if(distance>count/2)distance-=count;
+    if(distance< -count/2)distance+=count;
+    const abs=Math.abs(distance);
+    const x=distance*shift;
+    const rotate=distance===0?0:(distance<0?36:-36);
+    const scale=abs===0?1:abs===1?.78:.58;
+    photo.style.transform=`translate(-50%,-50%) translateX(${x}px) rotateY(${rotate}deg) scale(${scale})`;
+    photo.style.opacity=abs===0?"1":abs===1?".64":abs===2?".2":"0";
+    photo.style.filter=abs===0?"none":"brightness(.7)";
+    photo.style.zIndex=String(10-abs);
+    photo.style.pointerEvents=abs<=2?"auto":"none";
+    photo.classList.toggle("is-center",distance===0);
+    photo.setAttribute("aria-hidden",String(abs>2));
+    photo.tabIndex=abs<=2?0:-1;
+  });
+  [...dots.children].forEach((dot,index)=>{
+    dot.classList.toggle("active",index===creatorWeddingIndex);
+    dot.setAttribute("aria-pressed",String(index===creatorWeddingIndex));
+  });
+  counter.textContent=numberFormat(creatorWeddingIndex+1)+" / "+numberFormat(count);
+}
+
+bindSwipe($("weddingStage"),moveCreatorWedding);
+window.addEventListener("resize",()=>{
+  if(currentScreen==="creator-wedding")renderCreatorWedding();
+});
+document.addEventListener("keydown",event=>{
+  if(currentScreen!=="creator-wedding"||transitioning||
+     !$("lightbox").classList.contains("hidden"))return;
+  if(event.key==="ArrowLeft"){
+    event.preventDefault();
+    moveCreatorWedding(-1);
+  }else if(event.key==="ArrowRight"){
+    event.preventDefault();
+    moveCreatorWedding(1);
   }
 });
 </script>
