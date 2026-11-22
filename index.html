@@ -1657,10 +1657,8 @@ img{
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:center center;
   transition:transform .65s,filter .65s;
 }
-
 .creator-magazine-item:hover img{
   transform:scale(1.025);
   filter:brightness(1.07);
@@ -1743,6 +1741,162 @@ img{
 @media(prefers-reduced-motion:reduce){
   .creator-magazine-item{opacity:1;transform:none;animation:none}
   .fantasy-slide{transition:none}
+}
+</style>
+
+<style>
+/* 유화 목소리 : 음성 기록 카드 전용 스타일 */
+#voice{
+  display:block;
+  overflow:visible;
+  min-height:100svh;
+  padding:74px 22px 20px;
+}
+#voice .voice-archive-content{
+  width:100%;
+  max-width:720px;
+  margin:0 auto;
+}
+.voice-archive-title{
+  font-size:27px;
+  font-weight:400;
+  letter-spacing:2px;
+  margin:18px 0 0;
+  color:#f0e7df;
+}
+.voice-archive-subtitle{
+  margin:15px 0 36px;
+  color:#ab9ba6;
+  font-size:12px;
+}
+.voice-card-list{
+  display:grid;
+  gap:16px;
+  text-align:left;
+}
+.voice-card{
+  background:linear-gradient(125deg,#2c242d,#211c24);
+  border:1px solid #584550;
+  border-radius:9px;
+  padding:23px 26px 19px;
+  box-shadow:0 9px 30px #0002;
+  transition:border-color .5s,box-shadow .5s,background .5s;
+}
+.voice-card.is-playing{
+  border-color:#c5a995;
+  box-shadow:0 0 25px #c7a28f1e,0 12px 35px #0003;
+}
+.voice-card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+.voice-card-meta{min-width:0}
+.voice-number,.voice-english{
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  color:#c4a48f;
+  letter-spacing:2px;
+}
+.voice-english{color:#a9909e;letter-spacing:1.4px;margin-top:7px}
+.voice-card h2{
+  font-size:17px;
+  font-weight:400;
+  letter-spacing:.5px;
+  margin:9px 0 0;
+  color:#f0e7df;
+}
+.voice-play{
+  width:50px;
+  height:50px;
+  border:1px solid #816975;
+  border-radius:50%;
+  background:#4a3b45;
+  color:#f3dfd0;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  transition:transform .2s,background .3s;
+}
+.voice-play:hover{background:#66505e;transform:scale(1.045)}
+.voice-play-icon{font-family:Arial,sans-serif;font-size:18px;line-height:1}
+.voice-card.is-playing .voice-play{background:#775b62;border-color:#c0a38d}
+.voice-track-row{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin:24px 0 19px;
+}
+.voice-time{
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  color:#baa5ac;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.voice-seek{
+  flex:1;
+  min-width:0;
+  height:4px;
+  margin:0;
+  cursor:pointer;
+  appearance:none;
+  -webkit-appearance:none;
+  background:linear-gradient(to right,#d5b69c 0%,#d5b69c var(--voice-progress,0%),#64525e var(--voice-progress,0%),#64525e 100%);
+  border-radius:8px;
+}
+.voice-seek::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  border:0;
+  background:#ead6c4;
+}
+.voice-seek::-moz-range-thumb{width:11px;height:11px;border:0;border-radius:50%;background:#ead6c4}
+.voice-excerpt{
+  padding-top:15px;
+  border-top:1px solid #62505b;
+  line-height:1.9;
+  color:#ddd0cb;
+  font-size:13px;
+  word-break:keep-all;
+}
+.voice-details{margin-top:15px;color:#ccb6c1}
+.voice-details summary{
+  width:max-content;
+  max-width:100%;
+  font-size:11px;
+  letter-spacing:.3px;
+  cursor:pointer;
+  list-style:none;
+}
+.voice-details summary::-webkit-details-marker{display:none}
+.voice-details summary::after{content:'⌄';margin-left:9px}
+.voice-details[open] summary::after{content:'⌃'}
+.voice-details[open] summary{margin-bottom:16px}
+.voice-transcript{
+  border-top:1px solid #584952;
+  padding-top:8px;
+  color:#ddd0cb;
+  line-height:2.05;
+  font-size:13px;
+  word-break:keep-all;
+}
+.voice-transcript-para{margin:13px 0}
+.voice-last-line{color:#f2d7c3;margin-top:21px}
+#voice .flower-enter{margin-top:36px}
+@media(max-width:600px){
+  #voice{padding:53px 14px 8px}
+  .voice-archive-title{font-size:23px}
+  .voice-archive-subtitle{margin-bottom:28px}
+  .voice-card{padding:18px 16px 17px}
+  .voice-card h2{font-size:15px}
+  .voice-number,.voice-english{font-size:8px;letter-spacing:1px}
+  .voice-play{width:44px;height:44px}
+  .voice-track-row{gap:8px}
+  .voice-excerpt,.voice-transcript{font-size:12px}
 }
 </style>
 </head>
@@ -2122,24 +2276,91 @@ img{
   </div>
 </section>
 
-<!-- 그의 목소리 -->
-
+<!-- 그의 목소리 : 음성 기록 카드 -->
 <section class="screen hidden" id="voice">
-  <div class="content">
-
-    <img class="menu-symbol"
-      src="Third.png" alt="參">
-
-    <div class="eyebrow">THE VOICE</div>
-
-    <h1 class="album-heading">그의 목소리</h1>
-
-    <p class="quote">기록은 아직 잠들어 있다.</p>
-
-    <button class="flower-enter"
-      type="button" data-target="archive"
-      aria-label="기록 보관소로 돌아가기"></button>
-
+  <div class="content voice-archive-content">
+    <div class="eyebrow">THE VOICE ARCHIVE</div>
+    <h1 class="voice-archive-title">그의 목소리</h1>
+    <p class="voice-archive-subtitle">남겨진 세 개의 음성 기록</p>
+    <div class="voice-card-list">
+      <article class="voice-card" data-voice="01">
+        <div class="voice-card-head">
+          <div class="voice-card-meta">
+            <div class="voice-number">01 / VOICE RECORD</div>
+            <h2>생각보다 먼저 움직인 손</h2>
+            <div class="voice-english">AN UNEXPECTED TOUCH</div>
+          </div>
+          <button class="voice-play" type="button" aria-label="01번 녹음 재생" aria-pressed="false">
+            <span class="voice-play-icon" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div class="voice-track-row">
+          <span class="voice-time voice-elapsed">00:00</span>
+          <input class="voice-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="01번 음성 재생 위치" />
+          <span class="voice-time voice-duration">--:--</span>
+        </div>
+        <div class="voice-excerpt">아, 쓸데없는 짓을 했네.<br>상자만 잡으면 될 걸, 사람까지 잡았군.</div>
+        <details class="voice-details">
+          <summary>대사 전문 펼치기</summary>
+          <div class="voice-transcript"><p class="voice-transcript-para">아, 쓸데없는 짓을 했네.<br>상자만 잡으면 될 걸, 사람까지 잡았군.</p>
+<p class="voice-transcript-para">……생각하기도 전에 손이 먼저 나가버렸어.</p>
+<p class="voice-transcript-para">그나저나, 꽤 놀랐겠는걸.</p></div>
+        </details>
+        <audio preload="metadata" src="yhvoice01.mp3"></audio>
+      </article>
+      <article class="voice-card" data-voice="02">
+        <div class="voice-card-head">
+          <div class="voice-card-meta">
+            <div class="voice-number">02 / VOICE RECORD</div>
+            <h2>처음 들린 목소리</h2>
+            <div class="voice-english">THE VOICE HEARD</div>
+          </div>
+          <button class="voice-play" type="button" aria-label="02번 녹음 재생" aria-pressed="false">
+            <span class="voice-play-icon" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div class="voice-track-row">
+          <span class="voice-time voice-elapsed">00:00</span>
+          <input class="voice-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="02번 음성 재생 위치" />
+          <span class="voice-time voice-duration">--:--</span>
+        </div>
+        <div class="voice-excerpt">……잠시만.<br>방금, 내 목소리에 멈춘 건가.</div>
+        <details class="voice-details">
+          <summary>대사 전문 펼치기</summary>
+          <div class="voice-transcript"><p class="voice-transcript-para">……서투르기 짝이 없군. 나였다면 저렇게는 하지 않지. ...각도가 영....</p>
+<p class="voice-transcript-para">뒤늦은 다정함이군. 진작에 그럴 것이지.</p>
+<p class="voice-transcript-para">……잠시만.<br>방금, 내 목소리에 멈춘 건가.</p></div>
+        </details>
+        <audio preload="metadata" src="yhvoice02.mp3"></audio>
+      </article>
+      <article class="voice-card" data-voice="03">
+        <div class="voice-card-head">
+          <div class="voice-card-meta">
+            <div class="voice-number">03 / VOICE RECORD</div>
+            <h2>오래전에 심어진 마음</h2>
+            <div class="voice-english">THE SEED OF LOVE</div>
+          </div>
+          <button class="voice-play" type="button" aria-label="03번 녹음 재생" aria-pressed="false">
+            <span class="voice-play-icon" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div class="voice-track-row">
+          <span class="voice-time voice-elapsed">00:00</span>
+          <input class="voice-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="03번 음성 재생 위치" />
+          <span class="voice-time voice-duration">--:--</span>
+        </div>
+        <div class="voice-excerpt">너 어릴 때 툇마루에 앉아 다리 흔들던 거 기억해?<br>그때마다 내가 몰래 바람을 불어줬거든.</div>
+        <details class="voice-details">
+          <summary>대사 전문 펼치기</summary>
+          <div class="voice-transcript"><p class="voice-transcript-para">너 어릴 때 툇마루에 앉아 다리 흔들던 거 기억해? 하긴, 기억 못 하겠지. 그때마다 내가 몰래 바람을 불어줬거든. 더울 땐 시원하게... 추울 땐 따뜻하게.... 어느 날은 네가 오지도 않았는데 그 자리를 데우고 있더라. 참 별 버릇이 다 들었다 싶었지.</p>
+<p class="voice-transcript-para">그 조그만 게, 나도 모르는 사이 마음에 씨앗 하나 심어두고 간 모양이야. 그 씨앗이 이렇게 자랄 줄은, 나도 몰랐는데....</p>
+<p class="voice-transcript-para">물론 그때는 그저 귀여운 아이였지. .....내가 다시 이런 말을 하게 될 줄은 몰랐는데 말이야....</p>
+<p class="voice-transcript-para voice-last-line">사랑해. 정말, 많이.</p></div>
+        </details>
+        <audio preload="metadata" src="yhvoice03.mp3"></audio>
+      </article>
+    </div>
+    <button class="flower-enter" type="button" data-target="archive" aria-label="기록 보관소로 돌아가기"></button>
   </div>
 </section>
 
@@ -4353,5 +4574,94 @@ document.addEventListener("keydown",event=>{
 });
 </script>
 
+
+<script>
+/* 유화 목소리 : 오디오 플레이어 동작 */
+(function(){
+  const cards=Array.from(document.querySelectorAll('#voice .voice-card'));
+  let activeAudio=null;
+
+  function formatVoiceTime(seconds){
+    if(!Number.isFinite(seconds)||seconds<0)return '--:--';
+    const n=Math.floor(seconds);
+    return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');
+  }
+
+  function updateVoiceCard(card){
+    const audio=card.querySelector('audio');
+    const duration=audio.duration;
+    const current=audio.currentTime||0;
+    const playing=!audio.paused&&!audio.ended;
+    const seek=card.querySelector('.voice-seek');
+    const progress=(Number.isFinite(duration)&&duration>0)?current/duration:0;
+    seek.value=String(Math.round(progress*1000));
+    seek.style.setProperty('--voice-progress',(progress*100)+'%');
+    card.querySelector('.voice-elapsed').textContent=formatVoiceTime(current);
+    card.querySelector('.voice-duration').textContent=formatVoiceTime(duration);
+    card.classList.toggle('is-playing',playing);
+    const play=card.querySelector('.voice-play');
+    play.setAttribute('aria-pressed',String(playing));
+    play.setAttribute('aria-label',card.dataset.voice+'번 녹음 '+(playing?'일시정지':'재생'));
+    card.querySelector('.voice-play-icon').textContent=playing?'Ⅱ':'▶';
+  }
+
+  cards.forEach(card=>{
+    const audio=card.querySelector('audio');
+    const button=card.querySelector('.voice-play');
+    const seek=card.querySelector('.voice-seek');
+
+    button.addEventListener('click',async()=>{
+      if(!audio.paused){
+        audio.pause();
+        return;
+      }
+      cards.forEach(other=>{
+        const previous=other.querySelector('audio');
+        if(previous!==audio)previous.pause();
+      });
+      activeAudio=audio;
+      try{await audio.play();}
+      catch(error){
+        console.warn('목소리 재생 실패:',audio.getAttribute('src'),error);
+        updateVoiceCard(card);
+      }
+    });
+
+    seek.addEventListener('input',()=>{
+      if(Number.isFinite(audio.duration)&&audio.duration>0){
+        audio.currentTime=Number(seek.value)/1000*audio.duration;
+      }
+      updateVoiceCard(card);
+    });
+
+    ['loadedmetadata','durationchange','timeupdate','play','pause','ended','seeked'].forEach(type=>{
+      audio.addEventListener(type,()=>updateVoiceCard(card));
+    });
+    audio.addEventListener('error',()=>{
+      console.warn('MP3 파일 경로 확인:',audio.getAttribute('src'));
+    });
+
+    const details=card.querySelector('.voice-details');
+    details.addEventListener('toggle',()=>{
+      details.querySelector('summary').textContent=details.open?'대사 접기':'대사 전문 펼치기';
+    });
+
+    updateVoiceCard(card);
+  });
+
+  const voiceScreen=document.getElementById('voice');
+  const observer=new MutationObserver(()=>{
+    if(voiceScreen.classList.contains('hidden')||voiceScreen.classList.contains('fading')){
+      cards.forEach(card=>card.querySelector('audio').pause());
+      activeAudio=null;
+    }
+  });
+  observer.observe(voiceScreen,{attributes:true,attributeFilter:['class']});
+
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden&&activeAudio&&!activeAudio.paused)activeAudio.pause();
+  });
+})();
+</script>
 </body>
 </html>
