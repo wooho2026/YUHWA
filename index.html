@@ -1076,13 +1076,37 @@ img{
 
 /* 하단 필름형 썸네일 */
 
+
 .night-film{
   display:grid;
-  grid-template-columns:repeat(7,minmax(0,1fr));
+  grid-auto-flow:column;
+  grid-auto-columns:80px;
   gap:9px;
   width:min(650px,100%);
   margin:22px auto 0;
+  padding:4px 2px 12px;
+
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-behavior:smooth;
+  overscroll-behavior-x:contain;
+  scrollbar-width:thin;
+  scrollbar-color:#74616e transparent;
 }
+
+.night-film::-webkit-scrollbar{
+  height:4px;
+}
+
+.night-film::-webkit-scrollbar-thumb{
+  background:#74616e;
+  border-radius:10px;
+}
+
+.night-film::-webkit-scrollbar-track{
+  background:transparent;
+}
+
 
 .night-thumb{
   position:relative;
@@ -1351,10 +1375,11 @@ img{
     height:clamp(260px,55vh,520px);
   }
 
-  .night-film{
-    gap:4px;
-    margin-top:18px;
-  }
+.night-film{
+  grid-auto-columns:60px;
+  gap:6px;
+  margin-top:18px;
+}
 
   .night-arrow{
     font-size:22px;
@@ -1901,6 +1926,7 @@ const photos=[
    심야 전시실
 ======================================== */
 
+
 const nightPhotos=[
 
   {src:"portrait-31.gif",motion:true},
@@ -1909,7 +1935,19 @@ const nightPhotos=[
   {src:"portrait-34.png",motion:false},
   {src:"portrait-35.png",motion:false},
   {src:"portrait-36.png",motion:false},
-  {src:"portrait-37.png",motion:false}
+  {src:"portrait-37.png",motion:false},
+
+  {src:"portrait-38.png",motion:false},
+  {src:"portrait-39.png",motion:false},
+  {src:"portrait-40.png",motion:false},
+  {src:"portrait-41.png",motion:false},
+  {src:"portrait-42.png",motion:false},
+  {src:"portrait-43.png",motion:false},
+  {src:"portrait-45.png",motion:false},
+  {src:"portrait-46.png",motion:false},
+  {src:"portrait-47.png",motion:false},
+  {src:"portrait-48.png",motion:false},
+  {src:"portrait-49.png",motion:false}
 
 ];
 
