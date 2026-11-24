@@ -592,7 +592,7 @@ img{
 
 .photo-quote{
   width:100%;
-  font-size:clamp(12px,1.7vw,19px);
+  font-size:12px;
   font-weight:400;
   line-height:1.5;
   word-break:keep-all;
@@ -1076,17 +1076,25 @@ img{
 
 /* 심야 전시실 · 전체 사진 메뉴 */
 .night-gallery-menu{
-  display:block;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
   margin:24px auto 0;
-  padding:6px 12px;
+  padding:12px 7px;
   border:0;
   background:transparent;
   color:#eee7dc;
-  font-size:16px;
-  font-weight:700;
   line-height:1.5;
   letter-spacing:.5px;
   transition:color .5s,text-shadow .5s;
+}
+
+.night-gallery-menu strong{
+  font-size:16px;
+  font-weight:700;
+  white-space:nowrap;
 }
 
 .night-gallery-menu:hover,
@@ -1098,6 +1106,9 @@ img{
 @media(max-width:600px){
   .night-gallery-menu{
     margin-top:20px;
+    gap:7px;
+  }
+  .night-gallery-menu strong{
     font-size:14px;
   }
 }
@@ -1341,7 +1352,7 @@ img{
   .page-writing{padding:8%}
 
   .photo-quote{
-    font-size:12px;
+    font-size:10px;
     line-height:1.5;
   }
 
@@ -1448,8 +1459,8 @@ img{
     font-size:6px;
   }
 
-  .page-right.is-final .photo-quote{
-    font-size:11px;
+  .photo-quote{
+    font-size:9px;
   }
 
   .moon-seal-label{
@@ -2285,7 +2296,10 @@ img{
     <div class="night-film" id="nightFilm"></div>
 
     <button class="night-gallery-menu" type="button"
-      onclick="openGallery()">[ 모든 사진 펼쳐보기 ]</button>
+      onclick="openGallery()">
+      <span class="creator-mark" aria-hidden="true">❖</span>
+      <strong>모든 사진 펼쳐보기</strong>
+    </button>
 
    <button class="flower-enter"
   type="button" data-target="album-reader"
