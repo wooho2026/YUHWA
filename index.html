@@ -1074,6 +1074,34 @@ img{
   color:#9d8394;
 }
 
+/* 심야 전시실 · 전체 사진 메뉴 */
+.night-gallery-menu{
+  display:block;
+  margin:24px auto 0;
+  padding:6px 12px;
+  border:0;
+  background:transparent;
+  color:#eee7dc;
+  font-size:16px;
+  font-weight:700;
+  line-height:1.5;
+  letter-spacing:.5px;
+  transition:color .5s,text-shadow .5s;
+}
+
+.night-gallery-menu:hover,
+.night-gallery-menu:focus-visible{
+  color:#fff3e2;
+  text-shadow:0 0 12px #e7d3b94d;
+}
+
+@media(max-width:600px){
+  .night-gallery-menu{
+    margin-top:20px;
+    font-size:14px;
+  }
+}
+
 /* 하단 필름형 썸네일 */
 
 
@@ -2256,6 +2284,9 @@ img{
 
     <div class="night-film" id="nightFilm"></div>
 
+    <button class="night-gallery-menu" type="button"
+      onclick="openGallery()">[ 모든 사진 펼쳐보기 ]</button>
+
    <button class="flower-enter"
   type="button" data-target="album-reader"
   aria-label="사진첩으로 돌아가기"></button>
@@ -3232,31 +3263,6 @@ function fillLeftPage(element,index,interactive=true){
 
 }
 
-/* ========================================
-   V15.1 마지막 페이지 텍스트 버튼
-======================================== */
-
-function createMoonSeal(){
-
-  const button=document.createElement("button");
-
-  button.type="button";
-  button.className="moon-seal-button";
-
-  button.innerHTML=`
-    <span class="moon-seal-label">
-      [ 모든 사진 펼쳐보기 ]
-    </span>`;
-
-  button.addEventListener("click",event=>{
-    event.stopPropagation();
-    openGallery();
-  });
-
-  return button;
-
-}
-
 function fillRightPage(element,index,interactive=true){
 
   const final=index===photos.length-1;
@@ -3278,8 +3284,6 @@ function fillRightPage(element,index,interactive=true){
   if(final&&interactive&&albumCompleted){
 
     const writing=element.querySelector(".page-writing");
-
-    writing.appendChild(createMoonSeal());
 
     const hint=document.createElement("div");
 
