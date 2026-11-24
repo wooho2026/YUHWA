@@ -2232,9 +2232,9 @@ img{
 
     <div class="gallery" id="galleryGrid"></div>
 
-    <button class="flower-enter"
-      type="button" data-target="album-reader"
-      aria-label="사진첩으로 돌아가기"></button>
+    <button class="flower-enter" id="galleryReturn"
+      type="button" data-target="night-gallery"
+      aria-label="이전 화면으로 돌아가기"></button>
 
   </div>
 </section>
@@ -2302,8 +2302,8 @@ img{
     </button>
 
    <button class="flower-enter"
-  type="button" data-target="album-reader"
-  aria-label="사진첩으로 돌아가기"></button>
+  type="button" data-target="moonrise-screen"
+  aria-label="이전 화면으로 돌아가기"></button>
 
   </div>
 </section>
@@ -3565,6 +3565,8 @@ bindSwipe($("book"),turnPage);
    일반 사진 전체 보기
 ======================================== */
 
+let galleryPhotos=[];
+
 function openGallery(){
 
   if(
@@ -3572,11 +3574,19 @@ function openGallery(){
     transitioning||pageTurning||bookClosing
   )return;
 
+  galleryPhotos=[...photos,...nightPhotos];
+
+  const returnButton=$("galleryReturn");
+
+  if(currentScreen!=="gallery-screen"){
+    returnButton.dataset.target=currentScreen;
+  }
+
   const grid=$("galleryGrid");
 
   grid.innerHTML="";
 
-  photos.forEach((photo,index)=>{
+  galleryPhotos.forEach((photo,index)=>{
 
     const item=document.createElement("button");
 
@@ -3593,7 +3603,7 @@ function openGallery(){
     loadAsset(item.querySelector("img"),photo.src);
 
     item.addEventListener("click",()=>{
-      showLightbox(index,"album",true);
+      showLightbox(index,"gallery",true);
     });
 
     grid.appendChild(item);
@@ -3937,6 +3947,7 @@ const lightboxImage=$("lightboxImage");
 
 function activeCollection(){
 
+  if(lightboxMode==="gallery")return galleryPhotos;
   if(lightboxMode==="wedding")return creatorWeddingPhotos.map(src=>({src}));
   if(lightboxMode==="magazine")return creatorMagazinePhotos.map(src=>({src}));
   if(lightboxMode==="fantasy")return creatorFantasyPhotos.map(src=>({src}));
