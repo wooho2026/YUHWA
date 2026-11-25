@@ -2326,6 +2326,7 @@ img{
   <div class="content memories-content">
     <div class="eyebrow">THE MEMORIES</div>
     <h1 class="memories-heading">오래된 기억</h1>
+    <p class="memories-reading-hint">왼쪽에서부터 순서대로 읽어 주세요.</p>
     <div class="memory-choices" aria-label="오래된 기억의 세 에피소드">
       <button type="button" onclick="goTo('memory-unseen')">
         <span class="memory-mark">❖</span>
@@ -4373,6 +4374,7 @@ document.addEventListener("keydown",event=>{
 .memories-content{max-width:780px;margin:0 auto}
 #memories .eyebrow,#memory-unseen .eyebrow,#memory-farewell .eyebrow,#memory-warmth .eyebrow{color:#b99a75;font-size:10px;letter-spacing:4px}
 .memories-heading{margin:18px 0 0;font-size:25px;font-weight:400;letter-spacing:2px;color:#eee4dc}
+.memories-reading-hint{margin:12px auto 0;font-size:12px;line-height:1.6;color:#b7a89f;word-break:keep-all}
 .memory-choices{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
@@ -4419,6 +4421,7 @@ document.addEventListener("keydown",event=>{
   #memories{padding:40px 30px}
   #memory-unseen,#memory-farewell,#memory-warmth{padding:58px 12px 30px}
   .memories-heading{font-size:23px}
+  .memories-reading-hint{font-size:11px}
   .memory-choices{gap:6px;margin-top:32px}
   .memory-choices button{min-height:129px;gap:7px;padding:9px 2px}
   .memory-mark{font-size:26px}
