@@ -644,6 +644,14 @@ img{
   word-break:keep-all;
 }
 
+/* PC 책 안의 한글 대사와 마지막 안내 문구만 2pt 확대 */
+@media(min-width:601px){
+  .book .photo-quote,
+  .book .final-page-hint{
+    font-size:calc(12px + 2pt);
+  }
+}
+
 @keyframes sealAppear{
   from{opacity:0;transform:translateY(5px)}
   to{opacity:1;transform:translateY(0)}
