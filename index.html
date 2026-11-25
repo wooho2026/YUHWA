@@ -110,6 +110,16 @@ img{
    첫 화면
 ======================================== */
 
+.title-enter{
+  display:block;
+  width:fit-content;
+  max-width:100%;
+  margin:0 auto;
+  padding:0;
+  border:0;
+  background:transparent;
+}
+
 .title-image{
   display:block;
   width:min(250px,62vw);
@@ -1975,17 +1985,17 @@ img{
 
 <section class="screen" id="entrance">
   <div class="content">
-    <img class="title-image"
-      src="yuhwa-title.png" alt="留華">
+    <button class="title-enter" type="button"
+      onclick="goTo('archive')" aria-label="유화 기록 보관소 열기">
+      <img class="title-image"
+        src="yuhwa-title.png" alt="留華">
+    </button>
 
     <div class="quote">
       빛 한 줄기 들지 않는 시간을 홀로 견뎌냈다.<br>
       끝 모를 고독의 끝자락에서, 마침내 너를 만났다.
     </div>
 
-    <button class="flower-enter"
-      type="button" data-target="archive"
-      aria-label="기록 보관소 열기"></button>
   </div>
 </section>
 
