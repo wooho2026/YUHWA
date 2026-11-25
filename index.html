@@ -2315,8 +2315,8 @@ img{
     </button>
 
    <button class="flower-enter"
-  type="button" data-target="moonrise-screen"
-  aria-label="이전 화면으로 돌아가기"></button>
+  type="button" data-target="album-reader"
+  aria-label="사진첩 마지막 페이지로 돌아가기"></button>
 
   </div>
 </section>
@@ -3062,6 +3062,9 @@ async function goTo(target){
   window.scrollTo(0,0);
 
   if(target==="album-reader"){
+    if(previous.id==="night-gallery"){
+      currentPage=photos.length-1;
+    }
     renderPage();
   }
 
