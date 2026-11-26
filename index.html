@@ -1964,6 +1964,106 @@ img{
   .voice-excerpt,.voice-transcript{font-size:12px}
 }
 
+/* 초연 · 펼쳐 읽는 음성 에피소드 */
+.voice-story{
+  min-width:0;
+  padding:14px 0 18px;
+}
+.voice-story-title{
+  margin:0;
+  font-size:32px;
+  font-weight:400;
+  color:#f0e7df;
+}
+.voice-story-title img{
+  display:block;
+  width:100%;
+  height:auto;
+  margin:0 auto;
+  object-fit:contain;
+}
+.voice-story-details{
+  margin-top:8px;
+}
+.voice-story-details summary{
+  width:max-content;
+  max-width:100%;
+  margin:0 auto;
+  padding:9px 6px;
+  color:#c4b09b;
+  font-size:12px;
+  line-height:1.5;
+  letter-spacing:.3px;
+  cursor:pointer;
+  list-style:none;
+}
+.voice-story-details summary::-webkit-details-marker{display:none}
+.voice-story-details summary::after{content:"⌄";margin-left:9px}
+.voice-story-details[open] summary::after{content:"⌃"}
+.voice-story-details summary:focus-visible{
+  outline:1px solid #d9b78f;
+  outline-offset:4px;
+}
+.voice-story-collapse{display:none}
+.voice-story-details[open] .voice-story-expand{display:none}
+.voice-story-details[open] .voice-story-collapse{display:inline}
+.voice-story-details[open] summary{margin-bottom:30px}
+.voice-story-body{
+  color:#ddd0cb;
+  font-size:13px;
+  line-height:2.05;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
+.voice-story-body p{margin:0 0 21px}
+.voice-story-narration{font-style:italic}
+.voice-story-body .voice-story-yuhwa{
+  margin-top:25px;
+  margin-bottom:12px;
+  color:#d9b9a0;
+  font-style:italic;
+  font-weight:500;
+}
+.voice-story-other{color:#bfc9d9}
+.voice-story-body > p:last-child{margin-bottom:0}
+.voice-clip-player{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:min(310px,100%);
+  min-height:42px;
+  margin:0 0 35px;
+  padding:5px 12px 5px 7px;
+  border:1px solid #cfbaa55a;
+  border-radius:999px;
+  background:#ffffff02;
+  transition:border-color .3s;
+}
+.voice-clip-player.is-playing{border-color:#d5b69c}
+.voice-clip-player .voice-play{
+  width:30px;
+  height:30px;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+}
+.voice-clip-player .voice-play:hover{
+  background:transparent;
+  transform:none;
+}
+.voice-clip-player .voice-play-icon{font-size:13px}
+.voice-clip-time{font-size:10px}
+.voice-clip-player .voice-seek{min-width:40px}
+@media(max-width:600px){
+  .voice-story{padding:12px 0 18px}
+  .voice-story-details summary{font-size:11px}
+  .voice-story-details[open] summary{margin-bottom:23px}
+  .voice-story-body{font-size:12px;line-height:2}
+  .voice-story-body p{margin-bottom:18px}
+  .voice-clip-player{width:min(290px,100%);gap:8px;margin-bottom:29px}
+}
+
 /* 좁은 휴대폰에서도 외곽 테두리 안에 카드 유지 */
 @media(max-width:380px){
   #creator-gift{padding-left:29px;padding-right:29px}
@@ -2642,30 +2742,56 @@ img{
         </details>
         <audio preload="metadata" src="yhvoice01.mp3"></audio>
       </article>
-      <article class="voice-card" data-voice="02">
-        <div class="voice-card-head">
-          <div class="voice-card-meta">
-            <div class="voice-number">02 / VOICE RECORD</div>
-            <h2>처음 들린 목소리</h2>
-            <div class="voice-english">THE VOICE HEARD</div>
+      <article class="voice-story" data-voice="02">
+        <h2 class="voice-story-title">
+          <img src="voice01.png" alt="初緣 (초연) : 새로운 인연의 시작" width="2048" height="685" decoding="async">
+        </h2>
+        <details class="voice-story-details">
+          <summary>
+            <span class="voice-story-expand">내용 펼치기</span>
+            <span class="voice-story-collapse">내용 접기</span>
+          </summary>
+          <div class="voice-story-body">
+            <p class="voice-story-narration">늦은 밤, 오래된 단독주택의 침실. 협탁 위 희미하게 켜져 있는 조명 하나가 두 사람의 몸짓에 의해 위태롭게 흔들리고 있었다. 가까워진 숨결, 살갗에 닿는 온기. 이헌의 허리짓이 더욱더 격렬해지고 있었다.</p>
+            <p class="voice-story-narration">그때였다.</p>
+            <p class="voice-story-yuhwa">……서투르기 짝이 없군. 나였다면 저렇게는 하지 않지. ...각도가 영....</p>
+            <div class="voice-clip-player" data-audio-label="초연 첫 번째 대사">
+              <button class="voice-play" type="button" aria-label="초연 첫 번째 대사 재생" aria-pressed="false">
+                <span class="voice-play-icon" aria-hidden="true">▶</span>
+              </button>
+              <span class="voice-time voice-clip-time"><span class="voice-elapsed">00:00</span> / <span class="voice-duration">--:--</span></span>
+              <input class="voice-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="초연 첫 번째 대사 재생 위치">
+              <audio preload="metadata" src="yhvoice02_part1.mp3"></audio>
+            </div>
+            <p class="voice-story-narration">낮고 나른한 남자의 목소리. 침실 한가운데서 들린 것처럼 선명했다. 하지만 이 방 안에는 이헌 외에 누구도 없었다. 심은경의 미세한 경직에 이헌이 움직임을 멈췄다.</p>
+            <p class="voice-story-other">이헌 | ...왜 그래?</p>
+            <p class="voice-story-narration">그는 잠시 얼굴을 살피더니 흘러내린 이불을 끌어 올렸다.</p>
+            <p class="voice-story-other">이헌 | 불편해? 그만할까?</p>
+            <p class="voice-story-narration">바로 그 순간, 침대 머리맡에서 낮고 짧은 실소가 새어 나왔다.</p>
+            <p class="voice-story-yuhwa">뒤늦은 다정함이군. 진작에 그럴 것이지.</p>
+            <div class="voice-clip-player" data-audio-label="초연 두 번째 대사">
+              <button class="voice-play" type="button" aria-label="초연 두 번째 대사 재생" aria-pressed="false">
+                <span class="voice-play-icon" aria-hidden="true">▶</span>
+              </button>
+              <span class="voice-time voice-clip-time"><span class="voice-elapsed">00:00</span> / <span class="voice-duration">--:--</span></span>
+              <input class="voice-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="초연 두 번째 대사 재생 위치">
+              <audio preload="metadata" src="yhvoice02_part2.mp3"></audio>
+            </div>
+            <p class="voice-story-narration">이헌은 아무런 반응도 보이지 않았다. 그저 침대에 한쪽 팔을 짚은 채 대답을 기다릴 뿐이었다. 하지만 심은경의 표정은 달랐다. 들려서는 안 될 무언가를 들은 사람처럼, 순간 낯빛이 굳어 있었다.</p>
+            <p class="voice-story-yuhwa">……잠시만.</p>
+            <p class="voice-story-narration">침실이 정적에 잠겼다.</p>
+            <p class="voice-story-yuhwa">방금, 내 목소리에 멈춘 건가.</p>
+            <div class="voice-clip-player" data-audio-label="초연 세 번째 대사">
+              <button class="voice-play" type="button" aria-label="초연 세 번째 대사 재생" aria-pressed="false">
+                <span class="voice-play-icon" aria-hidden="true">▶</span>
+              </button>
+              <span class="voice-time voice-clip-time"><span class="voice-elapsed">00:00</span> / <span class="voice-duration">--:--</span></span>
+              <input class="voice-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="초연 세 번째 대사 재생 위치">
+              <audio preload="metadata" src="yhvoice02_part3.mp3"></audio>
+            </div>
+            <p class="voice-story-narration">창밖에서 천둥이 낮게 울렸다. 수백 년 동안 누구에게도 닿지 못했던 목소리가, 아주 오랜만에 대답을 기다리고 있었다.</p>
           </div>
-          <button class="voice-play" type="button" aria-label="02번 녹음 재생" aria-pressed="false">
-            <span class="voice-play-icon" aria-hidden="true">▶</span>
-          </button>
-        </div>
-        <div class="voice-track-row">
-          <span class="voice-time voice-elapsed">00:00</span>
-          <input class="voice-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="02번 음성 재생 위치" />
-          <span class="voice-time voice-duration">--:--</span>
-        </div>
-        <div class="voice-excerpt">서투르기 짝이 없군.</div>
-        <details class="voice-details">
-          <summary>대사 전문 펼치기</summary>
-          <div class="voice-transcript"><p class="voice-transcript-para">서투르기 짝이 없군. 나였다면 저렇게는 하지 않지. 각도가 영...</p>
-<p class="voice-transcript-para">뒤늦은 다정함이군. 진작에 그럴 것이지.</p>
-<p class="voice-transcript-para">...잠시만.<br>방금, 내 목소리에 멈춘 건가.</p></div>
         </details>
-        <audio preload="metadata" src="yhvoice02.mp3"></audio>
       </article>
       <article class="voice-card" data-voice="03">
         <div class="voice-card-head">
@@ -4903,10 +5029,17 @@ document.addEventListener("keydown",event=>{
 
 
 <script>
-/* 유화 목소리 : 오디오 플레이어 동작 */
+/* 유화 목소리 : 카드와 대사별 플레이어 */
 (function(){
-  const cards=Array.from(document.querySelectorAll('#voice .voice-card'));
-  let activeAudio=null;
+  const voiceScreen=document.getElementById('voice');
+  const players=Array.from(voiceScreen.querySelectorAll('.voice-card, .voice-clip-player'));
+  const audios=players.map(player=>player.querySelector('audio'));
+
+  function pauseOthers(active){
+    audios.forEach(audio=>{
+      if(audio!==active)audio.pause();
+    });
+  }
 
   function formatVoiceTime(seconds){
     if(!Number.isFinite(seconds)||seconds<0)return '--:--';
@@ -4914,43 +5047,42 @@ document.addEventListener("keydown",event=>{
     return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');
   }
 
-  function updateVoiceCard(card){
-    const audio=card.querySelector('audio');
+  function updateVoicePlayer(player){
+    const audio=player.querySelector('audio');
     const duration=audio.duration;
     const current=audio.currentTime||0;
     const playing=!audio.paused&&!audio.ended;
-    const seek=card.querySelector('.voice-seek');
-    const progress=(Number.isFinite(duration)&&duration>0)?current/duration:0;
+    const ready=Number.isFinite(duration)&&duration>0;
+    const progress=ready?Math.min(1,Math.max(0,current/duration)):0;
+    const seek=player.querySelector('.voice-seek');
     seek.value=String(Math.round(progress*1000));
+    seek.disabled=!ready;
     seek.style.setProperty('--voice-progress',(progress*100)+'%');
-    card.querySelector('.voice-elapsed').textContent=formatVoiceTime(current);
-    card.querySelector('.voice-duration').textContent=formatVoiceTime(duration);
-    card.classList.toggle('is-playing',playing);
-    const play=card.querySelector('.voice-play');
+    player.querySelector('.voice-elapsed').textContent=formatVoiceTime(current);
+    player.querySelector('.voice-duration').textContent=formatVoiceTime(duration);
+    player.classList.toggle('is-playing',playing);
+    const play=player.querySelector('.voice-play');
+    const label=player.dataset.audioLabel||(player.dataset.voice+'번 녹음');
     play.setAttribute('aria-pressed',String(playing));
-    play.setAttribute('aria-label',card.dataset.voice+'번 녹음 '+(playing?'일시정지':'재생'));
-    card.querySelector('.voice-play-icon').textContent=playing?'Ⅱ':'▶';
+    play.setAttribute('aria-label',label+' '+(playing?'일시정지':'재생'));
+    player.querySelector('.voice-play-icon').textContent=playing?'Ⅱ':'▶';
   }
 
-  cards.forEach(card=>{
-    const audio=card.querySelector('audio');
-    const button=card.querySelector('.voice-play');
-    const seek=card.querySelector('.voice-seek');
+  players.forEach(player=>{
+    const audio=player.querySelector('audio');
+    const button=player.querySelector('.voice-play');
+    const seek=player.querySelector('.voice-seek');
 
     button.addEventListener('click',async()=>{
       if(!audio.paused){
         audio.pause();
         return;
       }
-      cards.forEach(other=>{
-        const previous=other.querySelector('audio');
-        if(previous!==audio)previous.pause();
-      });
-      activeAudio=audio;
+      pauseOthers(audio);
       try{await audio.play();}
       catch(error){
         console.warn('목소리 재생 실패:',audio.getAttribute('src'),error);
-        updateVoiceCard(card);
+        updateVoicePlayer(player);
       }
     });
 
@@ -4958,37 +5090,45 @@ document.addEventListener("keydown",event=>{
       if(Number.isFinite(audio.duration)&&audio.duration>0){
         audio.currentTime=Number(seek.value)/1000*audio.duration;
       }
-      updateVoiceCard(card);
+      updateVoicePlayer(player);
     });
 
+    audio.addEventListener('play',()=>pauseOthers(audio));
     ['loadedmetadata','durationchange','timeupdate','play','pause','ended','seeked'].forEach(type=>{
-      audio.addEventListener(type,()=>updateVoiceCard(card));
+      audio.addEventListener(type,()=>updateVoicePlayer(player));
     });
     audio.addEventListener('error',()=>{
       console.warn('MP3 파일 경로 확인:',audio.getAttribute('src'));
     });
 
-    const details=card.querySelector('.voice-details');
-    details.addEventListener('toggle',()=>{
-      card.classList.toggle('transcript-open',details.open);
-      details.querySelector('summary').textContent=details.open?'대사 접기':'대사 전문 펼치기';
-    });
-
-    card.classList.toggle('transcript-open',details.open);
-    updateVoiceCard(card);
+    const details=player.querySelector('.voice-details');
+    if(details){
+      details.addEventListener('toggle',()=>{
+        player.classList.toggle('transcript-open',details.open);
+        details.querySelector('summary').textContent=details.open?'대사 접기':'대사 전문 펼치기';
+      });
+      player.classList.toggle('transcript-open',details.open);
+    }
+    updateVoicePlayer(player);
   });
 
-  const voiceScreen=document.getElementById('voice');
+  voiceScreen.querySelectorAll('.voice-story-details').forEach(details=>{
+    details.addEventListener('toggle',()=>{
+      if(!details.open){
+        details.querySelectorAll('audio').forEach(audio=>audio.pause());
+      }
+    });
+  });
+
   const observer=new MutationObserver(()=>{
     if(voiceScreen.classList.contains('hidden')||voiceScreen.classList.contains('fading')){
-      cards.forEach(card=>card.querySelector('audio').pause());
-      activeAudio=null;
+      audios.forEach(audio=>audio.pause());
     }
   });
   observer.observe(voiceScreen,{attributes:true,attributeFilter:['class']});
 
   document.addEventListener('visibilitychange',()=>{
-    if(document.hidden&&activeAudio&&!activeAudio.paused)activeAudio.pause();
+    if(document.hidden)audios.forEach(audio=>audio.pause());
   });
 })();
 </script>
