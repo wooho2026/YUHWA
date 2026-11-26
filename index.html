@@ -1824,13 +1824,8 @@ img{
   font-size:27px;
   font-weight:400;
   letter-spacing:2px;
-  margin:18px 0 0;
+  margin:18px 0 32px;
   color:#f0e7df;
-}
-.voice-archive-subtitle{
-  margin:15px 0 36px;
-  color:#b9a693;
-  font-size:12px;
 }
 .voice-card-list{
   display:grid;
@@ -1954,8 +1949,7 @@ img{
 #voice .flower-enter{margin-top:36px}
 @media(max-width:600px){
   #voice{padding:53px 30px 8px}
-  .voice-archive-title{font-size:23px}
-  .voice-archive-subtitle{margin-bottom:28px}
+  .voice-archive-title{font-size:23px;margin-bottom:26px}
   .voice-card{padding:15px 13px 15px}
   .voice-card h2{font-size:15px}
   .voice-number,.voice-english{font-size:8px;letter-spacing:1px}
@@ -1986,7 +1980,7 @@ img{
   object-fit:contain;
 }
 .voice-story-details{
-  margin-top:8px;
+  margin-top:clamp(-24px,-3vw,-10px);
 }
 .voice-story-details summary{
   width:max-content;
@@ -2718,7 +2712,6 @@ img{
   <div class="content voice-archive-content">
     <div class="eyebrow">THE VOICE ARCHIVE</div>
     <h1 class="voice-archive-title">그의 목소리</h1>
-    <p class="voice-archive-subtitle">남겨진 세 개의 음성 기록</p>
     <div class="voice-card-list">
       <article class="voice-story" data-voice="02">
         <h2 class="voice-story-title">
